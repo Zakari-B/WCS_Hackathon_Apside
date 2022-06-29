@@ -1,4 +1,4 @@
-import "./Navbar.scss";
+import "@styles/Navbar.scss";
 import React from "react";
 
 function Navbar() {

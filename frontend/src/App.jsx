@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "@pages/Home/Home";
-import Admin from "@pages/Admin/Admin";
+import Home from "@pages/Home";
+import Admin from "@pages/Admin";
 import Login from "@pages/Login";
 import ClusteredBubbles from "./components/ClusteredBubbles";
-import "./App.css";
+import "@styles/App.scss";
 
 function App() {
   return (
