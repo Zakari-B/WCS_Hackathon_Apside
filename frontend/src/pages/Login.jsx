@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo-transparent-light.png";
-
-import { instance, notifySuccess, notifyError } from "../services/backendAPI";
+import { notifySuccess, notifyError } from "../services/toastify";
+import instance from "../services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.scss";
 
