@@ -6,7 +6,8 @@ const db = connection.promise();
 
 const login = async (userData) => {
   const { email, password } = userData;
-  const sql = "SELECT * FROM user WHERE email = ?";
+  const sql =
+    "SELECT u.*, p.position, a.city, a.country, a.lat, a.long FROM user AS u JOIN position AS p ON u.position_id = p.id JOIN agency AS a ON u.agency_id = a.id WHERE email = ?";
   const user = await db.query(sql, email); // Verifier le return de la fonction du user
   console.warn(user);
   if (!user) {
@@ -31,4 +32,15 @@ const login = async (userData) => {
   return { ...user, accessToken };
 };
 
-module.exports = { login };
+const getAll = () => {
+  return db.query("SELECT * FROM user");
+};
+
+const getOne = (id) => {
+  return db.query(
+    "SELECT u.*, p.position, a.city, a.country, a.lat, a.long FROM user AS u JOIN position AS p ON u.position_id = p.id JOIN agency AS a ON u.agency_id = a.id WHERE u.id = ?",
+    [id]
+  );
+};
+
+module.exports = { login, getAll, getOne };

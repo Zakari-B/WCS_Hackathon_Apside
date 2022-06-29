@@ -32,4 +32,20 @@ const logout = (req, res) => {
   res.clearCookie("userToken").sendStatus(200);
 };
 
-module.exports = { login, logout };
+const getAll = async (req, res) => {
+  const result = await user.getAll();
+  if (result[1]) {
+    res.status(200).json(result[0]);
+  }
+};
+
+const getOne = async (req, res) => {
+  const result = await user.getOne(req.params.id);
+  if (result[0][0]) {
+    res.status(200).json(result[0]);
+  } else {
+    console.warn("Couldn't get a user");
+  }
+};
+
+module.exports = { login, logout, getAll, getOne };

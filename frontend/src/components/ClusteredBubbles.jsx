@@ -12,12 +12,12 @@ export default function ClusteredBubbles({ data, dimensions }) {
   const { width, height, margin } = dimensions;
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
-  console.log("data", data);
+  console.warn("data", data);
 
   const color = (m) => {
     // console.log("m", m);
     // console.log("d3.range(m)", d3.range(m));
-    console.log("d3.schemeCategory10", d3.schemeCategory10);
+    console.warn("d3.schemeCategory10", d3.schemeCategory10);
     // return d3.scaleOrdinal(d3.schemeCategory10[d3.range(m).length]);
     return d3.schemeCategory10[d3.range(m).length];
   };
@@ -79,6 +79,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
           if (!q.length)
             do {
               if (q.data !== d) {
+                // eslint-disable-next-line no-shadow
                 const r =
                   d.r +
                   q.data.r +
@@ -115,7 +116,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
-      console.log("baltringue");
+      console.warn("oh !");
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -164,6 +165,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
     node
       .transition()
+      // eslint-disable-next-line no-unused-vars
       .delay((d, i) => Math.random() * 500)
       .duration(750)
       .attrTween("r", (d) => {
