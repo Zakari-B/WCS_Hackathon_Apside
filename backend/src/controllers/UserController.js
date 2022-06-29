@@ -24,7 +24,7 @@ const login = async (req, res) => {
       res.status(userData.code).json({ message: userData.message });
     }
   } catch (error) {
-    console.warn("test");
+    console.warn(error);
   }
 };
 
