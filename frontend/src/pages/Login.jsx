@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo-transparent-light.png";
 import { notifySuccess, notifyError } from "../services/toastify";
-import instance from "../services/backendAPI";
+import backendAPI from "../services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.scss";
 
@@ -20,31 +20,28 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const ENDPOINT = "/api/auth/login";
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLog) {
       setTimeout(() => {
-        navigate("/home");
+        navigate("/");
       }, 1500);
-    } else {
-      navigate("/");
     }
   }, [isLog]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    instance
-      .post(ENDPOINT, user)
-      .then((res) => {
-        notifySuccess(res.data);
+    backendAPI
+      .post("/api/auth/login", user)
+      .then(() => {
+        notifySuccess("You are logged in.");
       })
-      .catch((err) => {
-        notifyError(err.response.data);
+      .catch(() => {
+        notifyError("Something went bad.");
       });
   };
 
