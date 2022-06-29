@@ -2,7 +2,7 @@
 
 .navbar {
   position: fixed;
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -28,19 +28,17 @@
       height: 200px;
       border-bottom-right-radius: 100px;
       border-top-right-radius: 100px;
-      background-color: $main-color;
+      background-color: $white;
       border-left: 0;
+      box-shadow: inset -3px 0px 15px 1px rgb(41, 41, 41);
 
       h1 {
-        font-size: 26px;
+        font-size: 25px;
         font-weight: 700;
-        color: $secondary-color;
-        margin-left: 5px;
-
-        span {
-          display: inline-block;
-          width: 100%;
-        }
+        color: $main-color;
+        margin-left: -25px;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
       }
     }
 
@@ -63,7 +61,7 @@
         border-bottom-right-radius: 135px;
         border-top-right-radius: 135px;
         background-color: transparent;
-        border: 2px solid #171849;
+        border: 2px solid #5abdb2;
         border-left: 0;
 
         .box-sidenav {
@@ -73,8 +71,7 @@
           align-items: center;
           width: 58px;
           height: 58px;
-          background-color: #171849;
-          // background-color: #17184948;
+          background-color: #5abdb2;
           border-radius: 50%;
           z-index: 999;
 
@@ -121,14 +118,67 @@
               border-left: 9px solid transparent;
               border-right: 9px solid transparent;
               bottom: -18px;
-              border-top: 12px solid #171849;
+              border-top: 12px solid #5abdb2;
             }
 
             & .nav-item {
+              position: relative;
               width: 40px;
               height: 40px;
               background-color: #ffffff;
               border-radius: 50%;
+              box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.363);
+
+              &::before {
+                position: absolute;
+                content: "";
+                background-repeat: no-repeat;
+              }
+            }
+
+            .item-1::before {
+              transform: rotate(-16deg);
+              width: 23px;
+              height: 23px;
+              top: 7px;
+              left: 8px;
+              background-image: url(../../assets/svg/home.svg);
+            }
+
+            .item-2::before {
+              transform: rotate(-53deg);
+              width: 23px;
+              height: 23px;
+              top: 10px;
+              left: 10px;
+              background-image: url(../../assets/svg/filter.svg);
+            }
+
+            .item-3::before {
+              transform: rotate(-16deg);
+              width: 23px;
+              height: 23px;
+              top: 9px;
+              left: 9px;
+              background-image: url(../../assets/svg/profil.svg);
+            }
+
+            .item-4::before {
+              transform: rotate(-185deg);
+              width: 25px;
+              height: 25px;
+              top: 8px;
+              left: 4px;
+              background-image: url(../../assets/svg/idea.svg);
+            }
+
+            .item-5::before {
+              transform: rotate(-163deg);
+              width: 25px;
+              height: 25px;
+              top: 3px;
+              left: 7px;
+              background-image: url(../../assets/svg/logout.svg);
             }
           }
         }
@@ -137,7 +187,7 @@
         &::after {
           position: absolute;
           content: "";
-          background-color: #ffffff;
+          background-color: $main-color;
           width: 40px;
           height: 12px;
           z-index: 99;
@@ -161,7 +211,7 @@
           width: 26px;
           height: 26px;
           background-color: #ffffff;
-          border: 3px solid #171849;
+          border: 3px solid #5abdb2;
           border-radius: 50%;
           z-index: 999;
 
@@ -191,8 +241,7 @@
           }
 
           .inner-dot {
-            background-color: #171849;
-            background-color: #5abdb2;
+            background-color: $main-color;
             width: 12px;
             height: 12px;
             border-radius: 50%;

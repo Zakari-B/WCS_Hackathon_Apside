@@ -1,4 +1,5 @@
 import "./Navbar.scss";
+
 import { NavLink } from "react-router-dom";
 
 export default function Home() {
@@ -6,9 +7,7 @@ export default function Home() {
     <nav className="navbar">
       <div className="box-circle">
         <div className="circle">
-          <h1>
-            Aps'<span>Ideas</span>
-          </h1>
+          <h1>Menu</h1>
         </div>
         <div className="box-out-circle">
           <div className="out-cercle">
@@ -18,7 +17,7 @@ export default function Home() {
 
             <li className="box-sidenav sidenav-1">
               <NavLink to="/Home" className="nav-link">
-                <div className="nav-item" />
+                <div className="nav-item item-1" />
               </NavLink>
             </li>
             <div className="dots out-dot-2">
@@ -26,7 +25,7 @@ export default function Home() {
             </div>
             <li className="box-sidenav sidenav-2">
               <NavLink to="/Home" className="nav-link">
-                <div className="nav-item" />
+                <div className="nav-item item-2" />
               </NavLink>
             </li>
             <div className="dots out-dot-3">
@@ -34,7 +33,7 @@ export default function Home() {
             </div>
             <li className="box-sidenav sidenav-3">
               <NavLink to="/Home" className="nav-link">
-                <div className="nav-item" />
+                <div className="nav-item item-3" />
               </NavLink>
             </li>
             <div className="dots out-dot-4">
@@ -42,7 +41,7 @@ export default function Home() {
             </div>
             <li className="box-sidenav sidenav-4">
               <NavLink to="/Home" className="nav-link">
-                <div className="nav-item" />
+                <div className="nav-item item-4" />
               </NavLink>
             </li>
             <div className="dots out-dot-5">
@@ -50,7 +49,7 @@ export default function Home() {
             </div>
             <li className="box-sidenav sidenav-5">
               <NavLink to="/Home" className="nav-link">
-                <div className="nav-item" />
+                <div className="nav-item item-5" />
               </NavLink>
             </li>
           </div>
