@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import * as d3 from "d3";
+import Home from "./pages/Home/Home";
 import ClusteredBubbles from "./components/ClusteredBubbles";
 import "./App.css";
 
@@ -30,6 +32,11 @@ function App() {
       <header className="App-header">
         <ClusteredBubbles data={data} dimensions={dimensions} />
       </header>
+      <Routes>
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/Home" element={<Home />} />
+        {/* <Route path="/Profil" element={<Profil />} /> */}
+      </Routes>
     </div>
   );
 }
