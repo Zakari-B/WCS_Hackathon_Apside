@@ -1,33 +1,18 @@
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+// import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
+// import Profil from "./pages/Profil/Profil";
 import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello Vite + React!</p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="app">
+      <Routes>
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/Home" element={<Home />} />
+        {/* <Route path="/Profil" element={<Profil />} /> */}
+      </Routes>
     </div>
   );
 }
