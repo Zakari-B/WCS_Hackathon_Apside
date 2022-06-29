@@ -11,13 +11,14 @@ const dimensions = {
   height: 600,
   margin: { top: 30, right: 30, bottom: 30, left: 60 },
 };
-const n = 50; // number of nodes
-const m = 10; // number of groups
+const n = 75; // number of nodes
+const m = 8; // number of groups
 const data = {
   children: Array.from(
     d3.group(
       Array.from({ length: n }, (_, i) => ({
-        group: Math.random() * m || 0,
+        // eslint-disable-next-line no-bitwise
+        group: (Math.random() * m) | 0,
         value: -Math.log(Math.random()),
       })),
       (d) => d.group
