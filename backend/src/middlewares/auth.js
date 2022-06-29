@@ -6,11 +6,22 @@ const authorization = async (req, res, next) => {
     return res.sendStatus(401);
   }
   try {
-    // const data = await verifyAccessToken(token);
+    const data = await verifyAccessToken(token);
+    if (data.payload[0].is_admin) {
+      req.isAdmin = 1;
+    }
     return next();
   } catch (e) {
     console.error(e);
     return res.sendStatus(401);
+  }
+};
+
+const authorizeAdmin = async (req, res, next) => {
+  if (req.isAdmin) {
+    next();
+  } else {
+    res.sendStatus(401);
   }
 };
 
@@ -34,4 +45,4 @@ const sessionControl = async (req, res) => {
   }
 };
 
-module.exports = { authorization, sessionControl };
+module.exports = { authorization, authorizeAdmin, sessionControl };

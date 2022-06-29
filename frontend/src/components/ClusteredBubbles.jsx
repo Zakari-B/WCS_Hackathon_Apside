@@ -16,7 +16,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   const { width, height, margin } = dimensions;
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
-  console.log("data", data);
+  console.warn("data", data);
 
   const color = (m) => {
     return d3.schemeCategory10[d3.range(m).length];
@@ -29,7 +29,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
     let y = 0;
     let z = 0;
     for (const d of nodes) {
-      let k = d.r ** 2;
+      const k = d.r ** 2;
       x += d.x * k;
       y += d.y * k;
       z += k;
@@ -112,7 +112,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
-      console.log("baltringue");
+      console.warn("baltringue");
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;

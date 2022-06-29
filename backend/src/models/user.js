@@ -7,8 +7,7 @@ const db = connection.promise();
 const login = async (userData) => {
   const { email, password } = userData;
   const sql = "SELECT * FROM user WHERE email = ?";
-  const user = await db.query(sql, email); // Verifier le return de la fonction du user
-  console.warn(user);
+  const [user] = await db.query(sql, email); // Verifier le return de la fonction du user
   if (!user) {
     return {
       code: 401,
@@ -17,7 +16,7 @@ const login = async (userData) => {
   }
   const checkPassword = await argon.verifyPassword(
     password,
-    user.hashedPassword
+    user[0].hashedpassword
   );
   if (!checkPassword) {
     return {
@@ -25,10 +24,36 @@ const login = async (userData) => {
       message: "Les informations sont incorrectes ou le compte n'existe pas.",
     };
   }
-  delete user.hashedPassword;
-
+  delete user.hashedpassword;
   const accessToken = await jwt.signAccessToken(user);
   return { ...user, accessToken };
 };
 
-module.exports = { login };
+const createOne = async (
+  firstname,
+  lastname,
+  agencyID,
+  positionID,
+  email,
+  hashedPassword
+) => {
+  const sql =
+    "INSERT INTO user (firstname, lastname, agency_id, position_id, email, hashedPassword) VALUES (?, ?, ?, ?, ?, ?)";
+
+  try {
+    const user = await db.query(sql, [
+      firstname,
+      lastname,
+      agencyID,
+      positionID,
+      email,
+      hashedPassword,
+    ]);
+    return [user];
+  } catch (e) {
+    console.error(e);
+    return e;
+  }
+};
+
+module.exports = { login, createOne };
