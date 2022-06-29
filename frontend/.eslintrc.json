@@ -37,9 +37,10 @@
           "@assets": "./src/assets",
           "@components": "./src/components",
           "@pages": "./src/pages",
-          "@services": "./src/services"
+          "@services": "./src/services",
+          "@styles": "./src/styles"
         },
-        "extensions": [".js", ".jsx"]
+        "extensions": [".js", ".jsx", ".css", ".scss"]
       }
     }
   }
