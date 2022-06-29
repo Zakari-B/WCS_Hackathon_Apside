@@ -25,6 +25,9 @@ router.post("/auth/login", UserController.login);
 router.get("/auth/logout", authorization, UserController.logout);
 router.get("/auth/sessionControl", authorization, sessionControl);
 
+router.get("/users", UserController.getAll);
+router.get("/users/:id", UserController.getOne);
+
 router.get("/agency", AgencyController.findAll);
 router.get("/agency/:id", AgencyController.find);
 router.post("/agency", AgencyController.addOne);

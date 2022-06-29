@@ -29,6 +29,18 @@ const login = async (userData) => {
   return { ...user, accessToken };
 };
 
+
+const getAll = () => {
+  return db.query("SELECT * FROM user");
+};
+
+const getOne = (id) => {
+  return db.query(
+    "SELECT u.*, p.position, a.city, a.country, a.lat, a.long FROM user AS u JOIN position AS p ON u.position_id = p.id JOIN agency AS a ON u.agency_id = a.id WHERE u.id = ?",
+    [id]
+  );
+};
+
 const createOne = async (
   firstname,
   lastname,
@@ -56,4 +68,4 @@ const createOne = async (
   }
 };
 
-module.exports = { login, createOne };
+module.exports = { login, createOne, getAll, getOne };
