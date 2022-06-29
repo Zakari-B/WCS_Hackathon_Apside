@@ -6,7 +6,7 @@ const db = connection.promise();
 
 const login = async (userData) => {
   const { email, password } = userData;
-  const sql = "SELECT * FROM users WHERE email = ?";
+  const sql = "SELECT * FROM user WHERE email = ?";
   const user = await db.query(sql, email); // Verifier le return de la fonction du user
   console.warn(user);
   if (!user) {

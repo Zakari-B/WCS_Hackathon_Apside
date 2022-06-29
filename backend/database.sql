@@ -23,57 +23,61 @@ USE `apsidea` ;
 DROP TABLE IF EXISTS `apsidea`.`agency` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`agency` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `city` VARCHAR(255) NOT NULL,
   `country` VARCHAR(255) NOT NULL,
   `lat` FLOAT NULL,
   `long` FLOAT NULL,
   PRIMARY KEY (`id`));
 
-
+INSERT INTO `agency` (`id`, `city`, `country`) VALUES
+(1, 'Paris', 'France'),
+(2, 'Lyon', 'France'),
+(3, 'Strasbourg', 'France'),
+(4, 'Bordeaux', 'France'),
+(5, 'Marseille', 'France'),
+(6, 'Bruxelles', 'Belgium'),
+(7, 'Munich', 'Germany'),
+(8, 'Casablanca', 'Morocco'),
+(9, 'Tours', 'France');
 -- -----------------------------------------------------
 -- Table `apsidea`.`position`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apsidea`.`position` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`position` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-
--- -----------------------------------------------------
--- Table `apsidea`.`language`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `apsidea`.`language` ;
-
-CREATE TABLE IF NOT EXISTS `apsidea`.`language` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`));
-
-
+INSERT INTO `position` (`id`, `name`) VALUES
+(1, 'Tech Lead'),
+(2, 'Product Owner'),
+(3, 'Dev Web'),
+(4, 'Dev Mobile'),
+(5, 'Business Developer'),
+(6, 'Sales Manager'),
+(7, 'Talent Manager'),
+(8, 'Intern');
 -- -----------------------------------------------------
 -- Table `apsidea`.`user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apsidea`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`user` (
-  `user_id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `firstname` VARCHAR(55) NOT NULL,
   `lastname` VARCHAR(55) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(32) NOT NULL,
+  `hashedpassword` VARCHAR(255) NOT NULL,
   `photo` VARCHAR(255) NULL,
   `is_admin` TINYINT NULL,
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `agency_id` INT NOT NULL,
   `position_id` INT NOT NULL,
-  `language_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`),
+  PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   INDEX `fk_user_position1_idx` (`position_id` ASC) VISIBLE,
-  INDEX `fk_user_language1_idx` (`language_id` ASC) VISIBLE,
   CONSTRAINT `fk_user_agency`
     FOREIGN KEY (`agency_id`)
     REFERENCES `apsidea`.`agency` (`id`)
@@ -83,26 +87,65 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`user` (
     FOREIGN KEY (`position_id`)
     REFERENCES `apsidea`.`position` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_language1`
-    FOREIGN KEY (`language_id`)
-    REFERENCES `apsidea`.`language` (`id`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `hashedpassword`, `photo`, `is_admin`, `create_time`, `agency_id`, `position_id`) VALUES
+(1, 'Tudor', 'Goodlatt', 'tgoodlatt0@parallels.com', 'xOu2dL8Gf', 'https://robohash.org/iureabunde.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 1, 1),
+(2, 'Jeramie', 'Lebreton', 'jlebreton1@flickr.com', 'SdspwOOieA', 'https://robohash.org/reprehenderitblanditiisodio.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 3, 1),
+(3, 'Bevin', 'Hallgarth', 'bhallgarth2@si.edu', 'xYDZX6Z', 'https://robohash.org/consecteturfacereest.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 2, 1),
+(4, 'Edwin', 'Virgoe', 'evirgoe3@yolasite.com', 'Pe9l6EW', 'https://robohash.org/sitexercitationemipsum.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 5, 1),
+(5, 'Cynde', 'Deaconson', 'cdeaconson4@wikispaces.com', 'iQ3zhD', 'https://robohash.org/adipisciexcepturiminima.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 1, 1),
+(6, 'Caryn', 'Donnell', 'cdonnell5@yahoo.com', 'eAKIYXFhuDi', 'https://robohash.org/consequaturetet.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 5, 1),
+(7, 'Jermayne', 'Milleton', 'jmilleton6@dropbox.com', '5WetQ1exf6i', 'https://robohash.org/veleaqueitaque.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 8, 1),
+(8, 'Ellerey', 'Mackett', 'emackett7@ebay.com', 'TH0Dkx4qj', 'https://robohash.org/excepturimodiaut.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 6, 1),
+(9, 'Leigh', 'Flament', 'lflament8@biblegateway.com', '0GuQ0ahUB', 'https://robohash.org/impeditrecusandaeillum.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 1, 2),
+(10, 'Lucian', 'Hardisty', 'lhardisty9@ucoz.ru', 'q3xFMqaEaCK', 'https://robohash.org/uttemporaconsectetur.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 5, 2),
+(11, 'Dolores', 'Layus', 'dlayusa@lulu.com', '1LpUMk6C', 'https://robohash.org/beataeetvoluptatum.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 6, 2),
+(12, 'Marlee', 'Colwill', 'mcolwillb@phpbb.com', 'PAsmC0T', 'https://robohash.org/quiconsectetursit.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 3, 2),
+(13, 'Rurik', 'Guest', 'rguestc@bigcartel.com', 'epxy5aextkr', 'https://robohash.org/voluptatesestvoluptatem.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 1, 3),
+(14, 'Kelsey', 'Whyley', 'kwhyleyd@geocities.jp', 'bJCkBKNC', 'https://robohash.org/temporevoluptatemvoluptatem.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 8, 3),
+(15, 'Ario', 'Dwyer', 'adwyere@sciencedirect.com', '8Uchhmv', 'https://robohash.org/exdoloribusmolestiae.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 3, 3),
+(16, 'Romonda', 'Darington', 'rdaringtonf@cloudflare.com', 'LJ0XmW', 'https://robohash.org/esseettenetur.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 7, 3),
+(17, 'Leroi', 'Crickmer', 'lcrickmerg@google.fr', 'YAtFhkQ8vo3m', 'https://robohash.org/quinamsequi.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 2, 4),
+(18, 'Corbin', 'Shailer', 'cshailerh@1und1.de', 'nShUI71Uea2Y', 'https://robohash.org/estvelqui.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 3, 4),
+(19, 'Nick', 'Tumilson', 'ntumilsoni@sohu.com', 'aiZKGV6kZ', 'https://robohash.org/quiconsequaturat.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 1, 5),
+(20, 'Perri', 'Hawes', 'phawesj@51.la', 'GZkiCZIcZm9', 'https://robohash.org/noncumquia.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 4, 5),
+(21, 'Darill', 'Geill', 'dgeillk@plala.or.jp', 'yqUFVNLvMsk', 'https://robohash.org/namexercitationemsit.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 1, 6),
+(22, 'Tessie', 'Alliker', 'tallikerl@mapquest.com', 'GKdTvIo4', 'https://robohash.org/dignissimosvoluptatibusitaque.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 7, 6),
+(23, 'Darius', 'Chipman', 'dchipmanm@toplist.cz', 'LOina4bPA0', 'https://robohash.org/rationeetvoluptas.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 4, 7),
+(24, 'Hermy', 'Braidon', 'hbraidonn@ca.gov', 'sOrU9EBS', 'https://robohash.org/sequiautquibusdam.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 2, 7),
+(25, 'Carlin', 'Brislen', 'cbrisleno@blinklist.com', 'fuZA4i6g', 'https://robohash.org/autemsednatus.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 3, 7),
+(26, 'Sheffield', 'Winskill', 'swinskillp@indiegogo.com', 'WmCJFJHRgQ9x', 'https://robohash.org/illumetsunt.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 5, 8),
+(27, 'Michaela', 'Drohane', 'mdrohaneq@noaa.gov', 'BM16eo', 'https://robohash.org/sapienteeasint.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 4, 8),
+(28, 'Norah', 'Pentycross', 'npentycrossr@cloudflare.com', 'UF3JHodisYM', 'https://robohash.org/eximpeditsit.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 6, 9),
+(29, 'Felix', 'Dmiterko', 'fdmiterkos@weebly.com', '1L15CS2', 'https://robohash.org/voluptasperspiciatiset.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 2, 9),
+(30, 'Parker', 'Calterone', 'pcalteronet@github.com', 'PjR5rCV131', 'https://robohash.org/voluptatefacilisqui.png?size=50x50&set=set1', null, '2018-09-15 00:00:00', 5, 9);
 -- -----------------------------------------------------
 -- Table `apsidea`.`skill`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apsidea`.`skill` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`skill` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `category` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
 
-
+INSERT INTO `skill` (`id`, `name`, `category`) VALUES
+(1, 'PHP', 'Tech'),
+(2, 'Typescript', 'Tech'),
+(3, 'Android', 'Tech'),
+(4, 'React', 'Tech'),
+(5, 'Fullstack', 'Tech'),
+(6, 'Node', 'Tech'),
+(7, 'Git', 'Tech'),
+(8, 'Laravel', 'Tech'),
+(9, 'Coordination', 'Social'),
+(10, 'Marketing', 'Social'),
+(11, 'Redaction', 'Social'),
+(12, 'Agile', 'Organisation'),
+(13, 'Scrum', 'Organisation'),
+(14, 'Trello', 'Organisation');
 -- -----------------------------------------------------
 -- Table `apsidea`.`user_has_skill`
 -- -----------------------------------------------------
@@ -116,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`user_has_skill` (
   INDEX `fk_user_has_skills_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_user_has_skills_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `apsidea`.`user` (`user_id`)
+    REFERENCES `apsidea`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_skills_skills1`
@@ -125,30 +168,73 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`user_has_skill` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
+INSERT INTO `user_has_skill` (`user_id`, `skill_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 3),
+(6, 3),
+(7, 4),
+(1, 5),
+(2, 5),
+(3, 6),
+(4, 6),
+(5, 7),
+(6, 7),
+(7, 8),
+(9, 8),
+(10, 9),
+(11, 9),
+(12, 10),
+(13, 10),
+(14, 11),
+(15, 11),
+(17, 12),
+(18, 12),
+(19, 13),
+(21, 13),
+(22, 14),
+(23, 14),
+(20, 1),
+(25, 2),
+(26, 8),
+(27, 4),
+(28, 3),
+(29, 3),
+(30, 2),
+(30, 1),
+(24, 12);
 -- -----------------------------------------------------
 -- Table `apsidea`.`workflow`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apsidea`.`workflow` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`workflow` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-
+INSERT INTO `workflow` (`id`, `name`) VALUES
+(1, 'Idea'),
+(2, 'Team Building'),
+(3, 'Coding'),
+(4, 'Review'),
+(5, 'Finished');
 -- -----------------------------------------------------
 -- Table `apsidea`.`bubble`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apsidea`.`bubble` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`bubble` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `creator` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `description` LONGTEXT NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deadline` DATE NULL,
+  `gitlab_link` VARCHAR(255) NULL,
+  `trello_link` VARCHAR(255) NULL,
   `workforce` INT NULL,
   `likes` INT NULL,
   `workflow_id` INT NOT NULL,
@@ -162,11 +248,21 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`bubble` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_bubble_user1`
     FOREIGN KEY (`creator`)
-    REFERENCES `apsidea`.`user` (`user_id`)
+    REFERENCES `apsidea`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
+INSERT INTO `bubble` (`id`, `creator`, `name`, `description`, `create_time`, `deadline`, `gitlab_link`, `trello_link`, `workforce`, `likes`, `workflow_id`) VALUES
+(1, 1, 'Hotline Web App', 'We develop some small web app for association to handle their hotline. It is made with love and magic', '2022-01-15 00:00:00', '2022-05-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 3, 40, 3),
+(2, 10, 'Skills Management Platform', 'We are developping a skills management platform for internal purpose. Other purpose : to save the world', '2022-04-15 00:00:00', '2022-08-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 4, 50, 5),
+(3, 2, 'Save the kittens', 'We are developping a new to help stray cats on the street. Miaw.', '2022-06-15 00:00:00', '2022-09-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 3, 22, 1),
+(4, 5, 'Movie Wars', 'We are developping a game to go from one movie to another, going through the actors.', '2022-05-15 00:00:00', '2022-08-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 3, 12, 2),
+(5, 5, 'Phone Crypto App', 'The Crypto is dying but we still believe in it. Lets invest into Bicoins again.', '2021-12-15 00:00:00', '2022-07-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 2, 36, 1),
+(6, 28, 'Music Database', 'We want to create a music modules databases for a client who manage musicians.', '2022-05-15 00:00:00', '2022-10-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 5, 31, 1),
+(7, 29, 'IA Chatbot', 'We dont really know what we do here, our client neither. I guess its not gonna be IA in the end.', '2022-04-15 00:00:00', '2022-10-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 3, 42, 3),
+(8, 15, 'Coworking managing website', 'Another platform to allow freelancers to find a coworking space.', '2021-09-15 00:00:00', '2021-12-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 3, 23, 5),
+(9, 15, 'Online Library', 'Does it already exists, yes. Is it a bad idea, yes. Does our client care, no.', '2022-06-15 00:00:00', '2021-12-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 3, 37, 4),
+(30, 1, 'Hotline Web App', 'We develop some small web app for association to handle their hotline. It is made with love and magic', '2022-01-15 00:00:00', '2022-05-15 00:00:00', 'https://trello.com/', 'https://gitlab.com/', 4, 30, 5);
 -- -----------------------------------------------------
 -- Table `apsidea`.`user_has_bubble`
 -- -----------------------------------------------------
@@ -180,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`user_has_bubble` (
   INDEX `fk_user_has_bubble_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_user_has_bubble_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `apsidea`.`user` (`user_id`)
+    REFERENCES `apsidea`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_bubble_bubble1`
@@ -189,18 +285,35 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`user_has_bubble` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
+INSERT INTO `user_has_bubble` (`user_id`, `bubble_id`) VALUES
+(8, 2),
+(10, 2),
+(12, 2),
+(14, 2),
+(16, 8),
+(18, 8);
 -- -----------------------------------------------------
 -- Table `apsidea`.`keyword`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `apsidea`.`keyword` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`keyword` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-
+INSERT INTO `keyword` (`id`, `name`) VALUES
+(1, 'IA'),
+(2, 'Android'),
+(3, 'Platform'),
+(4, 'Fullstack'),
+(5, 'Music'),
+(6, 'Crypto'),
+(7, 'HR'),
+(8, 'Finance'),
+(9, 'Javascript'),
+(10, 'Game'),
+(11, 'WebApp');
 -- -----------------------------------------------------
 -- Table `apsidea`.`bubble_has_keyword`
 -- -----------------------------------------------------
@@ -223,7 +336,13 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`bubble_has_keyword` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
+INSERT INTO `bubble_has_keyword` (`bubble_id`, `keyword_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(3, 6);
 -- -----------------------------------------------------
 -- Table `apsidea`.`bubble_needs_skills`
 -- -----------------------------------------------------
@@ -246,43 +365,10 @@ CREATE TABLE IF NOT EXISTS `apsidea`.`bubble_needs_skills` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
--- -----------------------------------------------------
--- Table `apsidea`.`link`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `apsidea`.`link` ;
-
-CREATE TABLE IF NOT EXISTS `apsidea`.`link` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `link` VARCHAR(255) NOT NULL,
-  `api_key` VARCHAR(255) NULL,
-  PRIMARY KEY (`id`));
-
-
--- -----------------------------------------------------
--- Table `apsidea`.`bubble_has_link`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `apsidea`.`bubble_has_link` ;
-
-CREATE TABLE IF NOT EXISTS `apsidea`.`bubble_has_link` (
-  `bubble_id` INT NOT NULL,
-  `link_id` INT NOT NULL,
-  PRIMARY KEY (`bubble_id`, `link_id`),
-  INDEX `fk_bubble_has_zelda_zelda1_idx` (`link_id` ASC) VISIBLE,
-  INDEX `fk_bubble_has_zelda_bubble1_idx` (`bubble_id` ASC) VISIBLE,
-  CONSTRAINT `fk_bubble_has_zelda_bubble1`
-    FOREIGN KEY (`bubble_id`)
-    REFERENCES `apsidea`.`bubble` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_bubble_has_zelda_zelda1`
-    FOREIGN KEY (`link_id`)
-    REFERENCES `apsidea`.`link` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+INSERT INTO `bubble_needs_skills` (`bubble_id`, `skill_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(3, 6);
