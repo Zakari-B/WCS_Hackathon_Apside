@@ -1,0 +1,19 @@
+{
+  "name": "vite-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "setup": "npm i && husky install && npm --prefix ./frontend i && npm --prefix ./backend i",
+    "dev": "concurrently -n front,back -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"npm --prefix ./frontend run dev\" \"npm --prefix ./backend run dev\"",
+    "dev-front": "npm --prefix ./frontend run dev",
+    "dev-back": "npm --prefix ./backend run dev",
+    "lint": "npm --prefix ./frontend run lint && npm --prefix ./backend run lint",
+    "fix": "npm --prefix ./frontend run fix && npm --prefix ./backend run fix"
+  },
+  "author": "team_undefined",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.2.2",
+    "husky": "^8.0.1"
+  }
+}
