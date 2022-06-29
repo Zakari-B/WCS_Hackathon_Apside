@@ -22,8 +22,6 @@ export default function ClusteredBubbles({ data, dimensions }) {
     return d3.schemeCategory10[d3.range(m).length];
   };
 
-  //   const color = (m) => d3.scaleOrdinal(d3.schemeCategory10);
-
   const centroid = (nodes) => {
     let x = 0;
     let y = 0;
@@ -79,6 +77,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
           if (!q.length)
             do {
               if (q.data !== d) {
+                // eslint-disable-next-line no-shadow
                 const r =
                   d.r +
                   q.data.r +
@@ -161,6 +160,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
     node
       .transition()
+      // eslint-disable-next-line no-unused-vars
       .delay((d, i) => Math.random() * 500)
       .duration(750)
       .attrTween("r", (d) => {
