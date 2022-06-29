@@ -1,6 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Variables */
+:root {
+  --main-color: #183650;
+  --secondary-color: #e79759;
+  --white: #fff;
+  --black: #000000;
+  --grey: #464646;
+  --font-family-text: "Hind", sans-serif;
+}
 
 /* Box sizing rules */
 *,

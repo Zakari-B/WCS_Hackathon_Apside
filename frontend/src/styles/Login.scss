@@ -1,0 +1,59 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 100vh;
+  text-align: center;
+  background: #183650;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 200;
+    color: #e79759;
+  }
+
+  img {
+    width: 8rem;
+  }
+}
+
+form {
+  padding: 1.3rem 0;
+  position: relative;
+  z-index: 2;
+
+  input {
+    width: 15rem;
+    border: 0.1rem solid #e79759;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0 auto 0.7rem auto;
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 300;
+
+    &:focus {
+      border-color: #e79759;
+      color: black;
+    }
+  }
+
+  button {
+    background-color: white;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 1rem;
+    width: 15rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #e79759;
+      color: black;
+    }
+  }
+}
