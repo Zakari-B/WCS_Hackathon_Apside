@@ -1,6 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
 import ClusteredBubbles from "@components/ClusteredBubbles";
+import InfoModal from "../../components/InfoModal";
 
 const dimensions = {
   width: 600,
@@ -24,5 +25,10 @@ const data = {
   ),
 };
 export default function Home() {
-  return <ClusteredBubbles data={data} dimensions={dimensions} />;
+  return (
+    <>
+      <InfoModal />
+      <ClusteredBubbles data={data} dimensions={dimensions} />
+    </>
+  );
 }

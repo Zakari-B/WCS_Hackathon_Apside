@@ -1,0 +1,47 @@
+.modal {
+  z-index: 100;
+  background: #fff;
+  position: absolute;
+  margin: auto;
+  border-radius: 5px;
+  width: 100vw;
+  padding: 1rem;
+
+  .img-icon-mark {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid rgb(165, 210, 70);
+    z-index: 3;
+    right: 0;
+    top: 0;
+  }
+
+  .modal-container {
+    position: absolute;
+    height: 60vh;
+    width: 60%;
+    background-color: aqua;
+    margin-left: 25%;
+    padding: 1rem;
+    margin-top: 3.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    .info-title {
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+
+  .check-colours {
+    background-color: black;
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
