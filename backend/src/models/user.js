@@ -29,7 +29,6 @@ const login = async (userData) => {
   return { ...user, accessToken };
 };
 
-
 const getAll = () => {
   return db.query("SELECT * FROM user");
 };
