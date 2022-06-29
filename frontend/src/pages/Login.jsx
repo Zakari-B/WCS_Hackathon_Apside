@@ -1,16 +1,41 @@
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo-transparent-light.png";
+
 import { instance, notifySuccess, notifyError } from "../services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.scss";
 
 function Login() {
+  // Move parts apart
+  const [up, setUp] = useState(false);
+  const [down, setDown] = useState(false);
+  const [isLog, setIsLog] = useState(false);
+  const animate = () => {
+    setUp(true);
+    setDown(true);
+    setIsLog(true);
+  };
+
+  const navigate = useNavigate();
+
   const ENDPOINT = "/api/auth/login";
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  React.useEffect(() => {
+    if (isLog) {
+      setTimeout(() => {
+        navigate("/home");
+      }, 1500);
+    } else {
+      navigate("/");
+    }
+  }, [isLog]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     instance
@@ -31,33 +56,39 @@ function Login() {
   };
 
   return (
-    <div className="container">
-      <div className="flex justify-center">
-        <img src={logo} alt="" />
+    <section id="login">
+      <div className="container">
+        <div className={`login-first-part ${up ? "up" : null}`}>
+          <div className="flex justify-center">
+            <img src={logo} alt="" />
+          </div>
+          <div>
+            <h1>Login</h1>
+          </div>
+        </div>
+        <div className={`login-second-part ${down ? "down" : null}`}>
+          <form className="form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              autoComplete="off"
+              required
+            />
+            <button type="submit" id="login-button" onClick={animate}>
+              Submit
+            </button>
+          </form>
+          <ToastContainer />
+        </div>
       </div>
-      <div>
-        <h1>Login</h1>
-        <form className="form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Email"
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-            autoComplete="off"
-            required
-          />
-          <button type="submit" id="login-button">
-            Submit
-          </button>
-        </form>
-      </div>
-      <ToastContainer />
-    </div>
+    </section>
   );
 }
 

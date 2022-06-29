@@ -89,3 +89,6 @@ select {
     scroll-behavior: auto !important;
   }
 }
+.app {
+  min-height: 100vh;
+}
