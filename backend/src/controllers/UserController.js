@@ -1,4 +1,4 @@
-// const { hashPassword, verifyPassword } = require("../helpers/argonHelper");
+const { hashPassword } = require("../helpers/argonHelper");
 const user = require("../models/user");
 
 const login = async (req, res) => {
@@ -48,4 +48,27 @@ const getOne = async (req, res) => {
   }
 };
 
-module.exports = { login, logout, getAll, getOne };
+const createOne = async (req, res) => {
+  const { firstname, lastname, agency, position, email, password } = req.body;
+  const hashedPassword = await hashPassword(password);
+  const agencyID = parseInt(agency, 10);
+  const positionID = parseInt(position, 10);
+  try {
+    const userData = await user.createOne(
+      firstname,
+      lastname,
+      agencyID,
+      positionID,
+      email,
+      hashedPassword
+    );
+    res
+      .status(201)
+      .send({ message: "User created", id: userData[0][0].insertId });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json(e);
+  }
+};
+
+module.exports = { login, logout, getAll, getOne, createOne };

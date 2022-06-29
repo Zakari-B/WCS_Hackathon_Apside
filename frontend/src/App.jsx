@@ -1,41 +1,24 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import * as d3 from "d3";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/Home";
+import Home from "@pages/Home";
+import Admin from "@pages/Admin";
+import Login from "@pages/Login";
 import ClusteredBubbles from "./components/ClusteredBubbles";
-import "./App.css";
-
-const dimensions = {
-  width: 600,
-  height: 600,
-  margin: { top: 30, right: 30, bottom: 30, left: 60 },
-};
-const n = 50; // number of nodes
-const m = 10; // number of groups
-const data = {
-  children: Array.from(
-    d3.group(
-      Array.from({ length: n }, (_, i) => ({
-        group: Math.random() * m || 0,
-        value: -Math.log(Math.random()),
-      })),
-      (d) => d.group
-    ),
-    ([, children]) => ({ children })
-  ),
-};
+import "@styles/App.scss";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ClusteredBubbles data={data} dimensions={dimensions} />
+        <p>Hello</p>
       </header>
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         {/* <Route path="/Profil" element={<Profil />} /> */}
+        <Route path="/AdminPanel" element={<Admin />} />
       </Routes>
     </div>
   );

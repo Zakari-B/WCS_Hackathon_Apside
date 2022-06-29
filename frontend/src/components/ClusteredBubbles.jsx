@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-sequences */
+/* eslint-disable no-shadow */
+/* eslint-disable one-var */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-unused-expressions */
@@ -15,14 +19,8 @@ export default function ClusteredBubbles({ data, dimensions }) {
   console.warn("data", data);
 
   const color = (m) => {
-    // console.log("m", m);
-    // console.log("d3.range(m)", d3.range(m));
-    console.warn("d3.schemeCategory10", d3.schemeCategory10);
-    // return d3.scaleOrdinal(d3.schemeCategory10[d3.range(m).length]);
     return d3.schemeCategory10[d3.range(m).length];
   };
-
-  //   const color = (m) => d3.scaleOrdinal(d3.schemeCategory10);
 
   const centroid = (nodes) => {
     let x = 0;
@@ -58,8 +56,8 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const forceCollide = () => {
     const alpha = 0.4; // fixed for greater rigidity!
-    const padding1 = 20; // separation between same-color nodes
-    const padding2 = 60; // separation between different-color nodes
+    const padding1 = 2; // separation between same-color nodes
+    const padding2 = 6; // separation between different-color nodes
     let nodes;
     let maxRadius;
 
@@ -71,10 +69,10 @@ export default function ClusteredBubbles({ data, dimensions }) {
       );
       for (const d of nodes) {
         const r = d.r + maxRadius;
-        const nx1 = d.x - r;
-        const ny1 = d.y - r;
-        const nx2 = d.x + r;
-        const ny2 = d.y + r;
+        const nx1 = d.x - r,
+          ny1 = d.y - r;
+        const nx2 = d.x + r,
+          ny2 = d.y + r;
         quadtree.visit((q, x1, y1, x2, y2) => {
           if (!q.length)
             do {
@@ -84,15 +82,13 @@ export default function ClusteredBubbles({ data, dimensions }) {
                   d.r +
                   q.data.r +
                   (d.data.group === q.data.data.group ? padding1 : padding2);
-                let x = d.x - q.data.x;
-                let y = d.y - q.data.y;
-                let l = Math.hypot(x, y);
+                let x = d.x - q.data.x,
+                  y = d.y - q.data.y,
+                  l = Math.hypot(x, y);
                 if (l < r) {
                   l = ((l - r) / l) * alpha;
-                  d.x -= x *= l;
-                  d.y -= y *= l;
-                  q.data.x += x;
-                  q.data.y += y;
+                  (d.x -= x *= l), (d.y -= y *= l);
+                  (q.data.x += x), (q.data.y += y);
                 }
               }
             } while ((q = q.next));
@@ -101,7 +97,6 @@ export default function ClusteredBubbles({ data, dimensions }) {
       }
     }
 
-    // eslint-disable-next-line no-return-assign
     force.initialize = (_) =>
       (maxRadius =
         d3.max((nodes = _), (d) => d.r) + Math.max(padding1, padding2));
@@ -116,7 +111,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
-      console.warn("oh !");
+      console.warn("baltringue");
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -177,9 +172,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
     });
 
-    // invalidation.then(() => simulation.stop());
-
     svg.node();
+
+    return () => simulation.stop();
   }, [data]); // Redraw chart if data changes
 
   return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
