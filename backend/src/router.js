@@ -9,7 +9,11 @@ const bubbleNeedSkillsController = require("./controllers/bubbleNeedSkillsContro
 const keywordController = require("./controllers/keywordController");
 const positionController = require("./controllers/positionController");
 
-const { authorization, sessionControl } = require("./middlewares/auth");
+const {
+  authorization,
+  authorizeAdmin,
+  sessionControl,
+} = require("./middlewares/auth");
 
 const router = express.Router();
 
@@ -54,5 +58,12 @@ router.get("/position/:id", positionController.find);
 router.post("/position", positionController.addOne);
 router.put("/position/:id", positionController.modify);
 router.delete("/position/:id", positionController.deleteOne);
+
+router.post(
+  "/admin/create",
+  authorization,
+  authorizeAdmin,
+  UserController.createOne
+);
 
 module.exports = router;
