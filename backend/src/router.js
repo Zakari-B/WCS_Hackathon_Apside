@@ -6,6 +6,7 @@ const AgencyController = require("./controllers/AgencyController");
 const BubbleController = require("./controllers/BubbleController");
 const bubbleHasKeywordController = require("./controllers/bubbleHasKeywordController");
 const bubbleNeedSkillsController = require("./controllers/bubbleNeedSkillsController");
+const keywordController = require("./controllers/keywordController");
 
 const { authorization, sessionControl } = require("./middlewares/auth");
 
@@ -40,5 +41,11 @@ router.delete(
   "/bubbleNeedSkills/:bid/:kid",
   bubbleNeedSkillsController.deleteOne
 );
+
+router.get("/keyword", keywordController.findAll);
+router.get("/keyword/:id", keywordController.find);
+router.post("/keyword", keywordController.addOne);
+router.put("/keyword/:id", keywordController.modify);
+router.delete("/keyword/:id", keywordController.deleteOne);
 
 module.exports = router;
