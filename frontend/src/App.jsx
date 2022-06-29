@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Routes, Route } from "react-router-dom";
 import * as d3 from "d3";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import ClusteredBubbles from "./components/ClusteredBubbles";
 import "./App.css";
