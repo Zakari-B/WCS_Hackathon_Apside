@@ -13,19 +13,6 @@ const findAll = async (req, res) => {
   }
 };
 
-const find = async (req, res) => {
-  try {
-    const [result] = await bubbleHasKeyword.find(req.params.id);
-    if (!result) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).json(result);
-    }
-  } catch (error) {
-    console.warn(error);
-  }
-};
-
 const addOne = async (req, res) => {
   try {
     const [result] = await bubbleHasKeyword.addOne(req.body);
@@ -39,23 +26,12 @@ const addOne = async (req, res) => {
   }
 };
 
-const modify = async (req, res) => {
-  const newData = req.body;
-  try {
-    const [result] = await bubbleHasKeyword.modify(newData, req.params.id);
-    if (!result) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).json(result);
-    }
-  } catch (error) {
-    console.warn(error);
-  }
-};
-
 const deleteOne = async (req, res) => {
   try {
-    const [result] = await bubbleHasKeyword.deleteOne(req.params.id);
+    const [result] = await bubbleHasKeyword.deleteOne(
+      req.params.bid,
+      req.params.kid
+    );
     if (!result) {
       res.sendStatus(404);
     } else {
@@ -66,4 +42,4 @@ const deleteOne = async (req, res) => {
   }
 };
 
-module.exports = { findAll, find, addOne, modify, deleteOne };
+module.exports = { findAll, addOne, deleteOne };

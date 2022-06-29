@@ -27,9 +27,10 @@ router.put("/bubble/:id", BubbleController.modify);
 router.delete("/bubble/:id", BubbleController.deleteOne);
 
 router.get("/bubbleHasKeyword", bubbleHasKeywordController.findAll);
-router.get("/bubbleHasKeyword/:id", bubbleHasKeywordController.find);
 router.post("/bubbleHasKeyword", bubbleHasKeywordController.addOne);
-router.put("/bubbleHasKeyword/:id", bubbleHasKeywordController.modify);
-router.delete("/bubbleHasKeyword/:id", bubbleHasKeywordController.deleteOne);
+router.delete(
+  "/bubbleHasKeyword/:bid/:kid",
+  bubbleHasKeywordController.deleteOne
+);
 
 module.exports = router;
