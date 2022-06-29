@@ -13,9 +13,13 @@
   "author": "team_undefined",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.28.5",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
     "vite-react": "file:.."
   },
   "devDependencies": {
