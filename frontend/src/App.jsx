@@ -2,6 +2,8 @@
 import React from "react";
 import * as d3 from "d3";
 import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+
 import Home from "./pages/Home/Home";
 import ClusteredBubbles from "./components/ClusteredBubbles";
 import "./App.css";
@@ -34,8 +36,8 @@ function App() {
         <ClusteredBubbles data={data} dimensions={dimensions} />
       </header>
       <Routes>
-        {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         {/* <Route path="/Profil" element={<Profil />} /> */}
       </Routes>
     </div>

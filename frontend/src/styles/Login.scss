@@ -1,0 +1,89 @@
+#login {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  background: #183650;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 200;
+    color: #e79759;
+  }
+
+  img {
+    width: 8rem;
+  }
+  .login-first-part,
+  .login-second-part {
+    width: 100%;
+    height: 50%;
+  }
+  .up {
+    transform: translateY(-101%);
+    transition: 1.5s;
+  }
+  .down {
+    transform: translateY(200%);
+    transition: 1.5s;
+  }
+}
+
+form {
+  padding: 1.3rem 0;
+  z-index: 2;
+
+  input {
+    width: 15rem;
+    border: 0.1rem solid #e79759;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0 auto 0.7rem auto;
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 300;
+
+    &:focus {
+      border-color: #e79759;
+      color: black;
+    }
+  }
+
+  button {
+    background-color: #e79759;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 1rem;
+    width: 15rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #e79759;
+      color: black;
+    }
+
+    // &:active .login-first-part{
+    // 	transform: translateY(-100%);
+    // }
+  }
+}
+
+// @keyframes slideUp{
+// 	0%{transform: translateY(0);
+// 	}
+// 	100%{transform: translateY(-100%);}
+//   }
+
+//   @keyframes slideDown{
+// 	0%{transform: translateY(100%);
+// 	}
+// 	100%{transform: translateY(0);}
+//   }
