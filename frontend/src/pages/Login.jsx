@@ -1,58 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo-transparent-light.png";
 import { notifySuccess, notifyError } from "../services/toastify";
-import instance from "../services/backendAPI";
+import backendAPI from "../services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.scss";
 
 function Login() {
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const navigate = useNavigate();
+
   // Move parts apart
   const [up, setUp] = useState(false);
   const [down, setDown] = useState(false);
-  const [isLog, setIsLog] = useState(false);
   const animate = () => {
     setUp(true);
     setDown(true);
-    setIsLog(true);
   };
 
-  const navigate = useNavigate();
-
-  const ENDPOINT = "/api/auth/login";
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
-  React.useEffect(() => {
-    if (isLog) {
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("isUserLoggedIn"))) {
       setTimeout(() => {
-        navigate("/home");
+        navigate("/");
       }, 1500);
-    } else {
-      navigate("/");
     }
-  }, [isLog]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    instance
-      .post(ENDPOINT, user)
-      .then((res) => {
-        notifySuccess(res.data);
+    backendAPI
+      .post("/api/auth/login", {
+        email: userEmail,
+        password: userPassword,
       })
-      .catch((err) => {
-        notifyError(err.response.data);
+      .then(() => {
+        window.localStorage.setItem("isUserLoggedIn", true);
+        notifySuccess("You are logged in.");
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      })
+      .catch(() => {
+        notifyError("Something went wrong.");
       });
-  };
-
-  const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -71,13 +63,13 @@ function Login() {
             <input
               type="text"
               placeholder="Email"
-              onChange={handleChange}
+              onChange={(e) => setUserEmail(e.target.value)}
               required
             />
             <input
               type="password"
               placeholder="Password"
-              onChange={handleChange}
+              onChange={(e) => setUserPassword(e.target.value)}
               autoComplete="off"
               required
             />

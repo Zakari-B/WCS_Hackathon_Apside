@@ -1,4 +1,5 @@
-import "./Navbar.scss";
+import "@styles/Navbar.scss";
+import React from "react";
 
 import { NavLink } from "react-router-dom";
 
@@ -6,9 +7,7 @@ export default function Home() {
   return (
     <nav className="navbar">
       <div className="box-circle">
-        <div className="circle">
-          <h1>Menu</h1>
-        </div>
+        <div className="circle">{/* <h1>Nav</h1> */}</div>
         <div className="box-out-circle">
           <div className="out-cercle">
             <div className="dots out-dot-1">

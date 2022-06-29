@@ -1,4 +1,4 @@
-@import "../../styles/Variables.scss";
+@import "@styles/Variables.scss";
 
 .navbar {
   position: fixed;
@@ -9,7 +9,7 @@
   height: 100vh;
   width: 100%;
   top: 0;
-  left: 0;
+  left: -10px;
 
   .box-circle {
     position: relative;
@@ -36,9 +36,10 @@
         font-size: 25px;
         font-weight: 700;
         color: $main-color;
+        text-transform: uppercase;
         margin-left: -25px;
-        writing-mode: vertical-rl;
-        text-orientation: upright;
+        // writing-mode: vertical-rl;
+        // text-orientation: upright;
       }
     }
 
@@ -142,7 +143,7 @@
               height: 23px;
               top: 7px;
               left: 8px;
-              background-image: url(../../assets/svg/home.svg);
+              background-image: url(@assets/svg/home.svg);
             }
 
             .item-2::before {
@@ -151,7 +152,7 @@
               height: 23px;
               top: 10px;
               left: 10px;
-              background-image: url(../../assets/svg/filter.svg);
+              background-image: url(@assets/svg/filter.svg);
             }
 
             .item-3::before {
@@ -160,7 +161,7 @@
               height: 23px;
               top: 9px;
               left: 9px;
-              background-image: url(../../assets/svg/profil.svg);
+              background-image: url(@assets/svg/profil.svg);
             }
 
             .item-4::before {
@@ -169,7 +170,7 @@
               height: 25px;
               top: 8px;
               left: 4px;
-              background-image: url(../../assets/svg/idea.svg);
+              background-image: url(@assets/svg/idea.svg);
             }
 
             .item-5::before {
@@ -178,7 +179,7 @@
               height: 25px;
               top: 3px;
               left: 7px;
-              background-image: url(../../assets/svg/logout.svg);
+              background-image: url(@assets/svg/logout.svg);
             }
           }
         }

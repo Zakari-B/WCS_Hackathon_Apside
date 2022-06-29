@@ -8,6 +8,10 @@ const bubbleHasKeywordController = require("./controllers/bubbleHasKeywordContro
 const bubbleNeedSkillsController = require("./controllers/bubbleNeedSkillsController");
 const keywordController = require("./controllers/keywordController");
 const positionController = require("./controllers/positionController");
+const skillController = require("./controllers/skillController");
+const userHasBubbleController = require("./controllers/userHasBubbleController");
+const userHasSkillController = require("./controllers/userHasSkillController");
+const workflowController = require("./controllers/workflowController");
 
 const {
   authorization,
@@ -20,6 +24,9 @@ const router = express.Router();
 router.post("/auth/login", UserController.login);
 router.get("/auth/logout", authorization, UserController.logout);
 router.get("/auth/sessionControl", authorization, sessionControl);
+
+router.get("/users", UserController.getAll);
+router.get("/users/:id", UserController.getOne);
 
 router.get("/agency", AgencyController.findAll);
 router.get("/agency/:id", AgencyController.find);
@@ -58,6 +65,26 @@ router.get("/position/:id", positionController.find);
 router.post("/position", positionController.addOne);
 router.put("/position/:id", positionController.modify);
 router.delete("/position/:id", positionController.deleteOne);
+
+router.get("/skill", skillController.findAll);
+router.get("/skill/:id", skillController.find);
+router.post("/skill", skillController.addOne);
+router.put("/skill/:id", skillController.modify);
+router.delete("/skill/:id", skillController.deleteOne);
+
+router.get("/userHasBubble", userHasBubbleController.findAll);
+router.post("/userHasBubble", userHasBubbleController.addOne);
+router.delete("/userHasBubble/:uid/:bid", userHasBubbleController.deleteOne);
+
+router.get("/userHasSkill", userHasSkillController.findAll);
+router.post("/userHasSkill", userHasSkillController.addOne);
+router.delete("/userHasSkill/:uid/:sid", userHasSkillController.deleteOne);
+
+router.get("/workflow", workflowController.findAll);
+router.get("/workflow/:id", workflowController.find);
+router.post("/workflow", workflowController.addOne);
+router.put("/workflow/:id", workflowController.modify);
+router.delete("/workflow/:id", workflowController.deleteOne);
 
 router.post(
   "/admin/create",
