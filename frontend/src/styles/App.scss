@@ -3,15 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variables */
-:root {
-  --main-color: #183650;
-  --secondary-color: #e79759;
-  --white: #fff;
-  --black: #000000;
-  --grey: #464646;
-  --font-family-text: "Hind", sans-serif;
-}
+@import "@styles/Variables.scss";
 
 /* Box sizing rules */
 *,
@@ -89,6 +81,8 @@ select {
     scroll-behavior: auto !important;
   }
 }
-.app {
-  min-height: 100vh;
+
+.App {
+  height: 100vh;
+  background-color: $main-color;
 }

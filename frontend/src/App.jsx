@@ -6,8 +6,8 @@ import Admin from "@pages/Admin";
 import Login from "@pages/Login";
 import Logout from "@pages/Logout";
 import Error404 from "@pages/Error404";
-import ClusteredBubbles from "./components/ClusteredBubbles";
 import "@styles/App.scss";
+import Navbar from "@components/Navbar";
 
 function App() {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ function App() {
           LOGOUT
         </button>
       </header>
+      <Navbar />
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/" element={<Home />} />
