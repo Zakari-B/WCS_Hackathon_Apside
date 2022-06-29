@@ -8,48 +8,43 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.scss";
 
 function Login() {
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const navigate = useNavigate();
+
   // Move parts apart
   const [up, setUp] = useState(false);
   const [down, setDown] = useState(false);
-  const [isLog, setIsLog] = useState(false);
   const animate = () => {
     setUp(true);
     setDown(true);
-    setIsLog(true);
   };
 
-  const navigate = useNavigate();
-
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
   useEffect(() => {
-    if (isLog) {
+    if (JSON.parse(localStorage.getItem("isUserLoggedIn"))) {
       setTimeout(() => {
         navigate("/");
       }, 1500);
     }
-  }, [isLog]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     backendAPI
-      .post("/api/auth/login", user)
+      .post("/api/auth/login", {
+        email: userEmail,
+        password: userPassword,
+      })
       .then(() => {
+        window.localStorage.setItem("isUserLoggedIn", true);
         notifySuccess("You are logged in.");
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       })
       .catch(() => {
-        notifyError("Something went bad.");
+        notifyError("Something went wrong.");
       });
-  };
-
-  const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -68,13 +63,13 @@ function Login() {
             <input
               type="text"
               placeholder="Email"
-              onChange={handleChange}
+              onChange={(e) => setUserEmail(e.target.value)}
               required
             />
             <input
               type="password"
               placeholder="Password"
-              onChange={handleChange}
+              onChange={(e) => setUserPassword(e.target.value)}
               autoComplete="off"
               required
             />

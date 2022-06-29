@@ -47,10 +47,10 @@ DROP TABLE IF EXISTS `apsidea`.`position` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`position` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  `position` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-INSERT INTO `position` (`id`, `name`) VALUES
+INSERT INTO `position` (`id`, `position`) VALUES
 (1, 'Tech Lead'),
 (2, 'Product Owner'),
 (3, 'Dev Web'),
@@ -58,7 +58,8 @@ INSERT INTO `position` (`id`, `name`) VALUES
 (5, 'Business Developer'),
 (6, 'Sales Manager'),
 (7, 'Talent Manager'),
-(8, 'Intern');
+(8, 'Intern'),
+(9, 'Boss');
 -- -----------------------------------------------------
 -- Table `apsidea`.`user`
 -- -----------------------------------------------------
@@ -127,11 +128,11 @@ DROP TABLE IF EXISTS `apsidea`.`skill` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`skill` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  `skill` VARCHAR(255) NOT NULL,
   `category` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
 
-INSERT INTO `skill` (`id`, `name`, `category`) VALUES
+INSERT INTO `skill` (`id`, `skill`, `category`) VALUES
 (1, 'PHP', 'Tech'),
 (2, 'Typescript', 'Tech'),
 (3, 'Android', 'Tech'),
@@ -212,10 +213,10 @@ DROP TABLE IF EXISTS `apsidea`.`workflow` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`workflow` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  `workflow` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-INSERT INTO `workflow` (`id`, `name`) VALUES
+INSERT INTO `workflow` (`id`, `workflow`) VALUES
 (1, 'Idea'),
 (2, 'Team Building'),
 (3, 'Coding'),
@@ -299,10 +300,10 @@ DROP TABLE IF EXISTS `apsidea`.`keyword` ;
 
 CREATE TABLE IF NOT EXISTS `apsidea`.`keyword` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  `keyword` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));
 
-INSERT INTO `keyword` (`id`, `name`) VALUES
+INSERT INTO `keyword` (`id`, `keyword`) VALUES
 (1, 'IA'),
 (2, 'Android'),
 (3, 'Platform'),
