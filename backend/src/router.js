@@ -8,6 +8,7 @@ const bubbleHasKeywordController = require("./controllers/bubbleHasKeywordContro
 const bubbleNeedSkillsController = require("./controllers/bubbleNeedSkillsController");
 const keywordController = require("./controllers/keywordController");
 const positionController = require("./controllers/positionController");
+const skillController = require("./controllers/skillController");
 
 const {
   authorization,
@@ -58,6 +59,12 @@ router.get("/position/:id", positionController.find);
 router.post("/position", positionController.addOne);
 router.put("/position/:id", positionController.modify);
 router.delete("/position/:id", positionController.deleteOne);
+
+router.get("/skill", skillController.findAll);
+router.get("/skill/:id", skillController.find);
+router.post("/skill", skillController.addOne);
+router.put("/skill/:id", skillController.modify);
+router.delete("/skill/:id", skillController.deleteOne);
 
 router.post(
   "/admin/create",
