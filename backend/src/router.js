@@ -7,6 +7,7 @@ const BubbleController = require("./controllers/BubbleController");
 const bubbleHasKeywordController = require("./controllers/bubbleHasKeywordController");
 const bubbleNeedSkillsController = require("./controllers/bubbleNeedSkillsController");
 const keywordController = require("./controllers/keywordController");
+const positionController = require("./controllers/positionController");
 
 const { authorization, sessionControl } = require("./middlewares/auth");
 
@@ -47,5 +48,11 @@ router.get("/keyword/:id", keywordController.find);
 router.post("/keyword", keywordController.addOne);
 router.put("/keyword/:id", keywordController.modify);
 router.delete("/keyword/:id", keywordController.deleteOne);
+
+router.get("/position", positionController.findAll);
+router.get("/position/:id", positionController.find);
+router.post("/position", positionController.addOne);
+router.put("/position/:id", positionController.modify);
+router.delete("/position/:id", positionController.deleteOne);
 
 module.exports = router;
