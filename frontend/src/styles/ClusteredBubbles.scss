@@ -47,7 +47,7 @@
   position: absolute;
   width: 200px;
   height: 155px;
-  background-color: #4881b3;
+  background-color: #609bcd;
   //   filter: brightness(3);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   //   padding: 5px;
@@ -72,7 +72,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  padding: 5px 15px;
   & > span {
     display: block;
   }
@@ -90,7 +90,8 @@
   width: 100%;
   text-align: center;
   font-weight: bold;
-  background-color: #285f8f;
+  background-color: #24547e;
+  color:white;
   padding: 2px;
   font-size: 110%;
 }
@@ -120,6 +121,7 @@
   background-size: contain;
 }
 .popup-nb_participants {
+    font-size: 80%;
 }
 .popup-workflow {
 }

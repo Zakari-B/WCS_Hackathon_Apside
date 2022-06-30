@@ -237,6 +237,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
+      .on("mouseleave", function (d) {
+        setHoverData(false);
+      })
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
