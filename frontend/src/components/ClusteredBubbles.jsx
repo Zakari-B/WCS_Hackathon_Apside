@@ -23,6 +23,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   const centroid = (nodes) => {
+    // if (nodes[0].data.group === 2) console.log("nodes", nodes);
     let x = 0;
     let y = 0;
     let z = 0;
@@ -32,6 +33,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
       y += d.y * k;
       z += k;
     }
+    // if (nodes[0].data.group === 2)
+    // console.log("boloss", { x: x / z, y: y / z });
+
     return { x: x / z, y: y / z };
   };
 
@@ -56,8 +60,8 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const forceCollide = () => {
     const alpha = 0.4; // fixed for greater rigidity!
-    const padding1 = 2; // separation between same-color nodes
-    const padding2 = 6; // separation between different-color nodes
+    const padding1 = 0; // separation between same-color nodes
+    const padding2 = 30; // separation between different-color nodes
     let nodes;
     let maxRadius;
 
@@ -111,7 +115,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
-      console.warn("baltringue");
+      console.warn("baltringue", d.data.city, d.data);
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -155,7 +159,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .attr("cx", (d) => d.x)
       .attr("cy", (d) => d.y)
       //   .attr("fill", (d) => "#FF0000")
-      .attr("fill", (d) => color(d.data.group))
+      .attr("fill", (d) => color(d.data.workflow))
       .call(drag(simulation));
 
     node

@@ -32,26 +32,33 @@ function InfoModal() {
             </button>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-black w-3.5 h-3.5" />
-            <p>colour number one</p>
+            <div className="bg-blue w-3.5 h-3.5" />
+            <p>Idea</p>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-orange-500 w-3.5 h-3.5" />
-            <p>colour number one</p>
+            <div className="bg-orange w-3.5 h-3.5" />
+            <p>Team Building</p>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-blue-500 w-3.5 h-3.5" />
-            <p>colour number one</p>
+            <div className="bg-lightblue w-3.5 h-3.5" />
+            <p>Coding</p>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-lime-400 w-3.5 h-3.5" />
-            <p>colour number one</p>
+            <div className="bg-lightgrey w-3.5 h-3.5" />
+            <p>Review</p>
+          </div>
+          <div className="flex items-center gap-x-4 w-3/4 font-medium">
+            <div className="bg-grey w-3.5 h-3.5" />
+            <p>Finished</p>
           </div>
           <h2 className="info-title">Bubbles size is important!</h2>
           <p>
-            As you can see, there are different sizes.
+            The size can be defined thanks to different criterias.
             <br />
-            The size can be defined thanks to different criteria.
+            Bubbles vary with the <em>numbers of likes</em>, and with the number
+            of <em>person involved</em>.<br />
+            <em>Bonus⭐ 5 Bonus points if you are from various agencies! </em>
+            We invite you to join projects and discover other team members!
           </p>
         </div>
       ) : null}
