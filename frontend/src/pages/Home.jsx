@@ -132,7 +132,7 @@ export default function Home() {
         likes: bubble.likes,
         nb_participants: filteredUsers.length,
         nb_agences: uniqueAgencies.length,
-        participantsIds: filteredUsers,
+        participantsIds: [bubble.creator, ...filteredUsers],
       };
     });
 
