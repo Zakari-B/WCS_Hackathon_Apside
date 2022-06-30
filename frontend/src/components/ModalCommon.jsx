@@ -6,17 +6,15 @@ function ModalCommon() {
   const navigate = useNavigate();
 
   return (
-    <div id="common-container">
-      <div className="common-box">
-        <div className="common-cross">
-          <button
-            type="button"
-            className="modal-close-button"
-            onClick={() => navigate("/")}
-          >
-            <span className="text-4xl">×</span>
-          </button>
-        </div>
+    <div className="common-box">
+      <div className="common-cross">
+        <button
+          type="button"
+          className="modal-close-button"
+          onClick={() => navigate("/")}
+        >
+          <span className="text-4xl">×</span>
+        </button>
       </div>
     </div>
   );
