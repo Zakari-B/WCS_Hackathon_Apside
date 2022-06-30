@@ -25,8 +25,8 @@ const colorPalette = [
   // "#FF0000",
   "#5ABDB2",
   "#E79759",
-  "#FFFFFF",
   "#F0F0F0",
+  "#8493A0",
   "#586994",
 ];
 
@@ -233,9 +233,12 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("qsdfgh !", d, this);
-        // console.log("d", d.x, d.y);
+        console.log("mouseover", d);
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
+      })
+      .on("mouseleave", function (d) {
+        setHoverData(false);
       })
       // eslint-disable-next-line func-names
       .on("click", function (d) {
