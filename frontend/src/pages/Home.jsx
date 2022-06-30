@@ -56,6 +56,7 @@ export default function Home() {
             likes: newData[i].likes,
             nb_participants: newData[i].nb_participants,
             nb_agences: newData[i].nb_agences,
+            participantsIds: newData[i].participantsIds,
           })),
           (d) => d.group
         ),
@@ -87,17 +88,15 @@ export default function Home() {
 
       // console.warn("lat, long", lat, long);
 
-      const filteredUsers = userHasBubble.filter(
-        (uhb) => uhb.bubble_id === bubble.id
-      );
+      const filteredUsers = userHasBubble
+        .filter((uhb) => uhb.bubble_id === bubble.id)
+        .map((uhb) => uhb.user_id);
 
       const uniqueAgencies = [
         ...new Set(
-          filteredUsers
-            .map((uhb) => uhb.user_id)
-            .map((userId) => {
-              return users.filter((user) => user.id === userId)[0].agency_id;
-            })
+          filteredUsers.map((userId) => {
+            return users.filter((user) => user.id === userId)[0].agency_id;
+          })
         ),
       ];
 
@@ -115,6 +114,7 @@ export default function Home() {
         likes: bubble.likes,
         nb_participants: filteredUsers.length,
         nb_agences: uniqueAgencies.length,
+        participantsIds: filteredUsers,
       };
     });
 
@@ -132,6 +132,7 @@ export default function Home() {
       likes: "",
       nb_participants: "",
       nb_agences: "",
+      participantsIds: [],
     });
 
     // console.warn("newData", newData);

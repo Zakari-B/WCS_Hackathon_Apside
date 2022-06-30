@@ -20,6 +20,7 @@ const find = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
+      result[0].keywords = await bubbleKeywords.findByBubbleId(req.params.id);
       res.status(200).json(result);
     }
   } catch (error) {
@@ -33,12 +34,9 @@ const addOne = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
-      // eslint-disable-next-line no-unused-vars
-      const [keywordResult] = await bubbleKeywords.addMany(
-        result.insertId,
-        req.body.selected
-      );
+      await bubbleKeywords.addMany(result.insertId, req.body.selected);
       res.status(200).json(result.insertId);
+      console.warn(result.insertId);
     }
   } catch (error) {
     console.warn(error);
