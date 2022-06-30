@@ -42,7 +42,9 @@ export default function ClusteredBubbles({
   dimensions,
   // reloadBigBubble,
 }) {
-  const { isOpenFilter } = useContext(ExportContext.BubbleContext);
+  const { isOpenFilter, setIsOpenFilter } = useContext(
+    ExportContext.BubbleContext
+  );
   const [hoverData, setHoverData] = useState(false);
   const { modalCommon, setModalCommon, setBubble } = useContext(
     ExportContext.BubbleContext
@@ -339,6 +341,7 @@ export default function ClusteredBubbles({
         } else if (d.target.__data__.data.group !== -1) {
           setModalCommon("bubble");
           setBubble(d.target.__data__.data);
+          setIsOpenFilter(false);
         }
 
         // pushBubbles();
