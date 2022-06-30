@@ -1,3 +1,6 @@
+/* eslint-disable func-names */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-sequences */
 /* eslint-disable no-shadow */
@@ -8,8 +11,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-cond-assign */
 /** MultilineChart.js */
-import React from "react";
+import React, { useState } from "react";
 import * as d3 from "d3";
+import filterImg from "@assets/svg/filter.svg";
+import "@styles/ClusteredBubbles.scss";
 
 let nodeBackup;
 const colorPalette = [
@@ -22,12 +27,31 @@ const colorPalette = [
   "#586994",
 ];
 
+const workflowList = ["Idea", "Team Building", "Coding", "Review", "Finished"];
+const POPUP_HEIGHT = 155;
+const POPUP_WIDTH = 200;
+
 export default function ClusteredBubbles({ data, dimensions }) {
+  const [hoverData, setHoverData] = useState(false);
+
   const svgRef = React.useRef(null);
   const { width, height, margin } = dimensions;
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
-  console.warn("data", data);
+  // console.warn("data", data);
+
+  const calcPosition = () => {
+    const top =
+      hoverData.y > height / 2
+        ? Math.min(hoverData.y, height - POPUP_HEIGHT)
+        : Math.max(hoverData.y - POPUP_HEIGHT, 0);
+    const left =
+      hoverData.x > width / 2
+        ? Math.min(hoverData.x, width - POPUP_WIDTH)
+        : Math.max(hoverData.x - POPUP_WIDTH, 0);
+
+    return { top, left };
+  };
 
   const color = (m) => {
     // console.log("d3.schemeCategory10[d3.range(m).length]", d3.range(m).length);
@@ -84,8 +108,8 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const forceCollide = () => {
     const alpha = 0.4; // fixed for greater rigidity!
-    const padding1 = 0; // separation between same-color nodes
-    const padding2 = 30; // separation between different-color nodes
+    const padding1 = 10; // separation between same-color nodes
+    const padding2 = 60; // separation between different-color nodes
     let nodes;
     let maxRadius;
 
@@ -187,7 +211,13 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .call(drag(simulation))
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
-        // console.log("baltringue !", d, this);
+        // console.log("d", d.x, d.y);
+        setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
+      })
+      .on("mouseleave", function (d) {
+        // d3.select(this).attr("fill", "rgb(0,255,0)");
+        // console.log("d.target.__data__.data", d.target.__data__.data);
+        setHoverData(false);
       })
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
@@ -207,11 +237,12 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
           nodeBackup = nodes;
 
+          // eslint-disable-next-line consistent-return
           nodes.map((node) => {
             if (node.data.group === -1) {
               if (node.value < 1) {
-                node.value = 300;
-                node.r = 300;
+                node.value = Math.min(height, width) / 2.5;
+                node.r = Math.min(height, width) / 2.5;
               } else {
                 node.value = 0.1;
                 node.r = 0.1;
@@ -234,11 +265,12 @@ export default function ClusteredBubbles({ data, dimensions }) {
         } else {
           nodeBackup = nodes;
 
+          // eslint-disable-next-line consistent-return
           nodes.map((node) => {
             if (node.data.group === -1) {
               if (node.value < 1) {
-                node.value = 300;
-                node.r = 300;
+                node.value = Math.min(height, width) / 2.5;
+                node.r = Math.min(height, width) / 2.5;
               } else {
                 node.value = 0.1;
                 node.r = 0.1;
@@ -268,5 +300,39 @@ export default function ClusteredBubbles({ data, dimensions }) {
     return () => simulation.stop();
   }, [data]); // Redraw chart if data changes
 
-  return <svg ref={svgRef} width={svgWidth} height={svgHeight} />;
+  return (
+    <div className="bubbleContainer">
+      <div className="hudContainer">
+        {data.children.reduce((acc, group) => acc + group.children.length, 0)}{" "}
+        Bubbles
+        <img src={filterImg} className="filterIcon" alt="filterIcon" />
+      </div>
+      <svg ref={svgRef} width={svgWidth} height={svgHeight} />
+      {hoverData && (
+        <div className="popup" style={calcPosition()}>
+          <span className="popup-name">{hoverData.name}</span>
+          {/* <span className="popup-description">{hoverData.description}</span> */}
+          <div className="popup-content">
+            <div>
+              <div className="popup-likes-container">
+                <span className="popup-likes">{hoverData.likes}</span>
+                <div className="popup-likes-heart" />
+              </div>
+              <span className="popup-city">{hoverData.city}</span>
+            </div>
+            <span className="popup-nb_participants">
+              {hoverData.nb_participants} Participants / {hoverData.nb_agences}{" "}
+              Agences
+            </span>
+            <span className="popup-workflow">
+              status : {workflowList[hoverData.workflow - 1]}
+            </span>
+            <span className="popup-create_time">
+              date de création : {hoverData.create_time.split("T")[0]}
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

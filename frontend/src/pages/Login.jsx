@@ -35,8 +35,9 @@ function Login() {
         email: userEmail,
         password: userPassword,
       })
-      .then(() => {
+      .then((answer) => {
         window.localStorage.setItem("isUserLoggedIn", true);
+        window.localStorage.setItem("userId", answer.data.id);
         notifySuccess("You are logged in.");
         setTimeout(() => {
           navigate("/");
