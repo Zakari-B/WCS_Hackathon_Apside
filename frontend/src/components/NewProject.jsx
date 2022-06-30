@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { ToastContainer } from "react-toastify";
 import { notifySuccess, notifyError } from "../services/toastify";
@@ -10,6 +11,7 @@ import "../styles/NewProject.scss";
 import ExportContextKeyword from "../contexts/KeywordContext";
 
 function NewProject() {
+  const navigate = useNavigate();
   const [idea, setIdea] = useState();
   const { keywords, setKeywords } = useContext(
     ExportContextKeyword.KeywordContext
@@ -119,6 +121,13 @@ function NewProject() {
             </div>
             <button type="submit" className="submit-button">
               Submit
+            </button>
+            <button
+              type="button"
+              className="cancel-button"
+              onClick={() => navigate("/")}
+            >
+              Cancel
             </button>
           </form>
           <ToastContainer />

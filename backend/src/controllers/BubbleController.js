@@ -1,5 +1,6 @@
 const bubble = require("../models/bubble");
 const bubbleKeywords = require("../models/bubbleHasKeyword");
+const bubbleSkills = require("../models/bubbleNeedSkills");
 
 const findAll = async (req, res) => {
   try {
@@ -7,6 +8,18 @@ const findAll = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
+      const newElements = await Promise.all(
+        result.map((e) =>
+          Promise.all([
+            bubbleKeywords.findByBubbleId(e.id),
+            bubbleSkills.findByBubbleId(e.id),
+          ])
+        )
+      );
+      newElements.forEach((e, i) => {
+        result[i].keywords = e[0].map((k) => k.keyword).join(" ");
+        result[i].skills = e[1].map((s) => s.skill).join(" ");
+      });
       res.status(200).json(result);
     }
   } catch (error) {
@@ -20,6 +33,10 @@ const find = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
+      const keywordTemp = await bubbleKeywords.findByBubbleId(req.params.id);
+      result[0].keywords = keywordTemp.map((k) => k.keyword).join(" ");
+      const skillTemp = await bubbleSkills.findByBubbleId(req.params.id);
+      result[0].skills = skillTemp.map((s) => s.skill).join(" ");
       res.status(200).json(result);
     }
   } catch (error) {
@@ -33,12 +50,9 @@ const addOne = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
-      // eslint-disable-next-line no-unused-vars
-      const [keywordResult] = await bubbleKeywords.addMany(
-        result.insertId,
-        req.body.selected
-      );
+      await bubbleKeywords.addMany(result.insertId, req.body.selected);
       res.status(200).json(result.insertId);
+      console.warn(result.insertId);
     }
   } catch (error) {
     console.warn(error);

@@ -237,11 +237,6 @@ export default function ClusteredBubbles({ data, dimensions }) {
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
-      .on("mouseleave", function (d) {
-        // d3.select(this).attr("fill", "rgb(0,255,0)");
-        // console.log("d.target.__data__.data", d.target.__data__.data);
-        setHoverData(false);
-      })
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);

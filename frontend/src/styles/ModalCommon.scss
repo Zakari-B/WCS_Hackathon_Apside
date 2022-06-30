@@ -1,0 +1,18 @@
+.common-box {
+  justify-content: center;
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  top: 5%;
+  height: 84vh;
+  background: #F0F0F0;
+  padding: 1rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.common-cross {
+  width: 5%;
+  margin: 0 auto;
+}
