@@ -41,6 +41,7 @@
 }
 
 .popup {
+  z-index: 1100;
   border-radius: 15px;
   user-select: none;
   animation: popupIn 0.4s ease-in-out both 0.2s;

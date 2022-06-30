@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useContext } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { ToastContainer } from "react-toastify";
@@ -30,6 +32,13 @@ function NewProject() {
       setSkillsOptions(result.data);
     });
   }, []);
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    console.log("closing modal newProject");
+    setKeywords({});
+    setModalCommon("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -144,7 +153,7 @@ function NewProject() {
             <button
               type="button"
               className="cancel-button"
-              onClick={() => setModalCommon("")}
+              onClick={handleClose}
             >
               Cancel
             </button>
