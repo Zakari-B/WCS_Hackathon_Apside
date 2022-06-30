@@ -54,10 +54,10 @@ const Admin = function Admin() {
   return (
     <section id="admin-panel">
       <div className="adminFlexContainer">
-        <h1 id="adminMenuTitle">Menu administrateur</h1>
+        <h1 id="adminMenuTitle">Administrator Panel</h1>
         <div className="adminSubContainer">
           <div className="adminLeft">
-            <h1 id="userCreationTitle">User creation</h1>
+            <h1 id="userCreationTitle">User creation utility</h1>
             <form>
               <input
                 type="text"
@@ -114,6 +114,37 @@ const Admin = function Admin() {
           </div>
           <div className="adminRight">
             <h1 id="adminBoardTitle">Board</h1>
+            <div id="adminMessages">
+              <ol>
+                <li>
+                  <p>
+                    <b>New message</b> (30/06/2022)
+                  </p>
+                  <details>
+                    <summary>Show: </summary>A new collaborator joined the
+                    company today. Please create a new account for Mr.Smith,
+                    collaborator information can be found in the admin mailbox
+                  </details>
+                </li>
+                <li>
+                  <p>
+                    <b>New message</b> (29/06/2022)
+                  </p>
+                  <details>
+                    <summary>Show: </summary>The database has been updated
+                    overnight, please report any strange behavior from the
+                    system to the backend team at backend@apside-internal045.com
+                  </details>
+                </li>
+                <li>
+                  <p>Message (27/06/2022)</p>
+                  <details>
+                    <summary>Show: </summary>This is an old message you have
+                    already read.
+                  </details>
+                </li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
