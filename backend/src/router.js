@@ -9,6 +9,9 @@ const bubbleNeedSkillsController = require("./controllers/bubbleNeedSkillsContro
 const keywordController = require("./controllers/keywordController");
 const positionController = require("./controllers/positionController");
 const skillController = require("./controllers/skillController");
+const userHasBubbleController = require("./controllers/userHasBubbleController");
+const userHasSkillController = require("./controllers/userHasSkillController");
+const workflowController = require("./controllers/workflowController");
 
 const {
   authorization,
@@ -68,6 +71,20 @@ router.get("/skill/:id", skillController.find);
 router.post("/skill", skillController.addOne);
 router.put("/skill/:id", skillController.modify);
 router.delete("/skill/:id", skillController.deleteOne);
+
+router.get("/userHasBubble", userHasBubbleController.findAll);
+router.post("/userHasBubble", userHasBubbleController.addOne);
+router.delete("/userHasBubble/:uid/:bid", userHasBubbleController.deleteOne);
+
+router.get("/userHasSkill", userHasSkillController.findAll);
+router.post("/userHasSkill", userHasSkillController.addOne);
+router.delete("/userHasSkill/:uid/:sid", userHasSkillController.deleteOne);
+
+router.get("/workflow", workflowController.findAll);
+router.get("/workflow/:id", workflowController.find);
+router.post("/workflow", workflowController.addOne);
+router.put("/workflow/:id", workflowController.modify);
+router.delete("/workflow/:id", workflowController.deleteOne);
 
 router.post(
   "/admin/create",

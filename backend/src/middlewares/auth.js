@@ -41,7 +41,15 @@ const sessionControl = async (req, res) => {
         sessionExpired: true,
       });
     }
-    res.status(200).json({ sessionExpired: false });
+    if (req.isAdmin) {
+      res
+        .status(200)
+        .json({ sessionExpired: false, administratorAccount: true });
+    } else {
+      res
+        .status(200)
+        .json({ sessionExpired: false, administratorAccount: false });
+    }
   } catch (e) {
     console.warn(e);
   }
