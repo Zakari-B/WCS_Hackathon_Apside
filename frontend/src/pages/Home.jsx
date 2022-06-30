@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
+import "@styles/Home.scss";
 import ClusteredBubbles from "@components/ClusteredBubbles";
 import backendAPI from "../services/backendAPI";
 
@@ -31,6 +33,7 @@ const dimensions = {
 
 export default function Home() {
   const [data, setData] = useState(false);
+  const navigate = useNavigate();
 
   const dataToD3Data = (newData) => {
     return {
@@ -111,6 +114,18 @@ export default function Home() {
 
   useEffect(() => {
     getDataFromBack();
+
+    if (JSON.parse(localStorage.getItem("isUserLoggedIn"))) {
+      backendAPI.get("/api/auth/sessionControl").then((res) => {
+        if (res.code === "401") {
+          window.localStorage.removeItem("isUserLoggedIn");
+          navigate("/login");
+        }
+      });
+    } else {
+      window.localStorage.removeItem("isUserLoggedIn");
+      navigate("/login");
+    }
   }, []);
 
   return (
