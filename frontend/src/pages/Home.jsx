@@ -7,6 +7,7 @@ import ModalCommon from "@components/ModalCommon";
 import InfoModal from "@components/InfoModal";
 import backendAPI from "../services/backendAPI";
 import ExportContext from "../contexts/BubbleContext";
+import Filter from "../components/Filter";
 
 const { innerWidth: width, innerHeight: height } = window;
 
@@ -168,6 +169,7 @@ export default function Home() {
 
   return (
     <>
+      <Filter />
       <InfoModal />
       {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
       {modalCommon && (

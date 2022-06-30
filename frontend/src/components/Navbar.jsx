@@ -5,7 +5,9 @@ import ExportContext from "../contexts/BubbleContext";
 
 export default function NavBar() {
   const [fadeAnimated, setFadeAnimated] = useState(false);
-  const { setModalCommon } = useContext(ExportContext.BubbleContext);
+  const { setModalCommon, isOpenFilter, setIsOpenFilter } = useContext(
+    ExportContext.BubbleContext
+  );
 
   const handleClick = () => {
     setFadeAnimated(!fadeAnimated);
@@ -74,9 +76,7 @@ export default function NavBar() {
                 <button
                   type="button"
                   className="nav-link link-2"
-                  onClick={() => {
-                    displayModal("filter");
-                  }}
+                  onClick={() => setIsOpenFilter(!isOpenFilter)}
                 >
                   <div className="nav-item item-2" />
                 </button>
