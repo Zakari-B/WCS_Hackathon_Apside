@@ -7,8 +7,8 @@ import Login from "@pages/Login";
 import Logout from "@pages/Logout";
 import Error404 from "@pages/Error404";
 import "@styles/App.scss";
-import NewProject from "@components/NewProject";
 import Navbar from "@components/Navbar";
+// import NewProject from "./components/NewProject";
 
 function App() {
   return (
