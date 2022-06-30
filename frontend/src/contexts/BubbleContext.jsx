@@ -6,6 +6,7 @@ function BubbleProvider({ children }) {
   const [keywords, setKeywords] = useState([{ id: 1, label: "init" }]);
   const [skills, setSkills] = useState([{ id: 1, label: "init" }]);
   const [modalCommon, setModalCommon] = useState();
+  const [bubble, setBubble] = useState();
 
   return (
     <BubbleContext.Provider
@@ -17,6 +18,8 @@ function BubbleProvider({ children }) {
         setSkills,
         modalCommon,
         setModalCommon,
+        bubble,
+        setBubble,
       }}
     >
       {children}
