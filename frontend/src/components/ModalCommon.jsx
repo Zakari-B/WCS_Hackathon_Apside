@@ -8,8 +8,7 @@ function ModalCommon() {
   return (
     <div id="common-container">
       <div className="common-box">
-        <div className="flex justify-between">
-          <h1 className="info-title">Title</h1>
+        <div className="common-cross">
           <button
             type="button"
             className="modal-close-button"

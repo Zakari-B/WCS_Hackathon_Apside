@@ -8,14 +8,21 @@
   left: 100px;
   min-width: 399px;
   max-width: 1200px;
+  border-radius: 50%;
 
   .common-box {
     justify-content: center;
     width: 60%;
-    height: 76vh;
-    background: #f0f0f0;
+    height: 84vh;
+    background: #f0f0f017;
     padding: 1rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    z-index: 1;
+  }
+
+  .common-cross {
+    width: 5%;
+    margin: 0 auto;
   }
 }
