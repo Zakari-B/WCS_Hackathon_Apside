@@ -17,15 +17,16 @@
   }
 
   img {
-    width: 8rem;
+    width: 16rem;
   }
+
   .login-first-part,
   .login-second-part {
     width: 100%;
     height: 50%;
   }
   .up {
-    transform: translateY(-101%);
+    transform: translateY(-150%);
     transition: 1.5s;
   }
   .down {

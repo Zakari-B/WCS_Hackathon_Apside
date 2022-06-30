@@ -52,15 +52,14 @@ function Login() {
 
   return (
     <section id="login">
-      <div className="container">
+      <div className="h-full m-32">
         <div className={`login-first-part ${up ? "up" : null}`}>
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center justify-center mb-4">
             <img src={logo} alt="" />
-          </div>
-          <div>
             <h1>Login</h1>
           </div>
         </div>
+        <ToastContainer />
         <div className={`login-second-part ${down ? "down" : null}`}>
           <form className="form" onSubmit={handleSubmit}>
             <input
@@ -90,7 +89,6 @@ function Login() {
               Submit
             </button>
           </form>
-          <ToastContainer />
         </div>
       </div>
     </section>

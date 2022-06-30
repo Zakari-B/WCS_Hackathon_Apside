@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable consistent-return */
 /* eslint-disable func-names */
 /* eslint-disable array-callback-return */
@@ -36,7 +37,14 @@ const workflowList = ["Idea", "Team Building", "Coding", "Review", "Finished"];
 const POPUP_HEIGHT = 155;
 const POPUP_WIDTH = 200;
 
-export default function ClusteredBubbles({ data, dimensions }) {
+export default function ClusteredBubbles({
+  data,
+  dimensions,
+  // reloadBigBubble,
+}) {
+  const { isOpenFilter, setIsOpenFilter } = useContext(
+    ExportContext.BubbleContext
+  );
   const [hoverData, setHoverData] = useState(false);
   const { modalCommon, setModalCommon, setBubble } = useContext(
     ExportContext.BubbleContext
@@ -52,6 +60,8 @@ export default function ClusteredBubbles({ data, dimensions }) {
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
   // console.warn("data", data);
+
+  const handlePopupClick = () => setHoverData(false);
 
   const calcPosition = () => {
     const top =
@@ -312,13 +322,14 @@ export default function ClusteredBubbles({ data, dimensions }) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("qsdfgh !", d, this);
 
-        console.warn("mouseover", d);
+        // console.warn("mouseover", d, isDragging.current);
 
-        if (!isDragging.current)
+        if (!isDragging.current && d.target.__data__.data.group !== -1)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
       .on("mouseleave", function (d) {
-        setHoverData(false);
+        // console.warn("mouseleave");
+        if (!modalCommon) setHoverData(false);
       })
       // eslint-disable-next-line func-names
       .on("click", function (d) {
@@ -327,11 +338,13 @@ export default function ClusteredBubbles({ data, dimensions }) {
           // shrinkBubbles();
           setModalCommon("");
           setBubble(false);
-        } else {
+        } else if (d.target.__data__.data.group !== -1) {
           setModalCommon("bubble");
           setBubble(d.target.__data__.data);
-          // pushBubbles();
+          setIsOpenFilter(false);
         }
+
+        // pushBubbles();
       }); // .on("mouseover", () => console.log("qsdfgh !"));
 
     node
@@ -354,6 +367,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   }, [data]); // Redraw chart if data changes
 
   useEffect(() => {
+    console.warn("useEffect modalCommon");
     if (firstLoadingDone.current) {
       if (modalCommon) pushBubbles();
       else shrinkBubbles();
@@ -388,14 +402,26 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   return (
     <div className="bubbleContainer">
-      <div className="hudContainer">
-        {data.children.reduce((acc, group) => acc + group.children.length, 0)}{" "}
-        Bubbles
-        <img src={filterImg} className="filterIcon" alt="filterIcon" />
-      </div>
+      {isOpenFilter ? (
+        <div className="hudContainer">
+          {data.children.reduce(
+            (acc, group) => acc + group.children.length,
+            0
+          ) - 1}{" "}
+          Bubbles
+          <img src={filterImg} className="filterIcon" alt="filterIcon" />
+        </div>
+      ) : (
+        ""
+      )}
       <svg ref={svgRef} width={svgWidth} height={svgHeight} />
       {hoverData && (
-        <div className="popup" style={calcPosition()}>
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+        <div
+          className="popup"
+          style={calcPosition()}
+          onClick={handlePopupClick}
+        >
           <span className="popup-name">{hoverData.name}</span>
           {/* <span className="popup-description">{hoverData.description}</span> */}
           <div className="popup-content">
@@ -419,12 +445,17 @@ export default function ClusteredBubbles({ data, dimensions }) {
           </div>
         </div>
       )}
-      <div className="absolute bottom-5 right-5">
+      <div className="absolute bottom-5 right-5 apsideIconContainer">
         <div className="flex items-center">
           <p className="text-white text-3xl font-bold">APS</p>
           <p className="text-orange text-3xl font-bold mr-3">IDEA</p>
           <p className="text-white text-3xl font-bold mr-2">BY</p>
-          <img src={logoApside} className="max-h-9" alt="apsideIcon" />
+          <img
+            src={logoApside}
+            className="max-h-9"
+            alt="apsideIcon"
+            draggable={false}
+          />
         </div>
       </div>
     </div>

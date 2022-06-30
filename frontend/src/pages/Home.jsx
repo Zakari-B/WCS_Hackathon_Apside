@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import "@styles/Home.scss";
 import ClusteredBubbles from "@components/ClusteredBubbles";
 import ModalCommon from "@components/ModalCommon";
 import InfoModal from "@components/InfoModal";
+import NavBar from "@components/Navbar";
 import backendAPI from "../services/backendAPI";
 import ExportContext from "../contexts/BubbleContext";
 import Filter from "../components/Filter";
@@ -37,8 +38,15 @@ const dimensions = {
 
 export default function Home() {
   const [data, setData] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [forceBigBubble, setForceBigBubble] = useState(false);
   const navigate = useNavigate();
-  const { modalCommon } = useContext(ExportContext.BubbleContext);
+  // eslint-disable-next-line no-unused-vars
+  const { modalCommon, setModalCommon, keywords } = useContext(
+    ExportContext.BubbleContext
+  );
+  // eslint-disable-next-line no-unused-vars
+  const reloadBigBubble = useRef(false);
 
   const dataToD3Data = (newData) => {
     return {
@@ -69,7 +77,10 @@ export default function Home() {
     };
   };
 
-  const getDataFromBack = async () => {
+  // eslint-disable-next-line consistent-return
+  const getDataFromBack = async (doReturn = false) => {
+    console.warn("getDataFromBack");
+
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const users = (await backendAPI.get("/api/users")).data;
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
@@ -111,12 +122,13 @@ export default function Home() {
         y: lat,
         group: agencyId,
         workflow: bubble.workflow_id,
-        value: 1 + uniqueAgencies.length + (1 + bubble.likes / maxLikes),
+        value: 1 + uniqueAgencies.length + (bubble.likes / maxLikes) * 10,
         city,
         country,
         name: bubble.name,
         description: bubble.description,
         create_time: bubble.create_time,
+        keywords: bubble.keywords.split(" "),
         likes: bubble.likes,
         nb_participants: filteredUsers.length,
         nb_agences: uniqueAgencies.length,
@@ -135,6 +147,7 @@ export default function Home() {
       name: "",
       description: "",
       create_time: "",
+      keywords: [],
       likes: "",
       nb_participants: "",
       nb_agences: "",
@@ -142,13 +155,50 @@ export default function Home() {
     });
 
     // console.warn("newData", newData);
-
+    if (doReturn) return newData;
     const d3data = dataToD3Data(newData);
 
-    // console.warn("d3data", d3data);
+    console.warn("d3data", d3data);
     // console.warn("data2", data2);
 
     setData(d3data);
+  };
+
+  const filterDatas = async (keywordsParam) => {
+    console.warn("filterDatas", keywordsParam);
+
+    let datas = await getDataFromBack(true);
+    if (modalCommon)
+      // if (keywordsParam.keyword.length)
+      datas[datas.length - 1].value = Math.min(height, width) / 15;
+    // else reloadBigBubble.current = !reloadBigBubble.current;
+
+    if (keywordsParam.keyword && keywordsParam.keyword.length) {
+      const keywordList = keywordsParam.keyword.map((keyword) => keyword.label);
+
+      // filter data by keywords
+      // datas[datas.length - 1].r = Math.min(height, width) / 10;
+
+      datas = datas.filter((data2, data2index) => {
+        let keywordFound = false;
+        data2.keywords.map((kw) => {
+          if (kw !== "" && keywordList.includes(kw)) keywordFound = true;
+          return false;
+        });
+
+        if (data2index === datas.length - 1) return true;
+
+        return keywordFound;
+      });
+    }
+
+    const d3data = dataToD3Data(datas);
+
+    console.warn("d3data", d3data);
+
+    setData(d3data);
+
+    // setForceBigBubble(true); // useless
   };
 
   useEffect(() => {
@@ -167,11 +217,25 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    console.warn("useEffect keywords", keywords);
+
+    if (!modalCommon) getDataFromBack();
+    else filterDatas(keywords);
+  }, [keywords]);
+
   return (
     <>
+      <NavBar />
       <Filter />
       <InfoModal />
-      {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
+      {data && (
+        <ClusteredBubbles
+          data={data}
+          dimensions={dimensions}
+          // reloadBigBubble={reloadBigBubble.current}
+        />
+      )}
       {modalCommon && (
         <ModalCommon type={modalCommon} dimensions={dimensions} />
       )}

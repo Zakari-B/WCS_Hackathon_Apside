@@ -1,7 +1,7 @@
-import "@styles/Navbar.scss";
 import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import ExportContext from "../contexts/BubbleContext";
+import "@styles/Navbar.scss";
 
 export default function NavBar() {
   const [fadeAnimated, setFadeAnimated] = useState(false);
@@ -97,7 +97,8 @@ export default function NavBar() {
                   type="button"
                   className="nav-link link-3"
                   onClick={() => {
-                    displayModal("profil");
+                    displayModal("profile");
+                    setIsOpenFilter(false);
                   }}
                 >
                   <div className="nav-item item-3" />
@@ -122,6 +123,7 @@ export default function NavBar() {
                   }`}
                   onClick={() => {
                     displayModal("new");
+                    setIsOpenFilter(false);
                   }}
                 >
                   <div className="nav-item item-4" />
