@@ -209,6 +209,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
       //   .attr("fill", (d) => "#FF0000")
       .attr("fill", (d) => color(d.data.workflow))
       .call(drag(simulation))
+      // eslint-disable-next-line func-names
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("d", d.x, d.y);
@@ -219,6 +220,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
         // console.log("d.target.__data__.data", d.target.__data__.data);
         setHoverData(false);
       })
+      // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
 
@@ -237,7 +239,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
           nodeBackup = nodes;
 
-          // eslint-disable-next-line consistent-return
+          // eslint-disable-next-line
           nodes.map((node) => {
             if (node.data.group === -1) {
               if (node.value < 1) {
@@ -265,7 +267,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
         } else {
           nodeBackup = nodes;
 
-          // eslint-disable-next-line consistent-return
+          // eslint-disable-next-line
           nodes.map((node) => {
             if (node.data.group === -1) {
               if (node.value < 1) {
