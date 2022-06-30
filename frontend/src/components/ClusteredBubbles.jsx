@@ -52,6 +52,9 @@ export default function ClusteredBubbles({
   dimensions,
   // reloadBigBubble,
 }) {
+  const { isOpenFilter, setIsOpenFilter } = useContext(
+    ExportContext.BubbleContext
+  );
   const [hoverData, setHoverData] = useState(false);
   const {
     modalCommon,
@@ -76,6 +79,8 @@ export default function ClusteredBubbles({
   const handlePopupClick = () => setHoverData(false);
 
   const hideEverything = () => {
+    if (isOpenFilter) setIsOpenFilter(false);
+
     if (modalCommon) {
       setKeywords({});
       setModalCommon("");
@@ -364,6 +369,7 @@ export default function ClusteredBubbles({
         } else if (d.target.__data__.data.group !== -1) {
           setModalCommon("bubble");
           setBubble(d.target.__data__.data);
+          setIsOpenFilter(false);
         }
 
         // pushBubbles();
@@ -424,12 +430,16 @@ export default function ClusteredBubbles({
 
   return (
     <div className="bubbleContainer">
-      <div className="hudContainer">
-        {data.children.reduce((acc, group) => acc + group.children.length, 0) -
-          1}{" "}
-        Bubbles
-        <img src={filterImg} className="filterIcon" alt="filterIcon" />
-      </div>
+      {isOpenFilter && (
+        <div className="hudContainer">
+          {data.children.reduce(
+            (acc, group) => acc + group.children.length,
+            0
+          ) - 1}{" "}
+          Bubbles
+          <img src={filterImg} className="filterIcon" alt="filterIcon" />
+        </div>
+      )}
       <svg
         ref={svgRef}
         width={svgWidth}

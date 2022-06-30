@@ -98,6 +98,7 @@ export default function NavBar() {
                   className="nav-link link-3"
                   onClick={() => {
                     displayModal("profile");
+                    setIsOpenFilter(false);
                   }}
                 >
                   <div className="nav-item item-3" />
@@ -122,6 +123,7 @@ export default function NavBar() {
                   }`}
                   onClick={() => {
                     displayModal("new");
+                    setIsOpenFilter(false);
                   }}
                 >
                   <div className="nav-item item-4" />
