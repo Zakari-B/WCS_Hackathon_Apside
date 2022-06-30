@@ -10,6 +10,7 @@ import "../styles/Login.scss";
 function Login() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   // Move parts apart
@@ -34,9 +35,11 @@ function Login() {
       .post("/api/auth/login", {
         email: userEmail,
         password: userPassword,
+        remember: rememberMe,
       })
-      .then(() => {
+      .then((answer) => {
         window.localStorage.setItem("isUserLoggedIn", true);
+        window.localStorage.setItem("userId", answer.data.id);
         notifySuccess("You are logged in.");
         setTimeout(() => {
           navigate("/");
@@ -73,6 +76,16 @@ function Login() {
               autoComplete="off"
               required
             />
+            <div id="rememberCheckbox">
+              <input
+                type="checkbox"
+                isChecked={rememberMe}
+                onChange={() => {
+                  setRememberMe(!rememberMe);
+                }}
+              />
+              <p>Se souvenir de moi </p>
+            </div>
             <button type="submit" id="login-button" onClick={animate}>
               Submit
             </button>
