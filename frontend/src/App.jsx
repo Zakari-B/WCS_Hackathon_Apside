@@ -7,13 +7,16 @@ import Login from "@pages/Login";
 import Logout from "@pages/Logout";
 import Error404 from "@pages/Error404";
 import "@styles/App.scss";
+import NewProject from "@components/NewProject";
 import Navbar from "@components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header" />
-      <Navbar />
+      <header className="App-header">
+        {/* <NewProject /> */}
+        {/* <Navbar /> */}
+      </header>
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/" element={<Home />} />
