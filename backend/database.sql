@@ -144,7 +144,7 @@ DROP TABLE IF EXISTS `keyword`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `keyword` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `keyword` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -168,7 +168,7 @@ DROP TABLE IF EXISTS `position`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `position` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -192,7 +192,7 @@ DROP TABLE IF EXISTS `skill`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `skill` varchar(255) NOT NULL,
   `category` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -310,7 +310,7 @@ DROP TABLE IF EXISTS `workflow`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `workflow` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `workflow` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

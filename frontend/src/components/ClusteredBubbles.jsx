@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable func-names */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-underscore-dangle */
+
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-sequences */
 /* eslint-disable no-shadow */
@@ -71,7 +73,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
       z += k;
     }
     // if (nodes[0].data.group === -1) {
-    //   console.log("boloss", { x: x / z, y: y / z });
+    //   console.log("wxcvbn", { x: x / z, y: y / z });
     //   return { x: 585, y: 660 };
     // }
 
@@ -163,7 +165,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
-      // console.warn("baltringue", d.data.city, d.data);
+      // console.warn("qsdfgh", d.data.city, d.data);
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -212,6 +214,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
       // eslint-disable-next-line func-names
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
+        // console.log("qsdfgh !", d, this);
         // console.log("d", d.x, d.y);
         setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
@@ -279,9 +282,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
               }
             } else return node;
           });
-          // console.log("tocard !", nodes);
+          // console.log("abcdef !", nodes);
         }
-      }); // .on("mouseover", () => console.log("baltringue !"));
+      }); // .on("mouseover", () => console.log("qsdfgh !"));
 
     node
       .transition()

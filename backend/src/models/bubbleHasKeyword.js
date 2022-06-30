@@ -7,6 +7,17 @@ const findAll = () => {
   return db.query(`select * from  ${table}`);
 };
 
+const addMany = async (bubbleId, selectedKeywords) => {
+  const keywordsId = selectedKeywords.map((e) => e.id);
+  const result = await keywordsId.forEach((id) =>
+    db.query(`insert into ${table} (bubble_id, keyword_id) values (?, ?)`, [
+      bubbleId,
+      id,
+    ])
+  );
+  return result;
+};
+
 const addOne = (newData) => {
   return db.query(
     `insert into ${table} (bubble_id, keyword_id) values (?, ?)`,
@@ -21,4 +32,4 @@ const deleteOne = (bid, kid) => {
   );
 };
 
-module.exports = { findAll, addOne, deleteOne };
+module.exports = { findAll, addOne, deleteOne, addMany };
