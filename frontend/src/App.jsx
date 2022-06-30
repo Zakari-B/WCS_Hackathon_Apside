@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         {/* <NewProject /> */}
-        {/* <Navbar /> */}
+        <Navbar />
       </header>
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
