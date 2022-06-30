@@ -38,7 +38,9 @@ const POPUP_WIDTH = 200;
 
 export default function ClusteredBubbles({ data, dimensions }) {
   const [hoverData, setHoverData] = useState(false);
-  const { modalCommon } = useContext(ExportContext.BubbleContext);
+  const { modalCommon, setModalCommon, setBubble } = useContext(
+    ExportContext.BubbleContext
+  );
   const isDragging = React.useRef(false);
   const svgRef = React.useRef(null);
   const nodesGlobal = React.useRef(null);
@@ -211,7 +213,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   const shrinkBubbles = (beCrazy = true) => {
-    console.log("shrinkBubbles");
+    console.warn("shrinkBubbles");
     // simulation;
     if (beCrazy) {
       nodesGlobal.current = nodeBackup;
@@ -256,7 +258,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   const pushBubbles = () => {
-    console.log("pushBubbles", nodesGlobal.current);
+    console.warn("pushBubbles()");
     nodeBackup = nodesGlobal.current;
 
     // eslint-disable-next-line
@@ -275,7 +277,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   useEffect(() => {
-    console.log("useEffect D3");
+    console.warn("useEffect D3");
 
     nodesGlobal.current = pack().leaves();
 
@@ -317,11 +319,15 @@ export default function ClusteredBubbles({ data, dimensions }) {
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
-        // if (nodeBackup) {
-        //   shrinkBubbles();
-        // } else {
-        //   pushBubbles();
-        // }
+        if (nodeBackup) {
+          // shrinkBubbles();
+          setModalCommon("");
+          setBubble(false);
+        } else {
+          setModalCommon("bubble");
+          setBubble(d.target.__data__.data);
+          // pushBubbles();
+        }
       }); // .on("mouseover", () => console.log("qsdfgh !"));
 
     node
