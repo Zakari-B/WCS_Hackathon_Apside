@@ -2,8 +2,10 @@ import React from "react";
 import "@styles/ModalCommon.scss";
 
 import NewProject from "./NewProject";
+import Profil from "./Profil";
 import ViewBubble from "./ViewBubble";
 import UserProfile from "./UserProfile";
+
 
 function ModalCommon({ type, dimensions }) {
   const modalSize = Math.min(dimensions.height, dimensions.width) / 1.1;
@@ -19,6 +21,7 @@ function ModalCommon({ type, dimensions }) {
       }}
     >
       {type === "new" && <NewProject />}
+      {type === "profil" && <Profil />}
       {type === "bubble" && <ViewBubble />}
       {type === "profile" && <UserProfile />}
     </div>
