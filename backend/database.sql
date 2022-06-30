@@ -29,7 +29,7 @@ CREATE TABLE `agency` (
   `lat` float DEFAULT NULL,
   `long` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `bubble` (
   KEY `fk_bubble_user1_idx` (`creator`),
   CONSTRAINT `fk_bubble_user1` FOREIGN KEY (`creator`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_bubble_workflow1` FOREIGN KEY (`workflow_id`) REFERENCES `workflow` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `bubble_has_keyword` (
   KEY `fk_bubble_has_keyword_bubble1_idx` (`bubble_id`),
   CONSTRAINT `fk_bubble_has_keyword_bubble1` FOREIGN KEY (`bubble_id`) REFERENCES `bubble` (`id`),
   CONSTRAINT `fk_bubble_has_keyword_keyword1` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `bubble_needs_skills` (
   KEY `fk_bubble_has_skills_bubble1_idx` (`bubble_id`),
   CONSTRAINT `fk_bubble_has_skills_bubble1` FOREIGN KEY (`bubble_id`) REFERENCES `bubble` (`id`),
   CONSTRAINT `fk_bubble_has_skills_skills1` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `keyword` (
   `id` int NOT NULL AUTO_INCREMENT,
   `keyword` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `position` (
   `id` int NOT NULL AUTO_INCREMENT,
   `position` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +195,7 @@ CREATE TABLE `skill` (
   `skill` varchar(255) NOT NULL,
   `category` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `user` (
   KEY `fk_user_agency` (`agency_id`),
   CONSTRAINT `fk_user_agency` FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`),
   CONSTRAINT `fk_user_position1` FOREIGN KEY (`position_id`) REFERENCES `position` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +260,7 @@ CREATE TABLE `user_has_bubble` (
   KEY `fk_user_has_bubble_user1_idx` (`user_id`),
   CONSTRAINT `fk_user_has_bubble_bubble1` FOREIGN KEY (`bubble_id`) REFERENCES `bubble` (`id`),
   CONSTRAINT `fk_user_has_bubble_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +288,7 @@ CREATE TABLE `user_has_skill` (
   KEY `fk_user_has_skills_user1_idx` (`user_id`),
   CONSTRAINT `fk_user_has_skills_skills1` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
   CONSTRAINT `fk_user_has_skills_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +312,7 @@ CREATE TABLE `workflow` (
   `id` int NOT NULL AUTO_INCREMENT,
   `workflow` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,5 +333,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-06-30  8:42:27
