@@ -10,7 +10,7 @@ function InfoModal() {
   }
 
   return (
-    <div className="modal">
+    <div className="infomodal">
       <button type="button" onClick={toggle}>
         <img
           src={iconMark}
@@ -21,37 +21,34 @@ function InfoModal() {
       </button>
       {isOpen ? (
         <div className="modal-container">
-          <div className="flex justify-between">
-            <h1 className="info-title">Help?</h1>
-            <button
-              onClick={toggle}
-              type="button"
-              className="modal-close-button"
-            >
-              <span className="text-4xl">×</span>
+          <div className="flex justify-between mb-4">
+            <h1 className="info-title text-5xl">Need help?</h1>
+            <button onClick={toggle} type="button" className="text-4xl">
+              ×
             </button>
           </div>
+          <h2 className="text-2xl text-center">Color chart</h2>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-blue w-3.5 h-3.5" />
+            <div className="bg-lightblue w-3.5 h-3.5 rounded-full" />
             <p>Idea</p>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-orange w-3.5 h-3.5" />
+            <div className="bg-orange w-3.5 h-3.5 rounded-full" />
             <p>Team Building</p>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-lightblue w-3.5 h-3.5" />
+            <div className="bg-white w-3.5 h-3.5 rounded-full" />
             <p>Coding</p>
           </div>
           <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-lightgrey w-3.5 h-3.5" />
+            <div className="bg-gray-400 w-3.5 h-3.5 rounded-full" />
             <p>Review</p>
           </div>
-          <div className="flex items-center gap-x-4 w-3/4 font-medium">
-            <div className="bg-grey w-3.5 h-3.5" />
+          <div className="flex items-center gap-x-4 w-3/4 font-medium mb-3">
+            <div className="bg-grey w-3.5 h-3.5 rounded-full" />
             <p>Finished</p>
           </div>
-          <h2 className="info-title">Bubbles size is important!</h2>
+          <h2 className="text-2xl text-center mb-1">Bubbles sizes</h2>
           <p>
             The size can be defined thanks to different criterias.
             <br />

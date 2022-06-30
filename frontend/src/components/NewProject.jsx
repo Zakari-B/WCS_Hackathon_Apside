@@ -15,7 +15,7 @@ function NewProject() {
     useContext(ExportContext.BubbleContext);
 
   const [keywordsOptions, setKeywordsOptions] = useState([
-    { id: 1, label: "John" },
+    { id: 1, label: "Init" },
   ]);
 
   const [skillsOptions, setSkillsOptions] = useState([
