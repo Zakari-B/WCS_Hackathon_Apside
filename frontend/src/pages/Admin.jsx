@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NavBar from "@components/Navbar";
 import backendAPI from "../services/backendAPI";
 import "@styles/Admin.scss";
 
@@ -52,6 +53,8 @@ const Admin = function Admin() {
   };
 
   return (
+  <>
+   <NavBar />
     <section id="admin-panel">
       <div className="adminFlexContainer">
         <h1 id="adminMenuTitle">Administrator Panel</h1>
@@ -147,8 +150,8 @@ const Admin = function Admin() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
