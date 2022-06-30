@@ -82,7 +82,6 @@
     }
   }
 
-
   .cancel-button {
     margin-top: 1rem;
     background-color: #5abdb2;
@@ -103,21 +102,19 @@
         color: black;
       }
     }
-  .typeahead-input div {
-    border: none;
-    display: flex;
-    flex-wrap: wrap;
+    .typeahead-input div {
+      border: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .typeahead-input span {
+      display: none;
+    }
+    .rbt-token {
+      display: flex;
+      flex-direction: row-reverse;
+    }
   }
-  .typeahead-input span {
-    display: none;
-  }
-  .rbt-token {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-
-}
 }
 
 .typeahead-input {
