@@ -8,13 +8,11 @@ import Logout from "@pages/Logout";
 import Error404 from "@pages/Error404";
 import "@styles/App.scss";
 import Navbar from "@components/Navbar";
-import NewProject from "./components/NewProject";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <NewProject /> */}
         <Navbar />
       </header>
       <Routes>

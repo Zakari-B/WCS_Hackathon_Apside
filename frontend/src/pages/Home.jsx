@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import "@styles/Home.scss";
 import ClusteredBubbles from "@components/ClusteredBubbles";
+import ModalCommon from "@components/ModalCommon";
 import InfoModal from "@components/InfoModal";
 import backendAPI from "../services/backendAPI";
+import ExportContext from "../contexts/BubbleContext";
 
 const { innerWidth: width, innerHeight: height } = window;
 
@@ -35,6 +37,7 @@ const dimensions = {
 export default function Home() {
   const [data, setData] = useState(false);
   const navigate = useNavigate();
+  const { modalCommon } = useContext(ExportContext.BubbleContext);
 
   const dataToD3Data = (newData) => {
     return {
@@ -165,6 +168,9 @@ export default function Home() {
     <>
       <InfoModal />
       {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
+      {modalCommon && (
+        <ModalCommon type={modalCommon} dimensions={dimensions} />
+      )}
     </>
   );
 }

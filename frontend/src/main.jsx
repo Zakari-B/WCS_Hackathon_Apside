@@ -4,14 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
-import ExportContextKeyword from "./contexts/KeywordContext";
+import ExportContext from "./contexts/BubbleContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     {/* <React.StrictMode> */}
-    <ExportContextKeyword.KeywordProvider>
+    <ExportContext.BubbleProvider>
       <App />
-    </ExportContextKeyword.KeywordProvider>
+    </ExportContext.BubbleProvider>
 
     {/* </React.StrictMode> */}
   </BrowserRouter>
