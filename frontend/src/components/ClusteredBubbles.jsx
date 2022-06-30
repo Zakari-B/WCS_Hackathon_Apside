@@ -42,6 +42,7 @@ export default function ClusteredBubbles({
   dimensions,
   // reloadBigBubble,
 }) {
+  const { isOpenFilter } = useContext(ExportContext.BubbleContext);
   const [hoverData, setHoverData] = useState(false);
   const { modalCommon, setModalCommon, setBubble } = useContext(
     ExportContext.BubbleContext
@@ -398,12 +399,18 @@ export default function ClusteredBubbles({
 
   return (
     <div className="bubbleContainer">
-      <div className="hudContainer">
-        {data.children.reduce((acc, group) => acc + group.children.length, 0) -
-          1}{" "}
-        Bubbles
-        <img src={filterImg} className="filterIcon" alt="filterIcon" />
-      </div>
+      {isOpenFilter ? (
+        <div className="hudContainer">
+          {data.children.reduce(
+            (acc, group) => acc + group.children.length,
+            0
+          ) - 1}{" "}
+          Bubbles
+          <img src={filterImg} className="filterIcon" alt="filterIcon" />
+        </div>
+      ) : (
+        ""
+      )}
       <svg ref={svgRef} width={svgWidth} height={svgHeight} />
       {hoverData && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
