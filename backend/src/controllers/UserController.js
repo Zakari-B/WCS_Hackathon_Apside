@@ -1,5 +1,6 @@
 const { hashPassword } = require("../helpers/argonHelper");
 const user = require("../models/user");
+const userSkills = require("../models/userHasSkill");
 
 const login = async (req, res) => {
   const rememberTime = () => {
@@ -51,6 +52,17 @@ const getOne = async (req, res) => {
   }
 };
 
+const getSelf = async (req, res) => {
+  const result = await user.getOne(req.userId);
+  if (result[0][0]) {
+    const skillsTemp = await userSkills.findByUserId(req.userId);
+    result[0][0].skills = skillsTemp.map((k) => k.skill);
+    res.status(200).json(result[0][0]);
+  } else {
+    console.warn("Couldn't get a user");
+  }
+};
+
 const createOne = async (req, res) => {
   const { firstname, lastname, agency, position, email, password } = req.body;
   const hashedPassword = await hashPassword(password);
@@ -74,4 +86,4 @@ const createOne = async (req, res) => {
   }
 };
 
-module.exports = { login, logout, getAll, getOne, createOne };
+module.exports = { login, logout, getAll, getOne, createOne, getSelf };

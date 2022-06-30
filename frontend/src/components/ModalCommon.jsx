@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "@styles/ModalCommon.scss";
-import ExportContext from "../contexts/BubbleContext";
 
 import NewProject from "./NewProject";
 import ViewBubble from "./ViewBubble";
+import UserProfile from "./UserProfile";
 
 function ModalCommon({ type, dimensions }) {
-  const { setModalCommon } = useContext(ExportContext.BubbleContext);
   const modalSize = Math.min(dimensions.height, dimensions.width) / 1.1;
 
   return (
@@ -19,17 +18,9 @@ function ModalCommon({ type, dimensions }) {
         top: (dimensions.height - modalSize) / 2,
       }}
     >
-      <div className="common-cross">
-        <button
-          type="button"
-          className="modal-close-button"
-          onClick={() => setModalCommon("")}
-        >
-          <span className="text-4xl">×</span>
-        </button>
-      </div>
       {type === "new" && <NewProject />}
       {type === "bubble" && <ViewBubble />}
+      {type === "profile" && <UserProfile />}
     </div>
   );
 }

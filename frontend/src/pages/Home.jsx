@@ -5,6 +5,7 @@ import "@styles/Home.scss";
 import ClusteredBubbles from "@components/ClusteredBubbles";
 import ModalCommon from "@components/ModalCommon";
 import InfoModal from "@components/InfoModal";
+import NavBar from "@components/Navbar";
 import backendAPI from "../services/backendAPI";
 import ExportContext from "../contexts/BubbleContext";
 
@@ -168,6 +169,7 @@ export default function Home() {
 
   return (
     <>
+      <NavBar />
       <InfoModal />
       {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
       {modalCommon && (

@@ -7,6 +7,15 @@ const findAll = () => {
   return db.query(`select * from  ${table}`);
 };
 
+const findByUserId = (id) => {
+  return db
+    .query(
+      `select s.skill from ${table} AS u INNER JOIN skill AS s ON s.id = u.skill_id where u.user_id = ?`,
+      [id]
+    )
+    .then((res) => res[0]);
+};
+
 const addOne = (newData) => {
   return db.query(`insert into ${table} (user_id, skill_id) values (?, ?)`, [
     newData.user_id,
@@ -21,4 +30,4 @@ const deleteOne = (uid, sid) => {
   ]);
 };
 
-module.exports = { findAll, addOne, deleteOne };
+module.exports = { findAll, addOne, deleteOne, findByUserId };
