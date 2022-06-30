@@ -13,11 +13,13 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-cond-assign */
 /** MultilineChart.js */
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import * as d3 from "d3";
+import ExportContext from "../contexts/BubbleContext";
 import filterImg from "@assets/svg/filter.svg";
 import logoApside from "@assets/logo/apside.png";
 import "@styles/ClusteredBubbles.scss";
+import { isoFormat } from "d3";
 
 let nodeBackup;
 const colorPalette = [
@@ -36,8 +38,11 @@ const POPUP_WIDTH = 200;
 
 export default function ClusteredBubbles({ data, dimensions }) {
   const [hoverData, setHoverData] = useState(false);
+  const { modalCommon } = useContext(ExportContext.BubbleContext);
   const isDragging = React.useRef(false);
   const svgRef = React.useRef(null);
+  const nodesGlobal = React.useRef(null);
+  const firstLoadingDone = React.useRef(false);
 
   const userId = parseInt(window.localStorage.getItem("userId"), 10);
 
@@ -205,11 +210,77 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .on("end", dragended);
   };
 
-  React.useEffect(() => {
-    let nodes = pack().leaves();
+  const shrinkBubbles = (beCrazy = true) => {
+    console.log("shrinkBubbles");
+    // simulation;
+    if (beCrazy) {
+      nodesGlobal.current = nodeBackup;
+      d3.forceSimulation(nodesGlobal.current)
+        .force("x", d3.forceX(width / 2).strength(0.1))
+        .force("y", d3.forceY(height / 2).strength(0.1))
+        .force("cluster", forceCluster())
+        .force("collide", forceCollide());
+      // .forceCenter([width / 2, height / 2]);
+      // simulation.alpha(0.5).alphaTarget(0.3).restart();
+      nodeBackup = undefined;
+    }
+
+    nodeBackup = nodesGlobal.current;
+
+    // eslint-disable-next-line
+    nodesGlobal.current.map((node) => {
+      if (node.data.group === -1) {
+        if (node.value < 1) {
+          node.value = Math.min(height, width) / 2.35;
+          node.r = Math.min(height, width) / 2.35;
+        } else {
+          node.value = 0.1;
+          node.r = 0.1;
+        }
+      } else return node;
+    });
+
+    if (beCrazy) {
+      nodesGlobal.current = nodeBackup;
+      d3.forceSimulation(nodesGlobal.current)
+        .force("x", d3.forceX(width / 2).strength(0.1))
+        .force("y", d3.forceY(height / 2).strength(0.1))
+        .force("cluster", forceCluster())
+        .force("collide", forceCollide());
+      // .forceCenter([width / 2, height / 2]);
+      // simulation.alpha(0.5).alphaTarget(0.3).restart();
+      nodeBackup = undefined;
+    }
+
+    // svg.call(drag(simulation));
+  };
+
+  const pushBubbles = () => {
+    console.log("pushBubbles", nodesGlobal.current);
+    nodeBackup = nodesGlobal.current;
+
+    // eslint-disable-next-line
+    nodesGlobal.current.map((node) => {
+      if (node.data.group === -1) {
+        if (node.value < 1) {
+          node.value = Math.min(height, width) / 2.35;
+          node.r = Math.min(height, width) / 2.35;
+        } else {
+          node.value = 0.1;
+          node.r = 0.1;
+        }
+      } else return node;
+    });
+    // console.log("abcdef !", nodes);
+  };
+
+  useEffect(() => {
+    console.log("useEffect D3");
+
+    nodesGlobal.current = pack().leaves();
 
     const simulation = d3
-      .forceSimulation(nodes)
+      .forceSimulation(nodesGlobal.current)
       .force("x", d3.forceX(width / 2).strength(0.01))
       .force("y", d3.forceY(height / 2).strength(0.01))
       .force("cluster", forceCluster())
@@ -217,10 +288,14 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
     const svg = d3.select(svgRef.current);
 
+    const nbG = svg.selectAll("g")._groups[0].length;
+
+    if (nbG) svg.selectAll("g").remove();
+
     const node = svg
       .append("g")
       .selectAll("circle")
-      .data(nodes)
+      .data(nodesGlobal.current)
       .join("circle")
       .attr("cx", (d) => d.x)
       .attr("cy", (d) => d.y)
@@ -233,7 +308,6 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("qsdfgh !", d, this);
-        console.warn("mouseover", d);
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
@@ -243,64 +317,11 @@ export default function ClusteredBubbles({ data, dimensions }) {
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
-
-        if (nodeBackup) {
-          // console.log("nodeBackup");
-          nodes = nodeBackup;
-          // simulation;
-          d3.forceSimulation(nodes)
-            .force("x", d3.forceX(width / 2).strength(0.1))
-            .force("y", d3.forceY(height / 2).strength(0.1))
-            .force("cluster", forceCluster())
-            .force("collide", forceCollide());
-          // .forceCenter([width / 2, height / 2]);
-          // simulation.alpha(0.5).alphaTarget(0.3).restart();
-          nodeBackup = undefined;
-
-          nodeBackup = nodes;
-
-          // eslint-disable-next-line
-          nodes.map((node) => {
-            if (node.data.group === -1) {
-              if (node.value < 1) {
-                node.value = Math.min(height, width) / 2.5;
-                node.r = Math.min(height, width) / 2.5;
-              } else {
-                node.value = 0.1;
-                node.r = 0.1;
-              }
-            } else return node;
-          });
-
-          nodes = nodeBackup;
-          // simulation;
-          d3.forceSimulation(nodes)
-            .force("x", d3.forceX(width / 2).strength(0.1))
-            .force("y", d3.forceY(height / 2).strength(0.1))
-            .force("cluster", forceCluster())
-            .force("collide", forceCollide());
-          // .forceCenter([width / 2, height / 2]);
-          // simulation.alpha(0.5).alphaTarget(0.3).restart();
-          nodeBackup = undefined;
-
-          // svg.call(drag(simulation));
-        } else {
-          nodeBackup = nodes;
-
-          // eslint-disable-next-line
-          nodes.map((node) => {
-            if (node.data.group === -1) {
-              if (node.value < 1) {
-                node.value = Math.min(height, width) / 2.5;
-                node.r = Math.min(height, width) / 2.5;
-              } else {
-                node.value = 0.1;
-                node.r = 0.1;
-              }
-            } else return node;
-          });
-          // console.log("abcdef !", nodes);
-        }
+        // if (nodeBackup) {
+        //   shrinkBubbles();
+        // } else {
+        //   pushBubbles();
+        // }
       }); // .on("mouseover", () => console.log("qsdfgh !"));
 
     node
@@ -321,6 +342,39 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
     return () => simulation.stop();
   }, [data]); // Redraw chart if data changes
+
+  useEffect(() => {
+    if (firstLoadingDone.current) {
+      if (modalCommon) pushBubbles();
+      else shrinkBubbles();
+
+      const simulation = d3
+        .forceSimulation(nodesGlobal.current)
+        .force("x", d3.forceX(width / 2).strength(0.01))
+        .force("y", d3.forceY(height / 2).strength(0.01))
+        .force("cluster", forceCluster())
+        .force("collide", forceCollide());
+
+      const svg = d3.select(svgRef.current);
+      const node = svg.selectAll("circle");
+
+      node
+        .transition()
+        // eslint-disable-next-line no-unused-vars
+        .delay((d, i) => Math.random() * 500)
+        .duration(750)
+        .attrTween("r", (d) => {
+          const i = d3.interpolate(0, d.r);
+          return (t) => (d.r = i(t));
+        });
+
+      simulation.on("tick", () => {
+        node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+      });
+
+      svg.node();
+    } else firstLoadingDone.current = true;
+  }, [modalCommon]);
 
   return (
     <div className="bubbleContainer">
