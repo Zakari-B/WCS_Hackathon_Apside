@@ -14,6 +14,7 @@
 import React, { useState } from "react";
 import * as d3 from "d3";
 import filterImg from "@assets/svg/filter.svg";
+import logoApside from "@assets/logo/apside.png";
 import "@styles/ClusteredBubbles.scss";
 
 let nodeBackup;
@@ -33,8 +34,11 @@ const POPUP_WIDTH = 200;
 
 export default function ClusteredBubbles({ data, dimensions }) {
   const [hoverData, setHoverData] = useState(false);
-
+  const isDragging = React.useRef(false);
   const svgRef = React.useRef(null);
+
+  const userId = parseInt(window.localStorage.getItem("userId"), 10);
+
   const { width, height, margin } = dimensions;
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
@@ -57,6 +61,16 @@ export default function ClusteredBubbles({ data, dimensions }) {
     // console.log("d3.schemeCategory10[d3.range(m).length]", d3.range(m).length);
     return colorPalette[d3.range(m).length];
     // return d3.schemeCategory10[d3.range(m).length];
+  };
+
+  const stroke = (m) => {
+    if (m.participantsIds.includes(userId)) return "#000";
+
+    // return d3.schemeCategory10[d3.range(m).length];
+  };
+
+  const strokeWidth = (m) => {
+    if (m.participantsIds.includes(userId)) return 3;
   };
 
   const centroid = (nodes) => {
@@ -163,6 +177,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
+      isDragging.current = true;
       // console.warn("baltringue", d.data.city, d.data);
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
@@ -175,6 +190,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
     }
 
     function dragended(event, d) {
+      isDragging.current = false;
       if (!event.active) simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
@@ -208,11 +224,14 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .attr("cy", (d) => d.y)
       //   .attr("fill", (d) => "#FF0000")
       .attr("fill", (d) => color(d.data.workflow))
+      .attr("stroke", (d) => stroke(d.data))
+      .attr("stroke-width", (d) => strokeWidth(d.data))
       .call(drag(simulation))
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("d", d.x, d.y);
-        setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
+        if (!isDragging.current)
+          setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
       .on("mouseleave", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
@@ -333,6 +352,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
           </div>
         </div>
       )}
+      <img src={logoApside} className="apsideIcon" alt="apsideIcon" />
     </div>
   );
 }

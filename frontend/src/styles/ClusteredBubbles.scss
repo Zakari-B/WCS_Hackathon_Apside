@@ -1,6 +1,7 @@
 @import "@styles/Variables.scss";
 
 .hudContainer {
+  user-select: none;
   position: absolute;
   top: 0;
   width: calc(100vw - 80px);
@@ -19,6 +20,13 @@
   filter: brightness(0) invert(1);
 }
 
+.apsideIcon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: clamp(30px, 5vw, 50px);
+}
+
 .bubbleContainer {
   position: relative;
 }
@@ -33,7 +41,9 @@
 }
 
 .popup {
-  animation: popupIn 0.5s ease-in-out both 0.2s;
+  border-radius: 15px;
+  user-select: none;
+  animation: popupIn 0.4s ease-in-out both 0.2s;
   position: absolute;
   width: 200px;
   height: 155px;
@@ -75,6 +85,8 @@
 }
 
 .popup-name {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   width: 100%;
   text-align: center;
   font-weight: bold;
