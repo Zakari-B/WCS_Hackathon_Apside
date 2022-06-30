@@ -10,9 +10,7 @@ import "@styles/App.scss";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Hello</p>
-      </header>
+      <header className="App-header" />
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/" element={<Home />} />
