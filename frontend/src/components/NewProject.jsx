@@ -11,7 +11,7 @@ import ExportContextKeyword from "../contexts/KeywordContext";
 
 function NewProject() {
   const [idea, setIdea] = useState();
-  const [keywords, setKeywords] = useContext(
+  const { keywords, setKeywords } = useContext(
     ExportContextKeyword.KeywordContext
   );
 
@@ -81,7 +81,7 @@ function NewProject() {
                     placeholder="Select 1 to 3 Keywords"
                     onChange={handleKeywords}
                     options={keywordsOptions}
-                    selected={keywords.selected}
+                    selected={keywords?.selected}
                     className="typeahead-input"
                   />
                 )}

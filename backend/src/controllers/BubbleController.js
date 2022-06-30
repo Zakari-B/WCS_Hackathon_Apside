@@ -33,7 +33,8 @@ const addOne = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
-      const [keywordResult] = await bubbleKeywords.addOne(
+      // eslint-disable-next-line no-unused-vars
+      const [keywordResult] = await bubbleKeywords.addMany(
         result.insertId,
         req.body.selected
       );
