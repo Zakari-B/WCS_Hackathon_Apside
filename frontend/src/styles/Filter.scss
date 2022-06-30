@@ -1,0 +1,41 @@
+.filter {
+  margin-left: 75%;
+  width: 25%;
+  height: 100%;
+  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  animation: toto 1s ease-out 1s both;
+  right: -25%;
+  position: absolute;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 200;
+    color: #586994;
+  }
+
+  .searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  input {
+    padding: 0.3rem;
+  }
+}
+
+.go-left {
+  animation: slideIn 1s ease-in 1s forwards;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(-100%);
+  }
+}

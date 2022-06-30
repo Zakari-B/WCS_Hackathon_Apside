@@ -6,6 +6,7 @@ function BubbleProvider({ children }) {
   const [keywords, setKeywords] = useState({});
   const [skills, setSkills] = useState({});
   const [modalCommon, setModalCommon] = useState("");
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [bubble, setBubble] = useState();
 
   return (
@@ -18,6 +19,8 @@ function BubbleProvider({ children }) {
         setSkills,
         modalCommon,
         setModalCommon,
+        isOpenFilter,
+        setIsOpenFilter,
         bubble,
         setBubble,
       }}

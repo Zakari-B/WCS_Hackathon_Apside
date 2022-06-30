@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100vh;
   background-color: $main-color;
-  padding-top: 50px;
+  padding: 20px 0;
   font-family: $font-family-text;
 
   .adminFlexContainer {
@@ -13,8 +13,8 @@
     align-items: center;
     max-width: calc(100% - 250px);
     width: 70%;
-    height: 100vh;
-    margin: auto;
+    height: 85%;
+    margin: calc((100% - 85%) / 2) auto calc((100% - 90%) / 2) 225px;
 
     #adminMenuTitle {
       padding: 10px 0;
@@ -23,16 +23,16 @@
       background-color: #5abdb2;
       width: 100%;
       text-align: center;
-      border-radius: 3px 3px 0 0;
+      border-radius: 1rem;
       margin-bottom: 20px;
     }
 
     .adminSubContainer {
       display: flex;
-      border: 2px solid #f0f0f0;
       border-radius: 3px 3px 0 0;
       width: 100%;
       height: 100%;
+      border-radius: 1rem;
 
       .adminLeft {
         display: flex;
@@ -40,6 +40,7 @@
         width: 50%;
         border: 2px solid #f0f0f0;
         align-items: center;
+        border-radius: 1rem 0 0 1rem;
 
         #userCreationTitle {
           padding: 10px 0;
@@ -48,15 +49,26 @@
           background-color: #b3b3b3;
           width: 100%;
           text-align: center;
+          border-radius: 1rem 0 0 0;
         }
 
         form {
           width: 70%;
+          padding: 20px;
 
           input {
-            text-align: center;
             width: 100%;
+            border: 1px solid #e79759;
+            margin: 0 auto 0.7rem auto;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            display: block;
+            text-align: center;
+            font-size: 1.1rem;
+            color: black;
+            font-weight: 300;
           }
+
           select {
             text-align: center;
             width: 100%;
@@ -89,6 +101,7 @@
         flex-direction: column;
         width: 50%;
         border: 2px solid #f0f0f0;
+        border-radius: 0 1rem 1rem 0;
 
         #adminBoardTitle {
           padding: 10px 0;
@@ -97,6 +110,23 @@
           background-color: #b3b3b3;
           width: 100%;
           text-align: center;
+          border-radius: 0 1rem 0 0;
+        }
+
+        #adminMessages {
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+
+          li {
+            width: 90%;
+            margin: 10px auto;
+            border: 1px solid #e79759;
+            border-radius: 1rem;
+            padding: 10px;
+            color: white;
+            background-color: #e79759;
+          }
         }
       }
     }
