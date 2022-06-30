@@ -7,6 +7,15 @@ const findAll = () => {
   return db.query(`select * from  ${table}`);
 };
 
+const findByBubbleId = (id) => {
+  return db
+    .query(
+      `select s.skill from ${table} AS bns INNER JOIN skill AS s ON s.id = bns.skill_id where bns.bubble_id = ?`,
+      [id]
+    )
+    .then((res) => res[0]);
+};
+
 const addOne = (newData) => {
   return db.query(`insert into ${table} (bubble_id, skill_id) values (?, ?)`, [
     newData.bubble_id,
@@ -21,4 +30,4 @@ const deleteOne = (bid, sid) => {
   ]);
 };
 
-module.exports = { findAll, addOne, deleteOne };
+module.exports = { findAll, addOne, deleteOne, findByBubbleId };
