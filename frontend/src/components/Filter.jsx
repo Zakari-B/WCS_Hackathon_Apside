@@ -12,15 +12,15 @@ function Filter() {
           <div className="flex flex-col items-center">
             <h1 className="pb-10">Filters</h1>
             <div className="searchbar flex flex-col">
-              {/* <input
-                            id="search"
-                            value="test"
-                            type="search"
-                            name="search"
-                            onChange=""
-                            placeholder="Type something: Mojito, Lemon..."
-                            className="filter-input "
-                        /> */}
+              <input
+                id="search"
+                value="test"
+                type="search"
+                name="search"
+                onChange=""
+                placeholder="Type something"
+                className="filter-input "
+              />
               <select>
                 <option>-----</option>
                 <option>Skills</option>
