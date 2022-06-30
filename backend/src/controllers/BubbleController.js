@@ -50,7 +50,8 @@ const addOne = async (req, res) => {
     if (!result) {
       res.sendStatus(404);
     } else {
-      await bubbleKeywords.addMany(result.insertId, req.body.selected);
+      await bubbleKeywords.addMany(result.insertId, req.body.keyword);
+      await bubbleSkills.addMany(result.insertId, req.body.skill);
       res.status(200).json(result.insertId);
       console.warn(result.insertId);
     }

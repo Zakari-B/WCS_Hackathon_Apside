@@ -14,7 +14,8 @@
 
   h1 {
     font-size: 3rem;
-    font-weight: 200;
+    font-weight: 400;
+
     color: #586994;
   }
 
@@ -48,6 +49,7 @@
 
     textarea {
       width: 15rem;
+      height: 12.5rem;
       border: 0.1rem transparent #e79759;
       margin: 0 auto 0.7rem auto;
       border-radius: 1rem;
@@ -63,30 +65,36 @@
         color: black;
       }
     }
+  }
 
-    .submit-button {
-      background-color: #586994;
-      padding: 0.5rem 1rem;
-      color: white;
-      border-radius: 1rem;
-      width: 15rem;
-      cursor: pointer;
-      font-size: 1.1rem;
+  .submit-button {
+    background-color: #586994;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 1rem;
+    width: 20rem;
+    cursor: pointer;
+    font-size: 1.1rem;
 
       &:hover {
         background-color: #e79759;
         color: black;
       }
     }
+  }
 
-    .typeahead-input {
-      width: 15rem;
-      background-color: white;
-      border-radius: 1rem;
-      padding: 0.5rem 1rem;
-      display: block;
-      text-align: center;
-      font-size: 1.1rem;
+  .cancel-button {
+    margin-top: 1rem;
+    background-color: #5abdb2;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 1rem;
+    width: 15rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #e79759;
       color: black;
       font-weight: 300;
 
@@ -109,3 +117,31 @@
     }
   }
 }
+
+.typeahead-input {
+  margin-bottom: 0.7rem;
+  width: 15rem;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+  color: black;
+  font-weight: 300;
+
+  &:focus {
+    border-color: #e79759;
+    color: black;
+  }
+}
+.typeahead-input div {
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.rbt-token {
+  display: flex;
+  flex-direction: row-reverse;
+}
+

@@ -310,6 +310,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("qsdfgh !", d, this);
+
+        console.warn("mouseover", d);
+
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
