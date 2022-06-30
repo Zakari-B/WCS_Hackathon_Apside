@@ -11,6 +11,17 @@
 import React from "react";
 import * as d3 from "d3";
 
+let nodeBackup;
+const colorPalette = [
+  "#183650",
+  // "#FF0000",
+  "#5ABDB2",
+  "#E79759",
+  "#FFFFFF",
+  "#F0F0F0",
+  "#586994",
+];
+
 export default function ClusteredBubbles({ data, dimensions }) {
   const svgRef = React.useRef(null);
   const { width, height, margin } = dimensions;
@@ -19,11 +30,13 @@ export default function ClusteredBubbles({ data, dimensions }) {
   console.warn("data", data);
 
   const color = (m) => {
-    return d3.schemeCategory10[d3.range(m).length];
+    // console.log("d3.schemeCategory10[d3.range(m).length]", d3.range(m).length);
+    return colorPalette[d3.range(m).length];
+    // return d3.schemeCategory10[d3.range(m).length];
   };
 
   const centroid = (nodes) => {
-    // if (nodes[0].data.group === 2) console.log("nodes", nodes);
+    // if (nodes[0].data.group === -1) console.log("nodes", nodes);
     let x = 0;
     let y = 0;
     let z = 0;
@@ -33,8 +46,10 @@ export default function ClusteredBubbles({ data, dimensions }) {
       y += d.y * k;
       z += k;
     }
-    // if (nodes[0].data.group === 2)
-    // console.log("boloss", { x: x / z, y: y / z });
+    // if (nodes[0].data.group === -1) {
+    //   console.log("boloss", { x: x / z, y: y / z });
+    //   return { x: 585, y: 660 };
+    // }
 
     return { x: x / z, y: y / z };
   };
@@ -48,8 +63,17 @@ export default function ClusteredBubbles({ data, dimensions }) {
       const l = alpha * strength;
       for (const d of nodes) {
         const { x: cx, y: cy } = centroids.get(d.data.group);
-        d.vx -= (d.x - cx) * l;
-        d.vy -= (d.y - cy) * l;
+
+        let mul = 1;
+        if (d.data.group === -1) {
+          mul = 0;
+          d.x = d.data.x;
+          d.y = d.data.y;
+        }
+        // if (d.data.group === -1) console.log(d);
+
+        d.vx -= (d.x - cx) * l * mul;
+        d.vy -= (d.y - cy) * l * mul;
       }
     }
 
@@ -115,7 +139,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
-      console.warn("baltringue", d.data.city, d.data);
+      // console.warn("baltringue", d.data.city, d.data);
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -140,7 +164,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   React.useEffect(() => {
-    const nodes = pack().leaves();
+    let nodes = pack().leaves();
 
     const simulation = d3
       .forceSimulation(nodes)
@@ -160,7 +184,70 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .attr("cy", (d) => d.y)
       //   .attr("fill", (d) => "#FF0000")
       .attr("fill", (d) => color(d.data.workflow))
-      .call(drag(simulation));
+      .call(drag(simulation))
+      .on("mouseover", function (d) {
+        // d3.select(this).attr("fill", "rgb(0,255,0)");
+        // console.log("baltringue !", d, this);
+      })
+      .on("click", function (d) {
+        // d3.select(this).attr("value", 100);
+
+        if (nodeBackup) {
+          // console.log("nodeBackup");
+          nodes = nodeBackup;
+          // simulation;
+          d3.forceSimulation(nodes)
+            .force("x", d3.forceX(width / 2).strength(0.1))
+            .force("y", d3.forceY(height / 2).strength(0.1))
+            .force("cluster", forceCluster())
+            .force("collide", forceCollide());
+          // .forceCenter([width / 2, height / 2]);
+          // simulation.alpha(0.5).alphaTarget(0.3).restart();
+          nodeBackup = undefined;
+
+          nodeBackup = nodes;
+
+          nodes.map((node) => {
+            if (node.data.group === -1) {
+              if (node.value < 1) {
+                node.value = 300;
+                node.r = 300;
+              } else {
+                node.value = 0.1;
+                node.r = 0.1;
+              }
+            } else return node;
+          });
+
+          nodes = nodeBackup;
+          // simulation;
+          d3.forceSimulation(nodes)
+            .force("x", d3.forceX(width / 2).strength(0.1))
+            .force("y", d3.forceY(height / 2).strength(0.1))
+            .force("cluster", forceCluster())
+            .force("collide", forceCollide());
+          // .forceCenter([width / 2, height / 2]);
+          // simulation.alpha(0.5).alphaTarget(0.3).restart();
+          nodeBackup = undefined;
+
+          // svg.call(drag(simulation));
+        } else {
+          nodeBackup = nodes;
+
+          nodes.map((node) => {
+            if (node.data.group === -1) {
+              if (node.value < 1) {
+                node.value = 300;
+                node.r = 300;
+              } else {
+                node.value = 0.1;
+                node.r = 0.1;
+              }
+            } else return node;
+          });
+          // console.log("tocard !", nodes);
+        }
+      }); // .on("mouseover", () => console.log("baltringue !"));
 
     node
       .transition()

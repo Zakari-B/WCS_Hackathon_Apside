@@ -103,6 +103,16 @@ export default function Home() {
       };
     });
 
+    newData.push({
+      x: width / 2,
+      y: height / 2,
+      group: -1,
+      workflow: 0,
+      value: 0.1,
+      city: "nowhere",
+      country: "nowhere",
+    });
+
     // console.warn("newData", newData);
 
     const d3data = dataToD3Data(newData);
