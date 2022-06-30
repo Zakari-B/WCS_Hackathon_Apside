@@ -1,7 +1,7 @@
 import "@styles/Navbar.scss";
 import React, { useState } from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [fadeAnimated, setFadeAnimated] = useState(false);
@@ -10,6 +10,10 @@ export default function Home() {
     setFadeAnimated(!fadeAnimated);
   };
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/logout");
+  };
   return (
     <nav className="navbar">
       <div className="box-circle">
@@ -35,7 +39,7 @@ export default function Home() {
             >
               <div
                 className={`dots out-dot-1 ${
-                  fadeAnimated ? "out-dot-1-animated" : "out-dot-1-animated-out"
+                  fadeAnimated ? "out-dot-1-animated" : "animated-out"
                 }`}
               >
                 <div className="inner-dot" />
@@ -43,7 +47,7 @@ export default function Home() {
 
               <li
                 className={`box-sidenav sidenav-1 ${
-                  fadeAnimated ? "sidenav-1-animated" : "sidenav-1-animated-out"
+                  fadeAnimated ? "sidenav-1-animated" : "animated-out"
                 }`}
               >
                 <NavLink to="/" className="nav-link link-1">
@@ -52,14 +56,14 @@ export default function Home() {
               </li>
               <div
                 className={`dots out-dot-2 ${
-                  fadeAnimated ? "out-dot-2-animated" : "out-dot-2-animated-out"
+                  fadeAnimated ? "out-dot-2-animated" : "animated-out"
                 }`}
               >
                 <div className="inner-dot" />
               </div>
               <li
                 className={`box-sidenav sidenav-2 ${
-                  fadeAnimated ? "sidenav-2-animated" : "sidenav-2-animated-out"
+                  fadeAnimated ? "sidenav-2-animated" : "animated-out"
                 }`}
               >
                 <NavLink to="/Home" className="nav-link link-2">
@@ -68,14 +72,14 @@ export default function Home() {
               </li>
               <div
                 className={`dots out-dot-3 ${
-                  fadeAnimated ? "out-dot-3-animated" : "out-dot-3-animated-out"
+                  fadeAnimated ? "out-dot-3-animated" : "animated-out"
                 }`}
               >
                 <div className="inner-dot" />
               </div>
               <li
                 className={`box-sidenav sidenav-3 ${
-                  fadeAnimated ? "sidenav-3-animated" : "sidenav-3-animated-out"
+                  fadeAnimated ? "sidenav-3-animated" : "animated-out"
                 }`}
               >
                 <NavLink to="/Home" className="nav-link link-3">
@@ -84,14 +88,14 @@ export default function Home() {
               </li>
               <div
                 className={`dots out-dot-4 ${
-                  fadeAnimated ? "out-dot-4-animated" : "out-dot-4-animated-out"
+                  fadeAnimated ? "out-dot-4-animated" : "animated-out"
                 }`}
               >
                 <div className="inner-dot" />
               </div>
               <li
                 className={`box-sidenav sidenav-4 ${
-                  fadeAnimated ? "sidenav-4-animated" : "sidenav-4-animated-out"
+                  fadeAnimated ? "sidenav-4-animated" : "animated-out"
                 }`}
               >
                 <NavLink to="/Home" className="nav-link link-4">
@@ -100,19 +104,23 @@ export default function Home() {
               </li>
               <div
                 className={`dots out-dot-5 ${
-                  fadeAnimated ? "out-dot-5-animated" : "out-dot-5-animated-out"
+                  fadeAnimated ? "out-dot-5-animated" : "animated-out"
                 }`}
               >
                 <div className="inner-dot" />
               </div>
               <li
                 className={`box-sidenav sidenav-5 ${
-                  fadeAnimated ? "sidenav-5-animated" : "sidenav-5-animated-out"
+                  fadeAnimated ? "sidenav-5-animated" : "animated-out"
                 }`}
               >
-                <NavLink to="/Home" className="nav-link link-5">
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="nav-link link-5"
+                >
                   <div className="nav-item item-5" />
-                </NavLink>
+                </button>
               </li>
             </div>
           </div>

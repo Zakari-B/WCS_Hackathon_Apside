@@ -10,6 +10,7 @@ const login = async (req, res) => {
   };
   try {
     const userData = await user.login(req.body);
+
     if (!userData.code) {
       res
         .status(200)
@@ -19,6 +20,8 @@ const login = async (req, res) => {
         })
         .json({
           message: "Connexion réussie",
+          id: userData["0"].id,
+          agency_id: userData["0"].agency_id,
         });
     } else {
       res.status(userData.code).json({ message: userData.message });

@@ -7,6 +7,25 @@ const findAll = () => {
   return db.query(`select * from  ${table}`);
 };
 
+const findByBubbleId = (id) => {
+  return db
+    .query(
+      `select k.keyword from ${table} AS bhk INNER JOIN keyword AS k ON k.id = bhk.keyword_id where bhk.bubble_id = ?`,
+      [id]
+    )
+    .then((res) => res[0]);
+};
+
+const addMany = (bubbleId, selectedKeywords) => {
+  const keywordsId = selectedKeywords.map((e) => e.id);
+  keywordsId.map(async (id) => {
+    await db.query(
+      `insert into ${table} (bubble_id, keyword_id) values (?, ?)`,
+      [bubbleId, id]
+    );
+  });
+};
+
 const addOne = (newData) => {
   return db.query(
     `insert into ${table} (bubble_id, keyword_id) values (?, ?)`,
@@ -21,4 +40,4 @@ const deleteOne = (bid, kid) => {
   );
 };
 
-module.exports = { findAll, addOne, deleteOne };
+module.exports = { findAll, addOne, deleteOne, addMany, findByBubbleId };

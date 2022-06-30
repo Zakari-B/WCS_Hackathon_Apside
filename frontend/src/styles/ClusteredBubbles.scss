@@ -1,0 +1,128 @@
+@import "@styles/Variables.scss";
+
+.hudContainer {
+  user-select: none;
+  position: absolute;
+  top: 0;
+  width: calc(100vw - 80px);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+.filterIcon {
+  margin: 0 20px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.apsideIcon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: clamp(30px, 5vw, 50px);
+}
+
+.bubbleContainer {
+  position: relative;
+}
+
+@keyframes popupIn {
+  0% {
+    filter: opacity(0);
+  }
+  100% {
+    filter: opacity(1);
+  }
+}
+
+.popup {
+  border-radius: 15px;
+  user-select: none;
+  animation: popupIn 0.4s ease-in-out both 0.2s;
+  position: absolute;
+  width: 200px;
+  height: 155px;
+  background-color: #4881b3;
+  //   filter: brightness(3);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  //   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > span {
+    display: block;
+  }
+
+  & > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.popup-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  & > span {
+    display: block;
+  }
+
+  & > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.popup-name {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  background-color: #285f8f;
+  padding: 2px;
+  font-size: 110%;
+}
+.popup-description {
+}
+.popup-city {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.popup-likes-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.popup-likes {
+  display: block;
+  position: relative;
+}
+.popup-likes-heart {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  //   background-color: red;
+  content: "";
+  background-image: url("../assets/pouce.png");
+  background-size: contain;
+}
+.popup-nb_participants {
+}
+.popup-workflow {
+}
+.popup-create_time {
+  font-size: 80%;
+}

@@ -32,58 +32,62 @@
     transform: translateY(200%);
     transition: 1.5s;
   }
-}
 
-form {
-  padding: 1.3rem 0;
-  z-index: 2;
+  form {
+    padding: 1.3rem 0;
+    z-index: 2;
 
-  input {
-    width: 15rem;
-    border: 0.1rem solid #e79759;
-    border-radius: 1rem;
-    padding: 0.5rem 1rem;
-    margin: 0 auto 0.7rem auto;
-    display: block;
-    text-align: center;
-    font-size: 1.1rem;
-    color: black;
-    font-weight: 300;
-
-    &:focus {
-      border-color: #e79759;
+    input {
+      width: 15rem;
+      border: 0.1rem solid #e79759;
+      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      margin: 0 auto 0.7rem auto;
+      display: block;
+      text-align: center;
+      font-size: 1.1rem;
       color: black;
+      font-weight: 300;
+
+      &:focus {
+        border-color: #e79759;
+        color: black;
+      }
     }
-  }
 
-  button {
-    background-color: #e79759;
-    padding: 0.5rem 1rem;
-    color: white;
-    border-radius: 1rem;
-    width: 15rem;
-    cursor: pointer;
-    font-size: 1.1rem;
+    #rememberCheckbox {
+      display: flex;
+      justify-content: center;
+      width: 240px;
+      height: 100%;
+      margin: 0 auto 10px auto;
+      color: white;
+      align-items: center;
+      input {
+        margin: 0;
+        width: 25px;
+        height: 25px;
+      }
+      p {
+        text-align: left;
+        width: 75%;
+        margin: 1px 0 0 15px;
+      }
+    }
 
-    &:hover {
+    button {
       background-color: #e79759;
-      color: black;
-    }
+      padding: 0.5rem 1rem;
+      color: white;
+      border-radius: 1rem;
+      width: 15rem;
+      cursor: pointer;
+      font-size: 1.1rem;
 
-    // &:active .login-first-part{
-    // 	transform: translateY(-100%);
-    // }
+      &:hover {
+        background-color: #e79759;
+        color: black;
+      }
+    }
   }
 }
-
-// @keyframes slideUp{
-// 	0%{transform: translateY(0);
-// 	}
-// 	100%{transform: translateY(-100%);}
-//   }
-
-//   @keyframes slideDown{
-// 	0%{transform: translateY(100%);
-// 	}
-// 	100%{transform: translateY(0);}
-//   }
