@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import "@styles/Home.scss";
 import ClusteredBubbles from "@components/ClusteredBubbles";
+import InfoModal from "@components/InfoModal";
 import backendAPI from "../services/backendAPI";
 
 const { innerWidth: width, innerHeight: height } = window;
@@ -13,23 +14,23 @@ const dimensions = {
   margin: { top: 0, right: 0, bottom: 0, left: 0 },
 };
 
-// const n = 75; // number of nodes
-// const m = 8; // number of groups
-// const data2 = {
-//   children: Array.from(
-//     d3.group(
-//       // eslint-disable-next-line no-unused-vars
-//       Array.from({ length: n }, (_, i) => ({
-//         // eslint-disable-next-line no-bitwise
-//         group: (Math.random() * m) | 0,
-//         value: -Math.log(Math.random()),
-//       })),
-//       (d) => d.group
-//     ),
-//     ([, children]) => ({ children })
-//   ),
-// };
-// console.log("******************* data2", data2);
+const n = 75; // number of nodes
+const m = 8; // number of groups
+const data2 = {
+  children: Array.from(
+    d3.group(
+      // eslint-disable-next-line no-unused-vars
+      Array.from({ length: n }, (_, i) => ({
+        // eslint-disable-next-line no-bitwise
+        group: (Math.random() * m) | 0,
+        value: -Math.log(Math.random()),
+      })),
+      (d) => d.group
+    ),
+    ([, children]) => ({ children })
+  ),
+};
+console.warn("******************* data2", data2);
 
 export default function Home() {
   const [data, setData] = useState(false);
@@ -139,8 +140,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
-    </div>
+    <>
+      <InfoModal />
+      <ClusteredBubbles data={data} dimensions={dimensions} />
+    </>
   );
 }

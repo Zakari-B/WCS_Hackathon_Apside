@@ -1,9 +1,13 @@
 import "@styles/Navbar.scss";
 import React from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/logout");
+  };
   return (
     <nav className="navbar">
       <div className="box-circle">
@@ -47,9 +51,9 @@ export default function Home() {
               <div className="inner-dot" />
             </div>
             <li className="box-sidenav sidenav-5">
-              <NavLink to="/Home" className="nav-link">
+              <button type="button" onClick={handleLogout} className="nav-link">
                 <div className="nav-item item-5" />
-              </NavLink>
+              </button>
             </li>
           </div>
         </div>
