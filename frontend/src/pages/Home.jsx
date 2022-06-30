@@ -38,11 +38,14 @@ const dimensions = {
 
 export default function Home() {
   const [data, setData] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [forceBigBubble, setForceBigBubble] = useState(false);
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
   const { modalCommon, setModalCommon, keywords } = useContext(
     ExportContext.BubbleContext
   );
+  // eslint-disable-next-line no-unused-vars
   const reloadBigBubble = useRef(false);
 
   const dataToD3Data = (newData) => {
@@ -74,8 +77,9 @@ export default function Home() {
     };
   };
 
+  // eslint-disable-next-line consistent-return
   const getDataFromBack = async (doReturn = false) => {
-    console.log("getDataFromBack");
+    console.warn("getDataFromBack");
 
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const users = (await backendAPI.get("/api/users")).data;
@@ -161,7 +165,7 @@ export default function Home() {
   };
 
   const filterDatas = async (keywordsParam) => {
-    console.log("filterDatas", keywordsParam);
+    console.warn("filterDatas", keywordsParam);
 
     let datas = await getDataFromBack(true);
     if (modalCommon)
@@ -190,7 +194,7 @@ export default function Home() {
 
     const d3data = dataToD3Data(datas);
 
-    console.log("d3data", d3data);
+    console.warn("d3data", d3data);
 
     setData(d3data);
 
@@ -214,7 +218,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect keywords", keywords);
+    console.warn("useEffect keywords", keywords);
 
     if (!modalCommon) getDataFromBack();
     else filterDatas(keywords);
