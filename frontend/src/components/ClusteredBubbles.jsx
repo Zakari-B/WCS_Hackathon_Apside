@@ -17,6 +17,7 @@ import React, { useState, useContext, useEffect } from "react";
 import * as d3 from "d3";
 import filterImg from "@assets/svg/filter.svg";
 import logoApside from "@assets/logo/apside.png";
+import logoApsidea from "@assets/logo/logo-transparent-light.png";
 import "@styles/ClusteredBubbles.scss";
 import ExportContext from "../contexts/BubbleContext";
 
@@ -417,7 +418,14 @@ export default function ClusteredBubbles({ data, dimensions }) {
           </div>
         </div>
       )}
-      <img src={logoApside} className="apsideIcon" alt="apsideIcon" />
+      <div className="absolute bottom-5 right-5">
+        <div className="flex items-center">
+          <p className="text-white text-3xl font-bold">APS</p>
+          <p className="text-orange text-3xl font-bold mr-3">IDEA</p>
+          <p className="text-white text-3xl font-bold mr-2">BY</p>
+          <img src={logoApside} className="max-h-9" alt="apsideIcon" />
+        </div>
+      </div>
     </div>
   );
 }
