@@ -76,45 +76,44 @@
     cursor: pointer;
     font-size: 1.1rem;
 
-      &:hover {
-        background-color: #e79759;
-        color: black;
-      }
-    }
-  }
-
-  .cancel-button {
-    margin-top: 1rem;
-    background-color: #5abdb2;
-    padding: 0.5rem 1rem;
-    color: white;
-    border-radius: 1rem;
-    width: 15rem;
-    cursor: pointer;
-    font-size: 1.1rem;
-
     &:hover {
       background-color: #e79759;
       color: black;
-      font-weight: 300;
+    }
+  }
+}
 
-      &:focus {
-        border-color: #e79759;
-        color: black;
-      }
+.cancel-button {
+  margin-top: 1rem;
+  background-color: #5abdb2;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 1rem;
+  width: 15rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+
+  &:hover {
+    background-color: #e79759;
+    color: black;
+    font-weight: 300;
+
+    &:focus {
+      border-color: #e79759;
+      color: black;
     }
-    .typeahead-input div {
-      border: none;
-      display: flex;
-      flex-wrap: wrap;
-    }
-    .typeahead-input span {
-      display: none;
-    }
-    .rbt-token {
-      display: flex;
-      flex-direction: row-reverse;
-    }
+  }
+  .typeahead-input div {
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .typeahead-input span {
+    display: none;
+  }
+  .rbt-token {
+    display: flex;
+    flex-direction: row-reverse;
   }
 }
 
@@ -144,4 +143,3 @@
   display: flex;
   flex-direction: row-reverse;
 }
-
