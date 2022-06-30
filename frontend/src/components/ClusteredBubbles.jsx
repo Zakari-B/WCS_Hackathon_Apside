@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable func-names */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-underscore-dangle */
+
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-sequences */
 /* eslint-disable no-shadow */
@@ -85,7 +87,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
       z += k;
     }
     // if (nodes[0].data.group === -1) {
-    //   console.log("boloss", { x: x / z, y: y / z });
+    //   console.log("wxcvbn", { x: x / z, y: y / z });
     //   return { x: 585, y: 660 };
     // }
 
@@ -227,8 +229,10 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .attr("stroke", (d) => stroke(d.data))
       .attr("stroke-width", (d) => strokeWidth(d.data))
       .call(drag(simulation))
+      // eslint-disable-next-line func-names
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
+        // console.log("qsdfgh !", d, this);
         // console.log("d", d.x, d.y);
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
@@ -238,6 +242,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
         // console.log("d.target.__data__.data", d.target.__data__.data);
         setHoverData(false);
       })
+      // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
 
@@ -256,7 +261,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
 
           nodeBackup = nodes;
 
-          // eslint-disable-next-line consistent-return
+          // eslint-disable-next-line
           nodes.map((node) => {
             if (node.data.group === -1) {
               if (node.value < 1) {
@@ -284,7 +289,7 @@ export default function ClusteredBubbles({ data, dimensions }) {
         } else {
           nodeBackup = nodes;
 
-          // eslint-disable-next-line consistent-return
+          // eslint-disable-next-line
           nodes.map((node) => {
             if (node.data.group === -1) {
               if (node.value < 1) {
@@ -296,9 +301,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
               }
             } else return node;
           });
-          // console.log("tocard !", nodes);
+          // console.log("abcdef !", nodes);
         }
-      }); // .on("mouseover", () => console.log("baltringue !"));
+      }); // .on("mouseover", () => console.log("qsdfgh !"));
 
     node
       .transition()
