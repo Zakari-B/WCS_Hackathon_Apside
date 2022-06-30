@@ -35,7 +35,7 @@ function NewProject() {
 
   const handleClose = (e) => {
     e.preventDefault();
-    console.log("closing modal newProject");
+    console.warn("closing modal newProject");
     setKeywords({});
     setModalCommon("");
   };

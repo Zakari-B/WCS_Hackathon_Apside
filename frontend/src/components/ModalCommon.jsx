@@ -6,7 +6,6 @@ import Profil from "./Profil";
 import ViewBubble from "./ViewBubble";
 import UserProfile from "./UserProfile";
 
-
 function ModalCommon({ type, dimensions }) {
   const modalSize = Math.min(dimensions.height, dimensions.width) / 1.1;
 

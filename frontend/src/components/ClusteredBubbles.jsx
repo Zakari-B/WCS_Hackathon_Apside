@@ -363,7 +363,7 @@ export default function ClusteredBubbles({
   }, [data]); // Redraw chart if data changes
 
   useEffect(() => {
-    console.log("useEffect modalCommon");
+    console.warn("useEffect modalCommon");
     if (firstLoadingDone.current) {
       if (modalCommon) pushBubbles();
       else shrinkBubbles();
