@@ -317,7 +317,6 @@ export default function ClusteredBubbles({ data, dimensions }) {
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
-
         // if (nodeBackup) {
         //   shrinkBubbles();
         // } else {
