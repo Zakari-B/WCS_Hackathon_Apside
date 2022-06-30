@@ -1,0 +1,95 @@
+#newproject {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: #183650;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+  h1 {
+    font-size: 3rem;
+    font-weight: 200;
+    color: #e79759;
+  }
+
+  h2 {
+    font-size: 1,5rem;
+    font-weight: 200;
+    color: #e79759;
+  }
+
+form {
+  padding: 1.3rem 0;
+  z-index: 2;
+
+  input, textarea {
+    width: 15rem;
+    border: 0.1rem solid #e79759;
+    margin: 0 auto 0.7rem auto;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 300;
+
+    &:focus {
+      border-color: #e79759;
+      color: black;
+    }
+  }
+
+  .submit-button {
+    background-color: #e79759;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 1rem;
+    width: 15rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+
+    &:hover {
+      background-color: #e79759;
+      color: black;
+    }
+
+
+  }
+
+  .typeahead-input {
+    width: 15rem;
+    background-color: white;
+    border: 0.1rem solid #e79759;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 300;
+
+    &:focus {
+      border-color: #e79759;
+      color: black;
+    }
+  }
+  .typeahead-input div {
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .typeahead-input span {
+    display: none;
+  }
+  .rbt-token {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+

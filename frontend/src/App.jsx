@@ -6,12 +6,14 @@ import Admin from "@pages/Admin";
 import Login from "@pages/Login";
 import ClusteredBubbles from "./components/ClusteredBubbles";
 import "@styles/App.scss";
+import NewProject from "./components/NewProject";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <p>Hello</p>
+        <NewProject />
       </header>
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}

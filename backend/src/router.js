@@ -33,7 +33,7 @@ router.delete("/agency/:id", AgencyController.deleteOne);
 
 router.get("/bubble", BubbleController.findAll);
 router.get("/bubble/:id", BubbleController.find);
-router.post("/bubble", BubbleController.addOne);
+router.post("/bubble", authorization, BubbleController.addOne);
 router.put("/bubble/:id", BubbleController.modify);
 router.delete("/bubble/:id", BubbleController.deleteOne);
 

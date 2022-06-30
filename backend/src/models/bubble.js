@@ -11,11 +11,12 @@ const find = (id) => {
   return db.query(`select * from  ${table} where id = ?`, [id]);
 };
 
-const addOne = (newData) => {
+const addOne = (newData, userId) => {
+  const creator = userId;
   return db.query(
-    `insert into ${table} (creator, name, description, create_time, deadline, gitlab_link, trello_link, workforce, likes,workflow_id ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `insert into ${table} (creator, name, description, create_time, deadline, gitlab_link, trello_link, workforce, likes, workflow_id ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
-      newData.creator,
+      creator,
       newData.name,
       newData.description,
       newData.create_time,
@@ -23,8 +24,8 @@ const addOne = (newData) => {
       newData.gitlab_link,
       newData.trello_link,
       newData.workforce,
-      newData.likes,
-      newData.workflow_id,
+      1,
+      1,
     ]
   );
 };
