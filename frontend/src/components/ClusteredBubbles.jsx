@@ -265,9 +265,8 @@ export default function ClusteredBubbles({
   };
 
   const pushBubbles = () => {
-
     console.warn("pushBubbles()");
-    
+
     nodeBackup = nodesGlobal.current;
 
     // eslint-disable-next-line
@@ -436,12 +435,17 @@ export default function ClusteredBubbles({
           </div>
         </div>
       )}
-      <div className="absolute bottom-5 right-5">
+      <div className="absolute bottom-5 right-5 apsideIconContainer">
         <div className="flex items-center">
           <p className="text-white text-3xl font-bold">APS</p>
           <p className="text-orange text-3xl font-bold mr-3">IDEA</p>
           <p className="text-white text-3xl font-bold mr-2">BY</p>
-          <img src={logoApside} className="max-h-9" alt="apsideIcon" />
+          <img
+            src={logoApside}
+            className="max-h-9"
+            alt="apsideIcon"
+            draggable={false}
+          />
         </div>
       </div>
     </div>

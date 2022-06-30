@@ -20,7 +20,12 @@
   filter: brightness(0) invert(1);
 }
 
+.apsideIconContainer {
+  user-select: none;
+}
+
 .apsideIcon {
+  user-select: none;
   position: absolute;
   bottom: 20px;
   right: 20px;
