@@ -3,6 +3,8 @@ import "@styles/ModalCommon.scss";
 import ExportContext from "../contexts/BubbleContext";
 
 import NewProject from "./NewProject";
+import Filter from "./Filter";
+import Profil from "./Profil";
 
 function ModalCommon({ type, dimensions }) {
   const { setModalCommon } = useContext(ExportContext.BubbleContext);
@@ -28,6 +30,8 @@ function ModalCommon({ type, dimensions }) {
         </button>
       </div>
       {type === "new" && <NewProject />}
+      {type === "filter" && <Filter />}
+      {type === "profil" && <Profil />}
     </div>
   );
 }

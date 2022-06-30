@@ -1,0 +1,38 @@
+#filter {
+  border-radius: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 200;
+    color: #586994;
+  }
+
+  .searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+
+  input {
+    padding: 0.3rem;
+  }
+
+  // .searchbar::after {
+  //     position: absolute;
+  //     width: 20px;
+  //     height: 20px;
+  //     content: url('https://www.svgrepo.com/show/14071/search.svg');
+  //     display: inline-block;
+  // }
+}

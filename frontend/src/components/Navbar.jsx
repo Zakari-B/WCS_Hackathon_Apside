@@ -93,7 +93,13 @@ export default function NavBar() {
                   fadeAnimated ? "sidenav-3-animated" : "animated-out"
                 }`}
               >
-                <button type="button" className="nav-link link-3">
+                <button
+                  type="button"
+                  className="nav-link link-3"
+                  onClick={() => {
+                    displayModal("profil");
+                  }}
+                >
                   <div className="nav-item item-3" />
                 </button>
               </li>
