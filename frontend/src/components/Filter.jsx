@@ -5,8 +5,8 @@ function Filter() {
   return (
     <section id="filter">
       <div className="flex flex-col items-center">
-        <h1>Filters</h1>
-        <div className="searchbar">
+        <h1 className="pb-10">Filters</h1>
+        <div className="searchbar flex ">
           <input
             id="search"
             value="test"
@@ -15,6 +15,17 @@ function Filter() {
             placeholder="Type something: Mojito, Lemon..."
             className="filter-input"
           />
+          <select>
+            <option>-----</option>
+            <option>Skills</option>
+          </select>
+          <select>
+            <option>-----</option>
+            <option>Skills</option>
+          </select>
+          <button type="button" className="py-2 px-4 bg-orange">
+            Search
+          </button>
         </div>
       </div>
     </section>
