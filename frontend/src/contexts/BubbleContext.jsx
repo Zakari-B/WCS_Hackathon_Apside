@@ -3,7 +3,8 @@ import { createContext, useState } from "react";
 const BubbleContext = createContext();
 
 function BubbleProvider({ children }) {
-  const [keywords, setKeywords] = useState();
+  const [keywords, setKeywords] = useState([{ id: 1, label: "init" }]);
+  const [skills, setSkills] = useState([{ id: 1, label: "init" }]);
   const [modalCommon, setModalCommon] = useState();
 
   return (
@@ -12,6 +13,8 @@ function BubbleProvider({ children }) {
       value={{
         keywords,
         setKeywords,
+        skills,
+        setSkills,
         modalCommon,
         setModalCommon,
       }}

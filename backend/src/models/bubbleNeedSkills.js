@@ -16,6 +16,16 @@ const findByBubbleId = (id) => {
     .then((res) => res[0]);
 };
 
+const addMany = (bubbleId, selectedSkills) => {
+  const skillsId = selectedSkills.map((e) => e.id);
+  skillsId.map(async (id) => {
+    await db.query(`insert into ${table} (bubble_id, skill_id) values (?, ?)`, [
+      bubbleId,
+      id,
+    ]);
+  });
+};
+
 const addOne = (newData) => {
   return db.query(`insert into ${table} (bubble_id, skill_id) values (?, ?)`, [
     newData.bubble_id,
@@ -30,4 +40,4 @@ const deleteOne = (bid, sid) => {
   ]);
 };
 
-module.exports = { findAll, addOne, deleteOne, findByBubbleId };
+module.exports = { findAll, addOne, deleteOne, findByBubbleId, addMany };
