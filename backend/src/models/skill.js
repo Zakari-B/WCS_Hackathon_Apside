@@ -4,7 +4,7 @@ const db = connection.promise();
 const table = "skill";
 
 const findAll = () => {
-  return db.query(`select * from  ${table}`);
+  return db.query(`select id, skill as label from ${table}`);
 };
 
 const find = (id) => {

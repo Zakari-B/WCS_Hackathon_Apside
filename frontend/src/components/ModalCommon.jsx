@@ -4,6 +4,8 @@ import ExportContext from "../contexts/BubbleContext";
 
 import NewProject from "./NewProject";
 import Profil from "./Profil";
+import ViewBubble from "./ViewBubble";
+
 
 function ModalCommon({ type, dimensions }) {
   const { setModalCommon } = useContext(ExportContext.BubbleContext);
@@ -30,6 +32,7 @@ function ModalCommon({ type, dimensions }) {
       </div>
       {type === "new" && <NewProject />}
       {type === "profil" && <Profil />}
+      {type === "bubble" && <ViewBubble />}
     </div>
   );
 }

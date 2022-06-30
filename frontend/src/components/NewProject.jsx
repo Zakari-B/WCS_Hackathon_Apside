@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { ToastContainer } from "react-toastify";
 import { notifySuccess, notifyError } from "../services/toastify";
@@ -11,27 +10,31 @@ import "../styles/NewProject.scss";
 import ExportContext from "../contexts/BubbleContext";
 
 function NewProject() {
-  const navigate = useNavigate();
   const [idea, setIdea] = useState();
-  const { keywords, setKeywords } = useContext(ExportContext.BubbleContext);
+  const { keywords, setKeywords, setModalCommon, skills, setSkills } =
+    useContext(ExportContext.BubbleContext);
 
   const [keywordsOptions, setKeywordsOptions] = useState([
+    { id: 1, label: "Init" },
+  ]);
+
+  const [skillsOptions, setSkillsOptions] = useState([
     { id: 1, label: "John" },
-    { id: 2, label: "Miles" },
-    { id: 3, label: "Charles" },
-    { id: 4, label: "Herbie" },
   ]);
 
   useEffect(() => {
     backendAPI.get("/api/keyword").then((result) => {
       setKeywordsOptions(result.data);
     });
+    backendAPI.get("/api/skill").then((result) => {
+      setSkillsOptions(result.data);
+    });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     backendAPI
-      .post("/api/bubble", { ...idea, ...keywords })
+      .post("/api/bubble", { ...idea, ...keywords, ...skills })
       .then(() => {
         notifySuccess("Bubble blown !");
       })
@@ -39,8 +42,11 @@ function NewProject() {
         notifyError("The bubble popped :(");
       });
   };
-  const handleKeywords = (selected) => {
-    setKeywords({ selected });
+  const handleKeywords = (keyword) => {
+    setKeywords({ keyword });
+  };
+  const handleSkills = (skill) => {
+    setSkills({ skill });
   };
 
   const handleChange = (e) => {
@@ -54,17 +60,30 @@ function NewProject() {
     <section id="newproject">
       <div className="flex flex-col items-center">
         <h1>New Bubble ?</h1>
+
         <div>
-          <form className="form" onSubmit={handleSubmit}>
+          <form
+            className="form flex flex-col items-center"
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="text"
+              placeholder="Name your idea *"
+              onChange={handleChange}
+              autoComplete="off"
+              name="name"
+              required
+            />
             <div className="flex">
               <div className="flex flex-col items-center mr-4">
-                <input
-                  type="text"
-                  placeholder="Name your idea *"
-                  onChange={handleChange}
-                  autoComplete="off"
-                  name="name"
-                  required
+                <Typeahead
+                  id="selectKeywords"
+                  multiple
+                  placeholder="Keywords"
+                  onChange={handleKeywords}
+                  options={keywordsOptions}
+                  selected={keywords?.keywords}
+                  className="typeahead-input"
                 />
                 <textarea
                   type="text"
@@ -74,21 +93,23 @@ function NewProject() {
                   name="description"
                   required
                 />
-                {Typeahead && (
-                  <Typeahead
-                    id="selectKeywords"
-                    multiple
-                    placeholder="Select 1 to 3 Keywords"
-                    onChange={handleKeywords}
-                    options={keywordsOptions}
-                    selected={keywords?.selected}
-                    className="typeahead-input"
-                  />
-                )}
               </div>
               <div className="flex flex-col items-center">
+                <Typeahead
+                  id="selectSkills"
+                  multiple
+                  placeholder="Skills needed"
+                  onChange={handleSkills}
+                  options={skillsOptions}
+                  selected={skills?.skills}
+                  className="typeahead-input"
+                />
                 <input
-                  type="date"
+                  type="text"
+                  // eslint-disable-next-line no-return-assign
+                  onFocus={(e) => (e.target.type = "date")}
+                  // eslint-disable-next-line no-return-assign
+                  onBlur={(e) => (e.target.type = "text")}
                   placeholder="Deadline"
                   onChange={handleChange}
                   autoComplete="off"
@@ -110,7 +131,7 @@ function NewProject() {
                 />
                 <input
                   type="number"
-                  placeholder="Apsidien.nes needed"
+                  placeholder="People needed (num)"
                   onChange={handleChange}
                   autoComplete="off"
                   name="workforce"
@@ -123,7 +144,7 @@ function NewProject() {
             <button
               type="button"
               className="cancel-button"
-              onClick={() => navigate("/")}
+              onClick={() => setModalCommon("")}
             >
               Cancel
             </button>

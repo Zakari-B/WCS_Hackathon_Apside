@@ -15,11 +15,11 @@
 /** MultilineChart.js */
 import React, { useState, useContext, useEffect } from "react";
 import * as d3 from "d3";
-import { isoFormat } from "d3";
 import filterImg from "@assets/svg/filter.svg";
 import logoApside from "@assets/logo/apside.png";
-import ExportContext from "../contexts/BubbleContext";
+import logoApsidea from "@assets/logo/logo-transparent-light.png";
 import "@styles/ClusteredBubbles.scss";
+import ExportContext from "../contexts/BubbleContext";
 
 let nodeBackup;
 const colorPalette = [
@@ -38,7 +38,9 @@ const POPUP_WIDTH = 200;
 
 export default function ClusteredBubbles({ data, dimensions }) {
   const [hoverData, setHoverData] = useState(false);
-  const { modalCommon } = useContext(ExportContext.BubbleContext);
+  const { modalCommon, setModalCommon, setBubble } = useContext(
+    ExportContext.BubbleContext
+  );
   const isDragging = React.useRef(false);
   const svgRef = React.useRef(null);
   const nodesGlobal = React.useRef(null);
@@ -256,7 +258,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   const pushBubbles = () => {
-    console.warn("pushBubbles", nodesGlobal.current);
+
+    console.warn("pushBubbles()");
+    
     nodeBackup = nodesGlobal.current;
 
     // eslint-disable-next-line
@@ -308,6 +312,9 @@ export default function ClusteredBubbles({ data, dimensions }) {
       .on("mouseover", function (d) {
         // d3.select(this).attr("fill", "rgb(0,255,0)");
         // console.log("qsdfgh !", d, this);
+
+        console.warn("mouseover", d);
+
         if (!isDragging.current)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
@@ -317,11 +324,15 @@ export default function ClusteredBubbles({ data, dimensions }) {
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         // d3.select(this).attr("value", 100);
-        // if (nodeBackup) {
-        //   shrinkBubbles();
-        // } else {
-        //   pushBubbles();
-        // }
+        if (nodeBackup) {
+          // shrinkBubbles();
+          setModalCommon("");
+          setBubble(false);
+        } else {
+          setModalCommon("bubble");
+          setBubble(d.target.__data__.data);
+          // pushBubbles();
+        }
       }); // .on("mouseover", () => console.log("qsdfgh !"));
 
     node
@@ -409,7 +420,14 @@ export default function ClusteredBubbles({ data, dimensions }) {
           </div>
         </div>
       )}
-      <img src={logoApside} className="apsideIcon" alt="apsideIcon" />
+      <div className="absolute bottom-5 right-5">
+        <div className="flex items-center">
+          <p className="text-white text-3xl font-bold">APS</p>
+          <p className="text-orange text-3xl font-bold mr-3">IDEA</p>
+          <p className="text-white text-3xl font-bold mr-2">BY</p>
+          <img src={logoApside} className="max-h-9" alt="apsideIcon" />
+        </div>
+      </div>
     </div>
   );
 }
