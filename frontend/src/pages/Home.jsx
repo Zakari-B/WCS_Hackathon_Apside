@@ -74,7 +74,7 @@ export default function Home() {
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
     const agencies = (await backendAPI.get("/api/agency")).data;
 
-console.log("bubbles", bubbles);
+    console.log("bubbles", bubbles);
 
     const maxLikes = bubbles.reduce(
       (acc, bubble) => (bubble.likes > acc ? bubble.likes : acc),
