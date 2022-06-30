@@ -258,9 +258,8 @@ export default function ClusteredBubbles({ data, dimensions }) {
   };
 
   const pushBubbles = () => {
-
     console.warn("pushBubbles()");
-    
+
     nodeBackup = nodesGlobal.current;
 
     // eslint-disable-next-line

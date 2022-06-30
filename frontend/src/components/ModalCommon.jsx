@@ -6,7 +6,6 @@ import NewProject from "./NewProject";
 import Profil from "./Profil";
 import ViewBubble from "./ViewBubble";
 
-
 function ModalCommon({ type, dimensions }) {
   const { setModalCommon } = useContext(ExportContext.BubbleContext);
   const modalSize = Math.min(dimensions.height, dimensions.width) / 1.1;
