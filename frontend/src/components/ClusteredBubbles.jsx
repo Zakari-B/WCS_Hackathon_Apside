@@ -33,6 +33,16 @@ const colorPalette = [
   "#586994",
 ];
 
+const strokeColorPalette = [
+  "#183650",
+  // "#FF0000",
+  "#309085",
+  "#D06819",
+  "#DBDBDB",
+  "#113A5E",
+  "#657685",
+];
+
 const workflowList = ["Idea", "Team Building", "Coding", "Review", "Finished"];
 const POPUP_HEIGHT = 155;
 const POPUP_WIDTH = 200;
@@ -46,9 +56,14 @@ export default function ClusteredBubbles({
     ExportContext.BubbleContext
   );
   const [hoverData, setHoverData] = useState(false);
-  const { modalCommon, setModalCommon, setBubble } = useContext(
-    ExportContext.BubbleContext
-  );
+  const {
+    modalCommon,
+    setModalCommon,
+    bubble,
+    setBubble,
+    keywords,
+    setKeywords,
+  } = useContext(ExportContext.BubbleContext);
   const isDragging = React.useRef(false);
   const svgRef = React.useRef(null);
   const nodesGlobal = React.useRef(null);
@@ -62,6 +77,16 @@ export default function ClusteredBubbles({
   // console.warn("data", data);
 
   const handlePopupClick = () => setHoverData(false);
+
+  const hideEverything = () => {
+    if (isOpenFilter) setIsOpenFilter(false);
+
+    if (modalCommon) {
+      setKeywords({});
+      setModalCommon("");
+    }
+    if (bubble) setBubble();
+  };
 
   const calcPosition = () => {
     const top =
@@ -83,13 +108,15 @@ export default function ClusteredBubbles({
   };
 
   const stroke = (m) => {
-    if (m.participantsIds.includes(userId)) return "#000";
+    if (m.participantsIds.includes(userId)) {
+      return strokeColorPalette[m.workflow];
+    }
 
     // return d3.schemeCategory10[d3.range(m).length];
   };
 
   const strokeWidth = (m) => {
-    if (m.participantsIds.includes(userId)) return 3;
+    if (m.participantsIds.includes(userId)) return 6;
   };
 
   const centroid = (nodes) => {
@@ -333,6 +360,7 @@ export default function ClusteredBubbles({
       })
       // eslint-disable-next-line func-names
       .on("click", function (d) {
+        d.stopPropagation();
         // d3.select(this).attr("value", 100);
         if (nodeBackup) {
           // shrinkBubbles();
@@ -402,7 +430,7 @@ export default function ClusteredBubbles({
 
   return (
     <div className="bubbleContainer">
-      {isOpenFilter ? (
+      {isOpenFilter && (
         <div className="hudContainer">
           {data.children.reduce(
             (acc, group) => acc + group.children.length,
@@ -411,10 +439,13 @@ export default function ClusteredBubbles({
           Bubbles
           <img src={filterImg} className="filterIcon" alt="filterIcon" />
         </div>
-      ) : (
-        ""
       )}
-      <svg ref={svgRef} width={svgWidth} height={svgHeight} />
+      <svg
+        ref={svgRef}
+        width={svgWidth}
+        height={svgHeight}
+        onClick={hideEverything}
+      />
       {hoverData && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
