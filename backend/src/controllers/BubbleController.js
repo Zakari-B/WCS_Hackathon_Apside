@@ -1,4 +1,5 @@
 const bubble = require("../models/bubble");
+const bubbleKeywords = require("../models/bubbleHasKeyword");
 
 const findAll = async (req, res) => {
   try {
@@ -28,10 +29,14 @@ const find = async (req, res) => {
 
 const addOne = async (req, res) => {
   try {
-    const [result] = await bubble.addOne(req.body);
+    const [result] = await bubble.addOne(req.body, req.userId);
     if (!result) {
       res.sendStatus(404);
     } else {
+      const [keywordResult] = await bubbleKeywords.addOne(
+        result.insertId,
+        req.body.selected
+      );
       res.status(200).json(result.insertId);
     }
   } catch (error) {

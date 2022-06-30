@@ -12,14 +12,13 @@ const find = (id) => {
 };
 
 const addOne = (newData, userId) => {
-  const creator = userId;
+  const creator = parseInt(userId, 10);
   return db.query(
-    `insert into ${table} (creator, name, description, create_time, deadline, gitlab_link, trello_link, workforce, likes, workflow_id ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `insert into ${table} (creator, name, description, deadline, gitlab_link, trello_link, workforce, likes, workflow_id ) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       creator,
       newData.name,
       newData.description,
-      newData.create_time,
       newData.deadline,
       newData.gitlab_link,
       newData.trello_link,

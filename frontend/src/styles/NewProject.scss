@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  background: #183650;
+  background: #F0F0F0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@
 h1 {
   font-size: 3rem;
   font-weight: 200;
-  color: #e79759;
+  color: #586994;
 }
 
 h2 {
@@ -56,7 +56,7 @@ form {
     font-size: 1.1rem;
 
     &:hover {
-      background-color: #e79759;
+      background-color: #5ABDB2;
       color: black;
     }
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { ToastContainer } from "react-toastify";
 import { notifySuccess, notifyError } from "../services/toastify";
@@ -7,9 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/NewProject.scss";
 
+import ExportContextKeyword from "../contexts/KeywordContext";
+
 function NewProject() {
   const [idea, setIdea] = useState();
-  const [keywords, setKeywords] = useState({ id: 1, label: "John" });
+  const [keywords, setKeywords] = useContext(
+    ExportContextKeyword.KeywordContext
+  );
 
   const [keywordsOptions, setKeywordsOptions] = useState([
     { id: 1, label: "John" },
@@ -29,10 +33,10 @@ function NewProject() {
     backendAPI
       .post("/api/bubble", { ...idea, ...keywords })
       .then(() => {
-        notifySuccess("You are logged in.");
+        notifySuccess("Bubble blown !");
       })
       .catch(() => {
-        notifyError("Something went bad.");
+        notifyError("The bubble popped :(");
       });
   };
   const handleKeywords = (selected) => {
