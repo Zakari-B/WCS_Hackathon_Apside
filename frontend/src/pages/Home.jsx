@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
 import "@styles/Home.scss";
@@ -37,8 +37,12 @@ const dimensions = {
 
 export default function Home() {
   const [data, setData] = useState(false);
+  const [forceBigBubble, setForceBigBubble] = useState(false);
   const navigate = useNavigate();
-  const { modalCommon } = useContext(ExportContext.BubbleContext);
+  const { modalCommon, setModalCommon, keywords } = useContext(
+    ExportContext.BubbleContext
+  );
+  const reloadBigBubble = useRef(false);
 
   const dataToD3Data = (newData) => {
     return {
@@ -69,7 +73,9 @@ export default function Home() {
     };
   };
 
-  const getDataFromBack = async () => {
+  const getDataFromBack = async (doReturn = false) => {
+    console.log("getDataFromBack");
+
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const users = (await backendAPI.get("/api/users")).data;
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
@@ -111,12 +117,13 @@ export default function Home() {
         y: lat,
         group: agencyId,
         workflow: bubble.workflow_id,
-        value: 1 + uniqueAgencies.length + (1 + bubble.likes / maxLikes),
+        value: 1 + uniqueAgencies.length + (bubble.likes / maxLikes) * 10,
         city,
         country,
         name: bubble.name,
         description: bubble.description,
         create_time: bubble.create_time,
+        keywords: bubble.keywords.split(" "),
         likes: bubble.likes,
         nb_participants: filteredUsers.length,
         nb_agences: uniqueAgencies.length,
@@ -135,6 +142,7 @@ export default function Home() {
       name: "",
       description: "",
       create_time: "",
+      keywords: [],
       likes: "",
       nb_participants: "",
       nb_agences: "",
@@ -142,13 +150,50 @@ export default function Home() {
     });
 
     // console.warn("newData", newData);
-
+    if (doReturn) return newData;
     const d3data = dataToD3Data(newData);
 
-    // console.warn("d3data", d3data);
+    console.warn("d3data", d3data);
     // console.warn("data2", data2);
 
     setData(d3data);
+  };
+
+  const filterDatas = async (keywordsParam) => {
+    console.log("filterDatas", keywordsParam);
+
+    let datas = await getDataFromBack(true);
+    if (modalCommon)
+      // if (keywordsParam.keyword.length)
+      datas[datas.length - 1].value = Math.min(height, width) / 15;
+    // else reloadBigBubble.current = !reloadBigBubble.current;
+
+    if (keywordsParam.keyword && keywordsParam.keyword.length) {
+      const keywordList = keywordsParam.keyword.map((keyword) => keyword.label);
+
+      // filter data by keywords
+      // datas[datas.length - 1].r = Math.min(height, width) / 10;
+
+      datas = datas.filter((data2, data2index) => {
+        let keywordFound = false;
+        data2.keywords.map((kw) => {
+          if (kw !== "" && keywordList.includes(kw)) keywordFound = true;
+          return false;
+        });
+
+        if (data2index === datas.length - 1) return true;
+
+        return keywordFound;
+      });
+    }
+
+    const d3data = dataToD3Data(datas);
+
+    console.log("d3data", d3data);
+
+    setData(d3data);
+
+    // setForceBigBubble(true); // useless
   };
 
   useEffect(() => {
@@ -167,11 +212,24 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("useEffect keywords", keywords);
+
+    if (!modalCommon) getDataFromBack();
+    else filterDatas(keywords);
+  }, [keywords]);
+
   return (
     <>
       <Filter />
       <InfoModal />
-      {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
+      {data && (
+        <ClusteredBubbles
+          data={data}
+          dimensions={dimensions}
+          // reloadBigBubble={reloadBigBubble.current}
+        />
+      )}
       {modalCommon && (
         <ModalCommon type={modalCommon} dimensions={dimensions} />
       )}
