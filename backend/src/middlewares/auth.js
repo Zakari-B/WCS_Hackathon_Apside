@@ -11,7 +11,7 @@ const authorization = async (req, res, next) => {
       req.isAdmin = 1;
     }
     req.userId = data.payload[0].id;
-    console.log(userId);
+    console.warn(req.userId);
     return next();
   } catch (e) {
     console.error(e);
