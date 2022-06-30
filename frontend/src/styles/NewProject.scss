@@ -1,16 +1,17 @@
 #newproject {
+  border-radius: 100%;
   max-width: 600px;
   margin: 0 auto;
   padding: 1rem;
   width: 100%;
   height: 100%;
   text-align: center;
-  background: #5ABDB2;
+  background: #F0F0F0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-}
+
 h1 {
   font-size: 3rem;
   font-weight: 200;
@@ -62,6 +63,8 @@ form {
       color: black;
     }
   }
+}
+
 
   .submit-button {
     background-color: #586994;
@@ -77,7 +80,7 @@ form {
       color: black;
     }
   }
-
+}
   .typeahead-input {
     width: 15rem;
     background-color: white;
@@ -106,4 +109,4 @@ form {
     display: flex;
     flex-direction: row-reverse;
   }
-}
+

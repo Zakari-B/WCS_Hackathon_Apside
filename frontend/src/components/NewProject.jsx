@@ -8,14 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/NewProject.scss";
 
-import ExportContextKeyword from "../contexts/KeywordContext";
+import ExportContext from "../contexts/BubbleContext";
 
 function NewProject() {
   const navigate = useNavigate();
   const [idea, setIdea] = useState();
-  const { keywords, setKeywords } = useContext(
-    ExportContextKeyword.KeywordContext
-  );
+  const { keywords, setKeywords } = useContext(ExportContext.BubbleContext);
 
   const [keywordsOptions, setKeywordsOptions] = useState([
     { id: 1, label: "John" },

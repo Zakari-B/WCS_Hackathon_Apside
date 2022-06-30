@@ -1,13 +1,18 @@
 import "@styles/Navbar.scss";
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import ExportContext from "../contexts/BubbleContext";
 
-export default function Home() {
+export default function NavBar() {
   const [fadeAnimated, setFadeAnimated] = useState(false);
+  const { setModalCommon } = useContext(ExportContext.BubbleContext);
 
   const handleClick = () => {
     setFadeAnimated(!fadeAnimated);
+  };
+
+  const displayModal = (type) => {
+    setModalCommon(type);
   };
 
   const navigate = useNavigate();
@@ -66,9 +71,15 @@ export default function Home() {
                   fadeAnimated ? "sidenav-2-animated" : "animated-out"
                 }`}
               >
-                <NavLink to="/Home" className="nav-link link-2">
+                <button
+                  type="button"
+                  className="nav-link link-2"
+                  onClick={() => {
+                    displayModal("filter");
+                  }}
+                >
                   <div className="nav-item item-2" />
-                </NavLink>
+                </button>
               </li>
               <div
                 className={`dots out-dot-3 ${
@@ -82,9 +93,9 @@ export default function Home() {
                   fadeAnimated ? "sidenav-3-animated" : "animated-out"
                 }`}
               >
-                <NavLink to="/Home" className="nav-link link-3">
+                <button type="button" className="nav-link link-3">
                   <div className="nav-item item-3" />
-                </NavLink>
+                </button>
               </li>
               <div
                 className={`dots out-dot-4 ${
@@ -98,9 +109,17 @@ export default function Home() {
                   fadeAnimated ? "sidenav-4-animated" : "animated-out"
                 }`}
               >
-                <NavLink to="/Home" className="nav-link link-4">
+                <button
+                  type="button"
+                  className={`nav-link link-4 ${
+                    fadeAnimated ? "flex" : "hidden"
+                  }`}
+                  onClick={() => {
+                    displayModal("new");
+                  }}
+                >
                   <div className="nav-item item-4" />
-                </NavLink>
+                </button>
               </li>
               <div
                 className={`dots out-dot-5 ${
