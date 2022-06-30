@@ -7,6 +7,7 @@ function Logout() {
 
   useEffect(() => {
     window.localStorage.removeItem("isUserLoggedIn");
+    window.localStorage.removeItem("userId");
     backendAPI
       .get("/api/auth/logout")
       .then(() => {

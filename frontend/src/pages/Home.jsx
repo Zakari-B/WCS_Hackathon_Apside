@@ -14,23 +14,23 @@ const dimensions = {
   margin: { top: 0, right: 0, bottom: 0, left: 0 },
 };
 
-const n = 75; // number of nodes
-const m = 8; // number of groups
-const data2 = {
-  children: Array.from(
-    d3.group(
-      // eslint-disable-next-line no-unused-vars
-      Array.from({ length: n }, (_, i) => ({
-        // eslint-disable-next-line no-bitwise
-        group: (Math.random() * m) | 0,
-        value: -Math.log(Math.random()),
-      })),
-      (d) => d.group
-    ),
-    ([, children]) => ({ children })
-  ),
-};
-console.warn("******************* data2", data2);
+// const n = 75; // number of nodes
+// const m = 8; // number of groups
+// const data2 = {
+//   children: Array.from(
+//     d3.group(
+//       // eslint-disable-next-line no-unused-vars
+//       Array.from({ length: n }, (_, i) => ({
+//         // eslint-disable-next-line no-bitwise
+//         group: (Math.random() * m) | 0,
+//         value: -Math.log(Math.random()),
+//       })),
+//       (d) => d.group
+//     ),
+//     ([, children]) => ({ children })
+//   ),
+// };
+// console.warn("******************* data2", data2);
 
 export default function Home() {
   const [data, setData] = useState(false);
@@ -50,6 +50,12 @@ export default function Home() {
             workflow: newData[i].workflow,
             city: newData[i].city,
             country: newData[i].country,
+            name: newData[i].name,
+            description: newData[i].description,
+            create_time: newData[i].create_time,
+            likes: newData[i].likes,
+            nb_participants: newData[i].nb_participants,
+            nb_agences: newData[i].nb_agences,
           })),
           (d) => d.group
         ),
@@ -68,7 +74,7 @@ export default function Home() {
       (acc, bubble) => (bubble.likes > acc ? bubble.likes : acc),
       0
     );
-    console.warn("maxLikes ", maxLikes);
+    // console.warn("maxLikes ", maxLikes);
 
     const newData = bubbles.map((bubble) => {
       // console.warn("bubble id ", bubble.id);
@@ -79,12 +85,15 @@ export default function Home() {
         (agency) => agency.id === agencyId
       )[0];
 
-      console.warn("lat, long", lat, long);
+      // console.warn("lat, long", lat, long);
+
+      const filteredUsers = userHasBubble.filter(
+        (uhb) => uhb.bubble_id === bubble.id
+      );
 
       const uniqueAgencies = [
         ...new Set(
-          userHasBubble
-            .filter((uhb) => uhb.bubble_id === bubble.id)
+          filteredUsers
             .map((uhb) => uhb.user_id)
             .map((userId) => {
               return users.filter((user) => user.id === userId)[0].agency_id;
@@ -100,6 +109,12 @@ export default function Home() {
         value: 1 + uniqueAgencies.length + (1 + bubble.likes / maxLikes),
         city,
         country,
+        name: bubble.name,
+        description: bubble.description,
+        create_time: bubble.create_time,
+        likes: bubble.likes,
+        nb_participants: filteredUsers.length,
+        nb_agences: uniqueAgencies.length,
       };
     });
 
@@ -109,8 +124,14 @@ export default function Home() {
       group: -1,
       workflow: 0,
       value: 0.1,
-      city: "nowhere",
-      country: "nowhere",
+      city: "",
+      country: "",
+      name: "",
+      description: "",
+      create_time: "",
+      likes: "",
+      nb_participants: "",
+      nb_agences: "",
     });
 
     // console.warn("newData", newData);
@@ -142,7 +163,7 @@ export default function Home() {
   return (
     <>
       <InfoModal />
-      <ClusteredBubbles data={data} dimensions={dimensions} />
+      {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
     </>
   );
 }
