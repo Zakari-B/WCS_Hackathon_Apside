@@ -100,7 +100,7 @@ const Admin = function Admin() {
             >
               {positionList &&
                 positionList.map((elem) => (
-                  <option value={elem.id}>{elem.name}</option>
+                  <option value={elem.id}>{elem.position}</option>
                 ))}
             </select>
             <br />
