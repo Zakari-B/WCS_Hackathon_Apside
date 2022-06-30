@@ -21,7 +21,7 @@ function App() {
           LOGOUT
         </button>
       </header>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         {/* <Route path="/" element={<Login />} /> */}
         <Route path="/" element={<Home />} />
