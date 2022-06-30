@@ -18,7 +18,6 @@ import * as d3 from "d3";
 import filterImg from "@assets/svg/filter.svg";
 import logoApside from "@assets/logo/apside.png";
 import "@styles/ClusteredBubbles.scss";
-import { isoFormat } from "d3";
 import ExportContext from "../contexts/BubbleContext";
 
 let nodeBackup;
