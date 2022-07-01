@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../styles/ViewBubble.scss";
 
 import ExportContext from "../contexts/BubbleContext";
+import backendAPI from "../services/backendAPI";
 
 function ViewBubble() {
   // eslint-disable-next-line no-unused-vars
-
+  const [images, setImages] = useState([]);
   const { modalCommon, bubble } = useContext(ExportContext.BubbleContext);
   console.warn("bubble", bubble);
 
@@ -13,6 +14,19 @@ function ViewBubble() {
     ...new Set([...bubble.skills.split(" "), ...bubble.keywords]),
   ].filter((word) => word.length);
   console.log(words);
+
+  const getData = async () => {
+    const users = (await backendAPI.get("/api/users")).data;
+
+    const photos = bubble.participantsIds.map(
+      (uid) => users.filter((u) => u.id === uid)[0].photo
+    );
+    setImages(photos);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <section id="bubble-project">
@@ -41,36 +55,19 @@ function ViewBubble() {
             <button className="description-btn btn-join" type="text" />
           </div>
           <div className="box4">
-            <a
-              className="team team-type-1"
-              target="_blank"
-              href="https://gitlab.com"
-              rel="noreferrer"
-            />
-            <a
-              className="team team-type-2"
-              target="_blank"
-              href="https://gitlab.com"
-              rel="noreferrer"
-            />
-            <a
-              className="team team-type-3"
-              target="_blank"
-              href="https://gitlab.com"
-              rel="noreferrer"
-            />
-            <a
-              className="team team-type-4"
-              target="_blank"
-              href="https://gitlab.com"
-              rel="noreferrer"
-            />
-            <a
-              className="team team-type-5"
-              target="_blank"
-              href="https://gitlab.com"
-              rel="noreferrer"
-            />
+            {images &&
+              images
+                .filter((img, imgIndex) => imgIndex < 5)
+                .map((lien, lienIndex) => (
+                  <a
+                    className={`team team-type-${lienIndex + 1}`}
+                    target="_blank"
+                    href="https://gitlab.com"
+                    rel="noreferrer"
+                  >
+                    <img src={lien} alt="" />
+                  </a>
+                ))}
           </div>
         </div>
         <div className="box-content">
