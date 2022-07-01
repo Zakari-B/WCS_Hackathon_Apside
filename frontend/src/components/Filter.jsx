@@ -1,9 +1,18 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import ExportContext from "../contexts/BubbleContext";
 import "@styles/Filter.scss";
 
 function Filter() {
-  const { isOpenFilter } = useContext(ExportContext.BubbleContext);
+  const { isOpenFilter, setSearchParams } = useContext(
+    ExportContext.BubbleContext
+  );
+  const [userSearchInput, setUserSearchInput] = useState("");
+
+  const handleSubmit = () => {
+    setSearchParams({
+      searchInput: userSearchInput,
+    });
+  };
 
   return (
     <div>
@@ -14,10 +23,10 @@ function Filter() {
             <div className="searchbar flex flex-col">
               <input
                 id="search"
-                value="test"
+                value={userSearchInput}
                 type="search"
                 name="search"
-                onChange=""
+                onChange={(e) => setUserSearchInput(e.target.value)}
                 placeholder="Type something"
                 className="filter-input "
               />
@@ -29,7 +38,11 @@ function Filter() {
                 <option>-----</option>
                 <option>Skills</option>
               </select>
-              <button type="button" className="py-2 px-4 bg-orange">
+              <button
+                type="button"
+                onClick={() => handleSubmit()}
+                className="py-2 px-4 bg-orange"
+              >
                 Search
               </button>
             </div>
