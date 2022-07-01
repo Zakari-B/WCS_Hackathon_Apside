@@ -1,6 +1,7 @@
 @import "@styles/Variables.scss";
 
 #bubble-project {
+  user-select: none;
   width: 100%;
   height: 100%;
   font-family: $font-family-text;
@@ -264,6 +265,10 @@
           box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.356);
           transition: 0.3s;
 
+          & > img {
+            border-radius: 50%;
+          }
+
           &:hover {
             box-shadow: 3px 3px 25px 0px rgba(0, 0, 0, 0.39);
             transform: scale(1.1);
@@ -274,31 +279,26 @@
         .team-type-1 {
           left: 77%;
           top: -1%;
-          background-image: url(../assets/julien.jpg);
         }
 
         .team-type-2 {
           left: 69%;
           top: 26%;
-          background-image: url(../assets/julien.jpg);
         }
 
         .team-type-3 {
           left: 53%;
           top: 50%;
-          background-image: url(../assets/julien.jpg);
         }
 
         .team-type-4 {
           left: 31%;
           top: 67%;
-          background-image: url(../assets/julien.jpg);
         }
 
         .team-type-5 {
           left: 4%;
           top: 77%;
-          background-image: url(../assets/julien.jpg);
         }
       }
     }
@@ -317,17 +317,7 @@
         max-width: 70%;
         word-break: break-word;
         text-align: center;
-        margin-bottom: 20%;
-
-        &::after {
-          position: absolute;
-          content: "";
-          width: 80%;
-          height: 1px;
-          background-color: #969696;
-          bottom: -15px;
-          left: calc(50% - 40%);
-        }
+        margin-bottom: 25%;
       }
 
       .description {
@@ -339,28 +329,6 @@
         color: #586994;
         max-width: 70%;
         text-align: center;
-
-        &::before {
-          position: absolute;
-          content: "";
-          width: 10%;
-          height: 25%;
-          left: -12px;
-          top: -12px;
-          border-left: 2px solid #586994;
-          border-top: 2px solid #586994;
-        }
-
-        &::after {
-          position: absolute;
-          content: "";
-          width: 10%;
-          height: 25%;
-          right: -12px;
-          bottom: -12px;
-          border-right: 2px solid #586994;
-          border-bottom: 2px solid #586994;
-        }
       }
 
       .tools {
