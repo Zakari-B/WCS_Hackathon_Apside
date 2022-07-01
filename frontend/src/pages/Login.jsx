@@ -52,7 +52,7 @@ function Login() {
 
   return (
     <section id="login">
-      <div className="h-full m-32">
+      <div className="second-part-login h-full">
         <div className={`login-first-part ${up ? "up" : null}`}>
           <div className="flex flex-col items-center justify-center mb-4">
             <img src={logo} alt="" />
