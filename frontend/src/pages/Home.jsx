@@ -18,24 +18,6 @@ const dimensions = {
   margin: { top: 0, right: 0, bottom: 0, left: 0 },
 };
 
-// const n = 75; // number of nodes
-// const m = 8; // number of groups
-// const data2 = {
-//   children: Array.from(
-//     d3.group(
-//       // eslint-disable-next-line no-unused-vars
-//       Array.from({ length: n }, (_, i) => ({
-//         // eslint-disable-next-line no-bitwise
-//         group: (Math.random() * m) | 0,
-//         value: -Math.log(Math.random()),
-//       })),
-//       (d) => d.group
-//     ),
-//     ([, children]) => ({ children })
-//   ),
-// };
-// console.warn("******************* data2", data2);
-
 export default function Home() {
   const [data, setData] = useState(false);
   // eslint-disable-next-line no-unused-vars
@@ -69,6 +51,9 @@ export default function Home() {
             nb_participants: newData[i].nb_participants,
             nb_agences: newData[i].nb_agences,
             participantsIds: newData[i].participantsIds,
+            skills: newData[i].skills,
+            keywords: newData[i].keywords,
+            id: newData[i].id,
           })),
           (d) => d.group
         ),
@@ -133,6 +118,8 @@ export default function Home() {
         nb_participants: filteredUsers.length,
         nb_agences: uniqueAgencies.length,
         participantsIds: [bubble.creator, ...filteredUsers],
+        skills: bubble.skills,
+        id: bubble.id,
       };
     });
 
@@ -152,6 +139,8 @@ export default function Home() {
       nb_participants: "",
       nb_agences: "",
       participantsIds: [],
+      skills: "",
+      id: "",
     });
 
     // console.warn("newData", newData);
@@ -229,13 +218,7 @@ export default function Home() {
       <NavBar />
       <Filter />
       <InfoModal />
-      {data && (
-        <ClusteredBubbles
-          data={data}
-          dimensions={dimensions}
-          // reloadBigBubble={reloadBigBubble.current}
-        />
-      )}
+      {data && <ClusteredBubbles data={data} dimensions={dimensions} />}
       {modalCommon && (
         <ModalCommon type={modalCommon} dimensions={dimensions} />
       )}
