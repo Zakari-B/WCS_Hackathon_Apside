@@ -4,10 +4,14 @@ import ExportContext from "@contexts/BubbleContext";
 import "@styles/Navbar.scss";
 
 export default function NavBar() {
-  const [fadeAnimated, setFadeAnimated] = useState(false);
-  const { setModalCommon, isOpenFilter, setIsOpenFilter } = useContext(
-    ExportContext.BubbleContext
-  );
+  // const [fadeAnimated, setFadeAnimated] = useState(false);
+  const {
+    setModalCommon,
+    isOpenFilter,
+    setIsOpenFilter,
+    fadeAnimated,
+    setFadeAnimated,
+  } = useContext(ExportContext.BubbleContext);
 
   const handleClick = () => {
     setFadeAnimated(!fadeAnimated);

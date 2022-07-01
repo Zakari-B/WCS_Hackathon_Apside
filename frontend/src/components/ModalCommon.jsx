@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "@styles/ModalCommon.scss";
 import ExportContext from "@contexts/BubbleContext";
 
@@ -17,7 +17,9 @@ const colorPalette = [
 ];
 
 function ModalCommon({ type, dimensions }) {
-  const { setModalCommon, bubble } = useContext(ExportContext.BubbleContext);
+  const { setModalCommon, bubble, setFadeAnimated } = useContext(
+    ExportContext.BubbleContext
+  );
   const modalSize = Math.min(dimensions.height, dimensions.width) / 1.1;
 
   const modaleStyle = {
@@ -31,6 +33,10 @@ function ModalCommon({ type, dimensions }) {
     const backgroundColor = colorPalette[bubble.workflow_id];
     modaleStyle.background = backgroundColor;
   }
+
+  useEffect(() => {
+    if (type) setFadeAnimated(false);
+  }, [type]);
 
   return (
     <div className="common-box" style={modaleStyle}>
