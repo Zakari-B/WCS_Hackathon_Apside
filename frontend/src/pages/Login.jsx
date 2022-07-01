@@ -84,7 +84,7 @@ function Login() {
                   setRememberMe(!rememberMe);
                 }}
               />
-              <p>Se souvenir de moi </p>
+              <p>Remember me</p>
             </div>
             <button type="submit" id="login-button" onClick={animate}>
               Submit
