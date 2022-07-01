@@ -184,6 +184,7 @@ export default function Home() {
 
     // if (filterParam.searchInput && filterParam.searchInput.length) {
     if (allFilterParam.length) {
+      const workflows = (await backendAPI.get("/api/workflow")).data;
       // const keywordList = filterParam.searchInput?.split(" ") || [];
       const keywordList = allFilterParam;
       // apres rajouter ici  les trucs des menus déroulants dans keywordList
@@ -191,6 +192,7 @@ export default function Home() {
       datas = datas.filter((data2, data2index) => {
         const keywordsFound = keywordList.map(() => false);
 
+        if (data2index === datas.length - 1) return true;
         if (keywordList.length) {
           data2.keywords.map((kw) => {
             if (kw !== "") {
@@ -230,9 +232,16 @@ export default function Home() {
               });
             }
           });
-        }
-        if (data2index === datas.length - 1) return true;
 
+          const { workflow } = workflows.filter(
+            (wf) => wf.id === data2.workflow
+          )[0];
+
+          keywordList.map((kww, kwwIndex) => {
+            if (workflow.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+              keywordsFound[kwwIndex] = true;
+          });
+        }
         return keywordsFound.every((val) => val);
       });
     }
