@@ -442,6 +442,7 @@ export default function ClusteredBubbles({
         <Typeahead
           id="selectAll"
           multiple
+          maxResults={5}
           placeholder="Type anything..."
           onChange={(e) => setFilter(e)}
           options={filterOptions}

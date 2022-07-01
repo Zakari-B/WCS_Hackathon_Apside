@@ -430,38 +430,40 @@ export default function Home() {
     const keywords2 = (await backendAPI.get("/api/keyword")).data;
     const users = (await backendAPI.get("/api/users")).data;
 
-    setFilterOptions([
-      ...new Set(
-        [
+    setFilterOptions(
+      [
+        ...new Set(
           [
-            ...new Set(
-              users
-                .map((user) => [user.firstname, user.lastname, user.email])
-                .flat(2)
-            ),
-          ],
-          [
-            ...new Set(
-              bubbles
-                .map((bubble) => [
-                  bubble.description
-                    .split(" ")
-                    .filter((word) => word.length > 3),
-                  bubble.name.split(" ").filter((word) => word.length > 3),
-                ])
-                .flat(3)
-            ),
-          ],
-          [
-            ...new Set(
-              agencies.map((agency) => [agency.city, agency.country]).flat(3)
-            ),
-          ],
-          workflows.map((workflow) => workflow.workflow),
-          keywords2.map((keyword) => keyword.label),
-        ].flat(2)
-      ),
-    ]);
+            [
+              ...new Set(
+                users
+                  .map((user) => [user.firstname, user.lastname, user.email])
+                  .flat(2)
+              ),
+            ],
+            [
+              ...new Set(
+                bubbles
+                  .map((bubble) => [
+                    bubble.description
+                      .split(" ")
+                      .filter((word) => word.length > 3),
+                    bubble.name.split(" ").filter((word) => word.length > 3),
+                  ])
+                  .flat(3)
+              ),
+            ],
+            [
+              ...new Set(
+                agencies.map((agency) => [agency.city, agency.country]).flat(3)
+              ),
+            ],
+            workflows.map((workflow) => workflow.workflow),
+            keywords2.map((keyword) => keyword.label),
+          ].flat(2)
+        ),
+      ].sort((a, b) => a.localeCompare(b))
+    );
   };
 
   useEffect(() => {
