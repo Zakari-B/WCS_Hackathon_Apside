@@ -81,8 +81,8 @@ const createOne = async (req, res) => {
       .status(201)
       .send({ message: "User created", id: userData[0][0].insertId });
   } catch (e) {
-    console.error(e);
-    res.status(500).json(e);
+    console.error(err);
+    res.status(500).json(err);
   }
 };
 

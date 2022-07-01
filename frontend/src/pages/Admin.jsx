@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "@components/Navbar";
-import backendAPI from "../services/backendAPI";
+import backendAPI from "@services/backendAPI";
 import "@styles/Admin.scss";
 
 const Admin = function Admin() {

@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import ExportContext from "../contexts/BubbleContext";
-import backendAPI from "../services/backendAPI";
+import ExportContext from "@contexts/BubbleContext";
+import backendAPI from "@services/backendAPI";
 import "@styles/Filter.scss";
 
 function Filter() {

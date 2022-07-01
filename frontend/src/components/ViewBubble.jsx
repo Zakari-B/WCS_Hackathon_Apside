@@ -1,19 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../styles/ViewBubble.scss";
+import "@styles/ViewBubble.scss";
 
-import ExportContext from "../contexts/BubbleContext";
-import backendAPI from "../services/backendAPI";
+import ExportContext from "@contexts/BubbleContext";
+import backendAPI from "@services/backendAPI";
 
 function ViewBubble() {
   // eslint-disable-next-line no-unused-vars
   const [images, setImages] = useState([]);
-  const { modalCommon, bubble } = useContext(ExportContext.BubbleContext);
-  console.warn("bubble", bubble);
-
+  const { bubble } = useContext(ExportContext.BubbleContext);
   const words = [
     ...new Set([...bubble.skills.split(" "), ...bubble.keywords]),
   ].filter((word) => word.length);
-  console.log(words);
 
   const getData = async () => {
     const users = (await backendAPI.get("/api/users")).data;
@@ -47,12 +44,12 @@ function ViewBubble() {
             />
           </div>
           <div className="box2">
-            <button className="magnifying-btn" type="text" />
+            <button className="magnifying-btn" type="button" />
           </div>
           <div className="box3">
-            <button className="description-btn btn-comment" type="text" />
-            <button className="description-btn btn-like" type="text" />
-            <button className="description-btn btn-join" type="text" />
+            <button className="description-btn btn-comment" type="button" />
+            <button className="description-btn btn-like" type="button" />
+            <button className="description-btn btn-join" type="button" />
           </div>
           <div className="box4">
             {images &&
