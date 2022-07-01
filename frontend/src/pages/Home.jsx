@@ -27,13 +27,10 @@ export default function Home() {
   // eslint-disable-next-line no-unused-vars
   const {
     modalCommon,
-    setModalCommon,
     keywords,
     searchParams,
     isOpenFilter,
     filter,
-    setFilter,
-    filterOptions,
     setFilterOptions,
   } = useContext(ExportContext.BubbleContext);
   // eslint-disable-next-line no-unused-vars
@@ -73,14 +70,14 @@ export default function Home() {
 
   // eslint-disable-next-line consistent-return
   const getDataFromBack = async (doReturn = false) => {
-    console.warn("getDataFromBack");
+    // console.warn("getDataFromBack");
 
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const users = (await backendAPI.get("/api/users")).data;
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
     const agencies = (await backendAPI.get("/api/agency")).data;
 
-    console.warn("bubbles", bubbles);
+    // console.warn("bubbles", bubbles);
 
     const maxLikes = bubbles.reduce(
       (acc, bubble) => (bubble.likes > acc ? bubble.likes : acc),
@@ -156,14 +153,14 @@ export default function Home() {
     if (doReturn) return newData;
     const d3data = dataToD3Data(newData);
 
-    console.warn("d3data", d3data);
+    // console.warn("d3data", d3data);
     // console.warn("data2", data2);
 
     setData(d3data);
   };
 
   const filterDatasNewBubble = async (keywordsParam) => {
-    console.warn("filterDatasNewBubble", keywordsParam);
+    // console.warn("filterDatasNewBubble", keywordsParam);
 
     let datas = await getDataFromBack(true);
     if (modalCommon)
@@ -192,7 +189,7 @@ export default function Home() {
 
     const d3data = dataToD3Data(datas);
 
-    console.warn("d3data", d3data);
+    // console.warn("d3data", d3data);
 
     setData(d3data);
 
@@ -200,10 +197,10 @@ export default function Home() {
   };
 
   const filterDatas = async (filterParam) => {
-    console.warn("filterDatasNewBubble", filterParam);
+    // console.warn("filterDatasNewBubble", filterParam);
 
     let datas = await getDataFromBack(true);
-    console.warn("datas", datas);
+    // console.warn("datas", datas);
 
     const allFilterParam = [
       filterParam.searchInput?.split(" ") || [],
@@ -274,7 +271,7 @@ export default function Home() {
 
     const d3data = dataToD3Data(datas);
 
-    console.warn("filteredDatas", datas);
+    // console.warn("filteredDatas", datas);
 
     setData(d3data);
 
@@ -282,21 +279,21 @@ export default function Home() {
   };
 
   const superFilter = async (allFilterParam) => {
-    console.log("superFilter", allFilterParam);
+    // console.log("superFilter", allFilterParam);
 
     let datas = await getDataFromBack(true);
-    console.log("datas", datas);
+    // console.log("datas", datas);
 
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const agencies = (await backendAPI.get("/api/agency")).data;
     const workflows = (await backendAPI.get("/api/workflow")).data;
-    const keywords2 = (await backendAPI.get("/api/keyword")).data;
+    // const keywords2 = (await backendAPI.get("/api/keyword")).data;
     const users = (await backendAPI.get("/api/users")).data;
 
-    const bubbleHasKeyword = (await backendAPI.get("/api/bubbleHasKeyword"))
-      .data;
-    const bubbleNeedSkills = (await backendAPI.get("/api/bubbleNeedSkills"))
-      .data;
+    // const bubbleHasKeyword = (await backendAPI.get("/api/bubbleHasKeyword"))
+    //   .data;
+    // const bubbleNeedSkills = (await backendAPI.get("/api/bubbleNeedSkills"))
+    //   .data;
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
 
     if (allFilterParam.length) {
@@ -305,9 +302,11 @@ export default function Home() {
 
       // console.log("keywordList", keywordList);
       datas = datas.filter((data2, data2index) => {
+        if (data2index === datas.length - 1) return true;
+
         const keywordsFound = keywordList.map(() => false);
 
-        console.log("data2", data2);
+        // console.log("data2", data2);
 
         if (keywordList.length) {
           data2.keywords.map((kw) => {
@@ -361,7 +360,19 @@ export default function Home() {
             .map((uhb) => uhb.user_id)
             .map((uid) => {
               const user = users.filter((u) => u.id === uid)[0];
-              return [user.firstname, user.lastname, user.email];
+              // const agency = agencies.filter(
+              //   (ag) => ag.id === user.agency_id
+              // )[0];
+
+              // console.log("agency", agency);
+
+              return [
+                user.firstname,
+                user.lastname,
+                user.email,
+                // agency.city,
+                // agency.country,
+              ];
             })
             .flat(2)
             .map((nam) => {
@@ -372,16 +383,40 @@ export default function Home() {
                 });
               }
             });
+
+          const bubCreatorId = bubbles.filter((bub) => bub.id === data2.id)[0]
+            ?.creator;
+          const agencyId = users.filter((u) => u.id === bubCreatorId)[0]
+            ?.agency_id;
+
+          const { city, country } = agencies.filter(
+            (ag) => ag.id === agencyId
+          )[0];
+
+          keywordList.map((kww, kwwIndex) => {
+            if (city.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+              keywordsFound[kwwIndex] = true;
+          });
+          keywordList.map((kww, kwwIndex) => {
+            if (country.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+              keywordsFound[kwwIndex] = true;
+          });
+
+          const { workflow } = workflows.filter(
+            (wf) => wf.id === data2.workflow
+          )[0];
+
+          keywordList.map((kww, kwwIndex) => {
+            if (workflow.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+              keywordsFound[kwwIndex] = true;
+          });
         }
-        if (data2index === datas.length - 1) return true;
 
         return keywordsFound.every((val) => val);
       });
     }
 
     const d3data = dataToD3Data(datas);
-
-    console.log("filteredDatas", datas);
 
     setData(d3data);
 

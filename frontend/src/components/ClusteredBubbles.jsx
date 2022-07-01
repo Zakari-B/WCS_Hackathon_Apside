@@ -64,10 +64,8 @@ export default function ClusteredBubbles({
     setModalCommon,
     bubble,
     setBubble,
-    keywords,
     setKeywords,
     filterOptions,
-    setFilterOptions,
     setFilter,
   } = useContext(ExportContext.BubbleContext);
   const isDragging = React.useRef(false);
@@ -256,7 +254,7 @@ export default function ClusteredBubbles({
   };
 
   const shrinkBubbles = (beCrazy = true) => {
-    console.warn("shrinkBubbles");
+    // console.warn("shrinkBubbles");
     // simulation;
     if (beCrazy) {
       nodesGlobal.current = nodeBackup;
@@ -301,7 +299,7 @@ export default function ClusteredBubbles({
   };
 
   const pushBubbles = () => {
-    console.warn("pushBubbles()");
+    // console.warn("pushBubbles()");
 
     nodeBackup = nodesGlobal.current;
 
@@ -321,7 +319,7 @@ export default function ClusteredBubbles({
   };
 
   useEffect(() => {
-    console.warn("useEffect D3");
+    // console.warn("useEffect D3");
 
     nodesGlobal.current = pack().leaves();
 
@@ -401,7 +399,7 @@ export default function ClusteredBubbles({
   }, [data]); // Redraw chart if data changes
 
   useEffect(() => {
-    console.warn("useEffect modalCommon");
+    // console.warn("useEffect modalCommon");
     if (firstLoadingDone.current) {
       if (modalCommon) pushBubbles();
       else shrinkBubbles();
