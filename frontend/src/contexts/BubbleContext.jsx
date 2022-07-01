@@ -11,6 +11,7 @@ function BubbleProvider({ children }) {
   const [searchParams, setSearchParams] = useState({});
   const [filter, setFilter] = useState([]);
   const [filterOptions, setFilterOptions] = useState([]);
+  const [fadeAnimated, setFadeAnimated] = useState(false);
 
   return (
     <BubbleContext.Provider
@@ -32,6 +33,8 @@ function BubbleProvider({ children }) {
         setFilter,
         filterOptions,
         setFilterOptions,
+        fadeAnimated,
+        setFadeAnimated,
       }}
     >
       {children}
