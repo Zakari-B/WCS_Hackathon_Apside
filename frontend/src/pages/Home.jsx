@@ -53,6 +53,7 @@ export default function Home() {
             participantsIds: newData[i].participantsIds,
             skills: newData[i].skills,
             keywords: newData[i].keywords,
+            id: newData[i].id,
           })),
           (d) => d.group
         ),
@@ -118,6 +119,7 @@ export default function Home() {
         nb_agences: uniqueAgencies.length,
         participantsIds: [bubble.creator, ...filteredUsers],
         skills: bubble.skills,
+        id: bubble.id,
       };
     });
 
@@ -138,6 +140,7 @@ export default function Home() {
       nb_agences: "",
       participantsIds: [],
       skills: "",
+      id: "",
     });
 
     // console.warn("newData", newData);
