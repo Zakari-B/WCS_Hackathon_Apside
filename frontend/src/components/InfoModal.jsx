@@ -11,7 +11,7 @@ function InfoModal() {
 
   return (
     <div className="infomodal">
-      <button type="button" onClick={toggle}>
+      <button type="button" className="info-button" onClick={toggle}>
         <img
           src={iconMark}
           draggable={false}
