@@ -8,6 +8,7 @@ function BubbleProvider({ children }) {
   const [modalCommon, setModalCommon] = useState("");
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [bubble, setBubble] = useState();
+  const [searchParams, setSearchParams] = useState({});
 
   return (
     <BubbleContext.Provider
@@ -23,6 +24,8 @@ function BubbleProvider({ children }) {
         setIsOpenFilter,
         bubble,
         setBubble,
+        searchParams,
+        setSearchParams,
       }}
     >
       {children}

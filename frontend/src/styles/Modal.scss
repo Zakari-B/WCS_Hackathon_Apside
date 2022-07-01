@@ -1,53 +1,53 @@
-.info-button{
+.info-button {
   position: absolute;
-    right: 1%;
-    width: 4rem;
-    top: 3%;
+  right: 1%;
+  width: 4rem;
+  top: 3%;
 }
-  .img-icon-mark {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    z-index: 3;
-    right: 1%;
-    padding: 0.1rem;
+.img-icon-mark {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  z-index: 3;
+  right: 1%;
+  padding: 0.1rem;
+}
+
+.modal-container {
+  position: absolute;
+  top: 3%;
+  height: auto;
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.616);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: openModal 0.6s ease-in both;
+
+  .info-title {
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    text-align: center;
   }
 
-  .modal-container {
-    position: absolute;
-    top: 3%;
-    height: auto;
-    width: 100%;
-    max-width: 400px;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.616);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: openModal 0.6s ease-in both;
-
-    .info-title {
-      font-size: clamp(1.3rem, 3vw, 2rem);
-      text-align: center;
-    }
-
-    p {
-      font-size: clamp(0.8rem, 3vw, 1rem);
-    }
-    em {
-      font-weight: bold;
-      font-style: normal;
-    }
+  p {
+    font-size: clamp(0.8rem, 3vw, 1rem);
   }
-
-  .check-colours {
-    background-color: black;
-    width: 0.8rem;
-    height: 0.8rem;
+  em {
+    font-weight: bold;
+    font-style: normal;
   }
+}
+
+.check-colours {
+  background-color: black;
+  width: 0.8rem;
+  height: 0.8rem;
+}
 
 @media screen and (min-width: 400px) {
   .modal-container {
