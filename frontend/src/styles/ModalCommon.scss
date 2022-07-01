@@ -4,8 +4,9 @@
   background: #f0f0f0;
   padding: 1rem;
   border-radius: 100%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  // border: 2px solid rgba(255, 255, 255, 0.3);
   z-index: 1;
+  box-shadow: inset 0px 0px 20px 4px rgba(0, 0, 0, 0.596);
 }
 
 .common-cross {
