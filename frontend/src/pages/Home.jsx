@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as d3 from "d3";
@@ -24,9 +25,17 @@ export default function Home() {
   const [forceBigBubble, setForceBigBubble] = useState(false);
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
-  const { modalCommon, setModalCommon, keywords } = useContext(
-    ExportContext.BubbleContext
-  );
+  const {
+    modalCommon,
+    setModalCommon,
+    keywords,
+    searchParams,
+    isOpenFilter,
+    filter,
+    setFilter,
+    filterOptions,
+    setFilterOptions,
+  } = useContext(ExportContext.BubbleContext);
   // eslint-disable-next-line no-unused-vars
   const reloadBigBubble = useRef(false);
 
@@ -153,8 +162,8 @@ export default function Home() {
     setData(d3data);
   };
 
-  const filterDatas = async (keywordsParam) => {
-    console.warn("filterDatas", keywordsParam);
+  const filterDatasNewBubble = async (keywordsParam) => {
+    console.warn("filterDatasNewBubble", keywordsParam);
 
     let datas = await getDataFromBack(true);
     if (modalCommon)
@@ -190,8 +199,240 @@ export default function Home() {
     // setForceBigBubble(true); // useless
   };
 
+  const filterDatas = async (filterParam) => {
+    console.warn("filterDatasNewBubble", filterParam);
+
+    let datas = await getDataFromBack(true);
+    console.warn("datas", datas);
+
+    const allFilterParam = [
+      filterParam.searchInput?.split(" ") || [],
+      filterParam.userInput,
+      filterParam.bubbleInput,
+      filterParam.agenciesInput,
+      filterParam.workflowsInput,
+      filterParam.keywordsInput,
+    ].flat(2);
+
+    // if (filterParam.searchInput && filterParam.searchInput.length) {
+    if (allFilterParam.length) {
+      // const keywordList = filterParam.searchInput?.split(" ") || [];
+      const keywordList = allFilterParam;
+      // apres rajouter ici  les trucs des menus déroulants dans keywordList
+
+      // console.log("keywordList", keywordList);
+      datas = datas.filter((data2, data2index) => {
+        const keywordsFound = keywordList.map(() => false);
+
+        // console.log("keywordsFound", keywordsFound);
+
+        if (keywordList.length) {
+          data2.keywords.map((kw) => {
+            if (kw !== "") {
+              keywordList.map((kww, kwwIndex) => {
+                if (kw.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                  keywordsFound[kwwIndex] = true;
+              });
+            }
+          });
+
+          // meme chose à faire pour description
+          data2.description.split(" ").map((des) => {
+            if (des !== "") {
+              keywordList.map((kww, kwwIndex) => {
+                if (des.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                  keywordsFound[kwwIndex] = true;
+              });
+            }
+          });
+
+          // meme chose à faire pour skills
+          data2.skills.split(" ").map((skill) => {
+            if (skill !== "") {
+              keywordList.map((kww, kwwIndex) => {
+                if (skill.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                  keywordsFound[kwwIndex] = true;
+              });
+            }
+          });
+
+          // meme chose à faire pour name
+          data2.name.split(" ").map((nam) => {
+            if (nam !== "") {
+              keywordList.map((kww, kwwIndex) => {
+                if (nam.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                  keywordsFound[kwwIndex] = true;
+              });
+            }
+          });
+        }
+        if (data2index === datas.length - 1) return true;
+
+        return keywordsFound.every((val) => val);
+      });
+    }
+
+    const d3data = dataToD3Data(datas);
+
+    console.warn("filteredDatas", datas);
+
+    setData(d3data);
+
+    setForceBigBubble(true); // useless
+  };
+
+  const superFilter = async (allFilterParam) => {
+    console.log("superFilter", allFilterParam);
+
+    let datas = await getDataFromBack(true);
+    console.log("datas", datas);
+
+    const bubbles = (await backendAPI.get("/api/bubble")).data;
+    const agencies = (await backendAPI.get("/api/agency")).data;
+    const workflows = (await backendAPI.get("/api/workflow")).data;
+    const keywords2 = (await backendAPI.get("/api/keyword")).data;
+    const users = (await backendAPI.get("/api/users")).data;
+
+    const bubbleHasKeyword = (await backendAPI.get("/api/bubbleHasKeyword"))
+      .data;
+    const bubbleNeedSkills = (await backendAPI.get("/api/bubbleNeedSkills"))
+      .data;
+    const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
+
+    if (allFilterParam.length) {
+      const keywordList = allFilterParam;
+      // apres rajouter ici  les trucs des menus déroulants dans keywordList
+
+      // console.log("keywordList", keywordList);
+      datas = datas.filter((data2, data2index) => {
+        const keywordsFound = keywordList.map(() => false);
+
+        console.log("data2", data2);
+
+        if (keywordList.length) {
+          data2.keywords.map((kw) => {
+            if (kw !== "") {
+              keywordList.map((kww, kwwIndex) => {
+                if (kw.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                  keywordsFound[kwwIndex] = true;
+              });
+            }
+          });
+
+          // meme chose à faire pour description
+          data2.description
+            .split(" ")
+            .filter((des) => des.length > 3)
+            .map((des) => {
+              if (des !== "") {
+                keywordList.map((kww, kwwIndex) => {
+                  if (des.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                    keywordsFound[kwwIndex] = true;
+                });
+              }
+            });
+
+          // meme chose à faire pour skills
+          data2.skills.split(" ").map((skill) => {
+            if (skill !== "") {
+              keywordList.map((kww, kwwIndex) => {
+                if (skill.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                  keywordsFound[kwwIndex] = true;
+              });
+            }
+          });
+
+          // meme chose à faire pour name
+          data2.name
+            .split(" ")
+            .filter((des) => des.length > 3)
+            .map((nam) => {
+              if (nam !== "") {
+                keywordList.map((kww, kwwIndex) => {
+                  if (nam.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                    keywordsFound[kwwIndex] = true;
+                });
+              }
+            });
+
+          // user.firstname, user.lastname, user.email
+          userHasBubble
+            .filter((uhb) => uhb.bubble_id === data2.id)
+            .map((uhb) => uhb.user_id)
+            .map((uid) => {
+              const user = users.filter((u) => u.id === uid)[0];
+              return [user.firstname, user.lastname, user.email];
+            })
+            .flat(2)
+            .map((nam) => {
+              if (nam !== "") {
+                keywordList.map((kww, kwwIndex) => {
+                  if (nam.toLowerCase().indexOf(kww.toLowerCase()) !== -1)
+                    keywordsFound[kwwIndex] = true;
+                });
+              }
+            });
+        }
+        if (data2index === datas.length - 1) return true;
+
+        return keywordsFound.every((val) => val);
+      });
+    }
+
+    const d3data = dataToD3Data(datas);
+
+    console.log("filteredDatas", datas);
+
+    setData(d3data);
+
+    // setForceBigBubble(true); // useless
+  };
+
+  const populate = async () => {
+    const bubbles = (await backendAPI.get("/api/bubble")).data;
+    const agencies = (await backendAPI.get("/api/agency")).data;
+    const workflows = (await backendAPI.get("/api/workflow")).data;
+    const keywords2 = (await backendAPI.get("/api/keyword")).data;
+    const users = (await backendAPI.get("/api/users")).data;
+
+    setFilterOptions([
+      ...new Set(
+        [
+          [
+            ...new Set(
+              users
+                .map((user) => [user.firstname, user.lastname, user.email])
+                .flat(2)
+            ),
+          ],
+          [
+            ...new Set(
+              bubbles
+                .map((bubble) => [
+                  bubble.description
+                    .split(" ")
+                    .filter((word) => word.length > 3),
+                  bubble.name.split(" ").filter((word) => word.length > 3),
+                ])
+                .flat(3)
+            ),
+          ],
+          [
+            ...new Set(
+              agencies.map((agency) => [agency.city, agency.country]).flat(3)
+            ),
+          ],
+          workflows.map((workflow) => workflow.workflow),
+          keywords2.map((keyword) => keyword.label),
+        ].flat(2)
+      ),
+    ]);
+  };
+
   useEffect(() => {
     getDataFromBack();
+
+    populate();
 
     if (JSON.parse(localStorage.getItem("isUserLoggedIn"))) {
       backendAPI.get("/api/auth/sessionControl").then((res) => {
@@ -210,8 +451,23 @@ export default function Home() {
     console.warn("useEffect keywords", keywords);
 
     if (!modalCommon) getDataFromBack();
-    else filterDatas(keywords);
+    else filterDatasNewBubble(keywords);
   }, [keywords]);
+
+  useEffect(() => {
+    console.warn("useEffect searchParams", searchParams);
+
+    if (!isOpenFilter) getDataFromBack();
+    else filterDatas(searchParams);
+  }, [searchParams]);
+
+  useEffect(() => {
+    console.warn("useEffect filter", filter);
+
+    // if (!isOpenFilter) getDataFromBack();
+    // else
+    superFilter(filter);
+  }, [filter]);
 
   return (
     <>
