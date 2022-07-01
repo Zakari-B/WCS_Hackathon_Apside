@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo/logo-transparent-light.png";
-import { notifySuccess, notifyError } from "../services/toastify";
-import backendAPI from "../services/backendAPI";
+import logo from "@assets/logo/logo-transparent-light.png";
+import { notifySuccess, notifyError } from "@services/toastify";
+import backendAPI from "@services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/Login.scss";
+import "@styles/Login.scss";
 
 function Login() {
   const [userEmail, setUserEmail] = useState("");

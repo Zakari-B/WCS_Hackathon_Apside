@@ -3,13 +3,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { ToastContainer } from "react-toastify";
-import { notifySuccess, notifyError } from "../services/toastify";
-import backendAPI from "../services/backendAPI";
+import { notifySuccess, notifyError } from "@services/toastify";
+import backendAPI from "@services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
-import "../styles/UserProfile.scss";
+import "@styles/UserProfile.scss";
 
-import ExportContext from "../contexts/BubbleContext";
+import ExportContext from "@contexts/BubbleContext";
 
 function UserProfile() {
   const navigate = useNavigate();

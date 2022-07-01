@@ -13,7 +13,7 @@ const authorization = async (req, res, next) => {
     req.userId = data.payload[0].id;
     return next();
   } catch (e) {
-    console.error(e);
+    console.error(err);
     return res.sendStatus(401);
   }
 };
@@ -49,8 +49,8 @@ const sessionControl = async (req, res) => {
         .status(200)
         .json({ sessionExpired: false, administratorAccount: false });
     }
-  } catch (e) {
-    console.warn(e);
+  } catch (err) {
+    console.warn(err);
   }
 };
 

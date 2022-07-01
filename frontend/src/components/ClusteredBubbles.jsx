@@ -23,7 +23,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import "@styles/ClusteredBubbles.scss";
-import ExportContext from "../contexts/BubbleContext";
+import ExportContext from "@contexts/BubbleContext";
 
 let nodeBackup;
 const colorPalette = [
@@ -50,11 +50,7 @@ const workflowList = ["Idea", "Team Building", "Coding", "Review", "Finished"];
 const POPUP_HEIGHT = 155;
 const POPUP_WIDTH = 200;
 
-export default function ClusteredBubbles({
-  data,
-  dimensions,
-  // reloadBigBubble,
-}) {
+export default function ClusteredBubbles({ data, dimensions }) {
   const { isOpenFilter, setIsOpenFilter } = useContext(
     ExportContext.BubbleContext
   );
@@ -78,7 +74,6 @@ export default function ClusteredBubbles({
   const { width, height, margin } = dimensions;
   const svgWidth = width + margin.left + margin.right;
   const svgHeight = height + margin.top + margin.bottom;
-  // console.warn("data", data);
 
   const handlePopupClick = () => setHoverData(false);
 
@@ -106,17 +101,13 @@ export default function ClusteredBubbles({
   };
 
   const color = (m) => {
-    // console.log("d3.schemeCategory10[d3.range(m).length]", d3.range(m).length);
     return colorPalette[d3.range(m).length];
-    // return d3.schemeCategory10[d3.range(m).length];
   };
 
   const stroke = (m) => {
     if (m.participantsIds.includes(userId)) {
       return strokeColorPalette[m.workflow];
     }
-
-    // return d3.schemeCategory10[d3.range(m).length];
   };
 
   const strokeWidth = (m) => {
@@ -124,7 +115,6 @@ export default function ClusteredBubbles({
   };
 
   const centroid = (nodes) => {
-    // if (nodes[0].data.group === -1) console.log("nodes", nodes);
     let x = 0;
     let y = 0;
     let z = 0;
@@ -134,11 +124,6 @@ export default function ClusteredBubbles({
       y += d.y * k;
       z += k;
     }
-    // if (nodes[0].data.group === -1) {
-    //   console.log("wxcvbn", { x: x / z, y: y / z });
-    //   return { x: 585, y: 660 };
-    // }
-
     return { x: x / z, y: y / z };
   };
 
@@ -158,8 +143,6 @@ export default function ClusteredBubbles({
           d.x = d.data.x;
           d.y = d.data.y;
         }
-        // if (d.data.group === -1) console.log(d);
-
         d.vx -= (d.x - cx) * l * mul;
         d.vy -= (d.y - cy) * l * mul;
       }
@@ -228,7 +211,6 @@ export default function ClusteredBubbles({
   const drag = (simulation) => {
     function dragstarted(event, d) {
       isDragging.current = true;
-      // console.warn("baltringue", d.data.city, d.data);
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -254,8 +236,6 @@ export default function ClusteredBubbles({
   };
 
   const shrinkBubbles = (beCrazy = true) => {
-    // console.warn("shrinkBubbles");
-    // simulation;
     if (beCrazy) {
       nodesGlobal.current = nodeBackup;
       d3.forceSimulation(nodesGlobal.current)
@@ -263,8 +243,6 @@ export default function ClusteredBubbles({
         .force("y", d3.forceY(height / 2).strength(0.1))
         .force("cluster", forceCluster())
         .force("collide", forceCollide());
-      // .forceCenter([width / 2, height / 2]);
-      // simulation.alpha(0.5).alphaTarget(0.3).restart();
       nodeBackup = undefined;
     }
 
@@ -290,8 +268,6 @@ export default function ClusteredBubbles({
         .force("y", d3.forceY(height / 2).strength(0.1))
         .force("cluster", forceCluster())
         .force("collide", forceCollide());
-      // .forceCenter([width / 2, height / 2]);
-      // simulation.alpha(0.5).alphaTarget(0.3).restart();
       nodeBackup = undefined;
     }
 
@@ -299,8 +275,6 @@ export default function ClusteredBubbles({
   };
 
   const pushBubbles = () => {
-    // console.warn("pushBubbles()");
-
     nodeBackup = nodesGlobal.current;
 
     // eslint-disable-next-line
@@ -315,12 +289,9 @@ export default function ClusteredBubbles({
         }
       } else return node;
     });
-    // console.log("abcdef !", nodes);
   };
 
   useEffect(() => {
-    // console.warn("useEffect D3");
-
     nodesGlobal.current = pack().leaves();
 
     const simulation = d3
@@ -343,31 +314,22 @@ export default function ClusteredBubbles({
       .join("circle")
       .attr("cx", (d) => d.x)
       .attr("cy", (d) => d.y)
-      //   .attr("fill", (d) => "#FF0000")
       .attr("fill", (d) => color(d.data.workflow))
       .attr("stroke", (d) => stroke(d.data))
       .attr("stroke-width", (d) => strokeWidth(d.data))
       .call(drag(simulation))
       // eslint-disable-next-line func-names
       .on("mouseover", function (d) {
-        // d3.select(this).attr("fill", "rgb(0,255,0)");
-        // console.log("qsdfgh !", d, this);
-
-        // console.warn("mouseover", d, isDragging.current);
-
         if (!isDragging.current && d.target.__data__.data.group !== -1)
           setHoverData({ ...d.target.__data__.data, x: d.x, y: d.y });
       })
       .on("mouseleave", function (d) {
-        // console.warn("mouseleave");
         if (!modalCommon) setHoverData(false);
       })
       // eslint-disable-next-line func-names
       .on("click", function (d) {
         d.stopPropagation();
-        // d3.select(this).attr("value", 100);
         if (nodeBackup) {
-          // shrinkBubbles();
           setModalCommon("");
           setBubble(false);
         } else if (d.target.__data__.data.group !== -1) {
@@ -375,9 +337,7 @@ export default function ClusteredBubbles({
           setBubble(d.target.__data__.data);
           setIsOpenFilter(false);
         }
-
-        // pushBubbles();
-      }); // .on("mouseover", () => console.log("qsdfgh !"));
+      });
 
     node
       .transition()
@@ -399,7 +359,6 @@ export default function ClusteredBubbles({
   }, [data]); // Redraw chart if data changes
 
   useEffect(() => {
-    // console.warn("useEffect modalCommon");
     if (firstLoadingDone.current) {
       if (modalCommon) pushBubbles();
       else shrinkBubbles();
@@ -447,8 +406,6 @@ export default function ClusteredBubbles({
             placeholder="Type anything..."
             onChange={(e) => setFilter(e)}
             options={filterOptions}
-            // selected={keywords?.keywords}
-            // className="typeahead-input"
           />
         )}
       </div>
@@ -466,7 +423,6 @@ export default function ClusteredBubbles({
           onClick={handlePopupClick}
         >
           <span className="popup-name">{hoverData.name}</span>
-          {/* <span className="popup-description">{hoverData.description}</span> */}
           <div className="popup-content">
             <div>
               <div className="popup-likes-container">

@@ -61,8 +61,8 @@ const createOne = async (
       hashedPassword,
     ]);
     return [user];
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     return e;
   }
 };

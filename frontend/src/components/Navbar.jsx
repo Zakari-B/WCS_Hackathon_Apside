@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import ExportContext from "../contexts/BubbleContext";
+import ExportContext from "@contexts/BubbleContext";
 import "@styles/Navbar.scss";
 
 export default function NavBar() {
