@@ -439,16 +439,18 @@ export default function ClusteredBubbles({
           1}{" "}
         Bubbles
         <img src={filterImg} className="filterIcon" alt="filterIcon" />
-        <Typeahead
-          id="selectAll"
-          multiple
-          maxResults={5}
-          placeholder="Type anything..."
-          onChange={(e) => setFilter(e)}
-          options={filterOptions}
-          // selected={keywords?.keywords}
-          // className="typeahead-input"
-        />
+        {filterOptions && (
+          <Typeahead
+            id="selectAll"
+            multiple
+            maxResults={5}
+            placeholder="Type anything..."
+            onChange={(e) => setFilter(e)}
+            options={filterOptions}
+            // selected={keywords?.keywords}
+            // className="typeahead-input"
+          />
+        )}
       </div>
       <svg
         ref={svgRef}

@@ -429,6 +429,13 @@ export default function Home() {
     const workflows = (await backendAPI.get("/api/workflow")).data;
     const keywords2 = (await backendAPI.get("/api/keyword")).data;
     const users = (await backendAPI.get("/api/users")).data;
+    const skills = (await backendAPI.get("/api/skill")).data;
+
+    // console.log("skiulllll", skills);
+
+    // console.log("skiulllll", [
+    //   ...new Set(skills.map((skill) => [skill.category]).flat(2)),
+    // ]);
 
     setFilterOptions(
       [
@@ -441,6 +448,7 @@ export default function Home() {
                   .flat(2)
               ),
             ],
+            [...new Set(skills.map((skill) => [skill.label]).flat(2))],
             [
               ...new Set(
                 bubbles
