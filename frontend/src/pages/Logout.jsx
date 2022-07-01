@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import backendAPI from "../services/backendAPI";
+import backendAPI from "@services/backendAPI";
 import "@styles/Logout.scss";
 
 function Logout() {

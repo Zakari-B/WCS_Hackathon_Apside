@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "../styles/Modal.scss";
-import iconMark from "../assets/logo/white-question.svg";
+import "@styles/Modal.scss";
+import iconMark from "@assets/logo/white-question.svg";
 
 function InfoModal() {
   const [isOpen, setIsOpen] = useState(false);

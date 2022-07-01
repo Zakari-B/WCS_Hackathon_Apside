@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo/logo-transparent-light.png";
-import { notifySuccess, notifyError } from "../services/toastify";
-import backendAPI from "../services/backendAPI";
+import logo from "@assets/logo/logo-transparent-light.png";
+import { notifySuccess, notifyError } from "@services/toastify";
+import backendAPI from "@services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/Login.scss";
+import "@styles/Login.scss";
 
 function Login() {
   const [userEmail, setUserEmail] = useState("");
@@ -52,7 +52,7 @@ function Login() {
 
   return (
     <section id="login">
-      <div className="h-full m-32">
+      <div className="second-part-login h-full">
         <div className={`login-first-part ${up ? "up" : null}`}>
           <div className="flex flex-col items-center justify-center mb-4">
             <img src={logo} alt="" />

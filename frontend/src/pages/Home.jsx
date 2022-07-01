@@ -7,9 +7,9 @@ import ClusteredBubbles from "@components/ClusteredBubbles";
 import ModalCommon from "@components/ModalCommon";
 import InfoModal from "@components/InfoModal";
 import NavBar from "@components/Navbar";
-import backendAPI from "../services/backendAPI";
-import ExportContext from "../contexts/BubbleContext";
-import Filter from "../components/Filter";
+import backendAPI from "@services/backendAPI";
+import ExportContext from "@contexts/BubbleContext";
+import Filter from "@components/Filter";
 
 const { innerWidth: width, innerHeight: height } = window;
 
@@ -70,31 +70,21 @@ export default function Home() {
 
   // eslint-disable-next-line consistent-return
   const getDataFromBack = async (doReturn = false) => {
-    // console.warn("getDataFromBack");
-
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const users = (await backendAPI.get("/api/users")).data;
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
     const agencies = (await backendAPI.get("/api/agency")).data;
-
-    // console.warn("bubbles", bubbles);
-
     const maxLikes = bubbles.reduce(
       (acc, bubble) => (bubble.likes > acc ? bubble.likes : acc),
       0
     );
-    // console.warn("maxLikes ", maxLikes);
 
     const newData = bubbles.map((bubble) => {
-      // console.warn("bubble id ", bubble.id);
-
       const agencyId = users.filter((user) => user.id === bubble.creator)[0]
         .agency_id;
       const { lat, long, city, country } = agencies.filter(
         (agency) => agency.id === agencyId
       )[0];
-
-      // console.warn("lat, long", lat, long);
 
       const filteredUsers = userHasBubble
         .filter((uhb) => uhb.bubble_id === bubble.id)
@@ -149,30 +139,19 @@ export default function Home() {
       id: "",
     });
 
-    // console.warn("newData", newData);
     if (doReturn) return newData;
     const d3data = dataToD3Data(newData);
-
-    // console.warn("d3data", d3data);
-    // console.warn("data2", data2);
 
     setData(d3data);
   };
 
   const filterDatasNewBubble = async (keywordsParam) => {
-    // console.warn("filterDatasNewBubble", keywordsParam);
-
     let datas = await getDataFromBack(true);
     if (modalCommon)
-      // if (keywordsParam.keyword.length)
       datas[datas.length - 1].value = Math.min(height, width) / 15;
-    // else reloadBigBubble.current = !reloadBigBubble.current;
 
     if (keywordsParam.keyword && keywordsParam.keyword.length) {
       const keywordList = keywordsParam.keyword.map((keyword) => keyword.label);
-
-      // filter data by keywords
-      // datas[datas.length - 1].r = Math.min(height, width) / 10;
 
       datas = datas.filter((data2, data2index) => {
         let keywordFound = false;
@@ -189,19 +168,11 @@ export default function Home() {
 
     const d3data = dataToD3Data(datas);
 
-    // console.warn("d3data", d3data);
-
     setData(d3data);
-
-    // setForceBigBubble(true); // useless
   };
 
   const filterDatas = async (filterParam) => {
-    // console.warn("filterDatasNewBubble", filterParam);
-
     let datas = await getDataFromBack(true);
-    // console.warn("datas", datas);
-
     const allFilterParam = [
       filterParam.searchInput?.split(" ") || [],
       filterParam.userInput,
@@ -217,11 +188,8 @@ export default function Home() {
       const keywordList = allFilterParam;
       // apres rajouter ici  les trucs des menus déroulants dans keywordList
 
-      // console.log("keywordList", keywordList);
       datas = datas.filter((data2, data2index) => {
         const keywordsFound = keywordList.map(() => false);
-
-        // console.log("keywordsFound", keywordsFound);
 
         if (keywordList.length) {
           data2.keywords.map((kw) => {
@@ -271,18 +239,13 @@ export default function Home() {
 
     const d3data = dataToD3Data(datas);
 
-    // console.warn("filteredDatas", datas);
-
     setData(d3data);
 
     setForceBigBubble(true); // useless
   };
 
   const superFilter = async (allFilterParam) => {
-    // console.log("superFilter", allFilterParam);
-
     let datas = await getDataFromBack(true);
-    // console.log("datas", datas);
 
     const bubbles = (await backendAPI.get("/api/bubble")).data;
     const agencies = (await backendAPI.get("/api/agency")).data;
@@ -290,23 +253,16 @@ export default function Home() {
     // const keywords2 = (await backendAPI.get("/api/keyword")).data;
     const users = (await backendAPI.get("/api/users")).data;
 
-    // const bubbleHasKeyword = (await backendAPI.get("/api/bubbleHasKeyword"))
-    //   .data;
-    // const bubbleNeedSkills = (await backendAPI.get("/api/bubbleNeedSkills"))
-    //   .data;
     const userHasBubble = (await backendAPI.get("/api/userHasBubble")).data;
 
     if (allFilterParam.length) {
       const keywordList = allFilterParam;
       // apres rajouter ici  les trucs des menus déroulants dans keywordList
 
-      // console.log("keywordList", keywordList);
       datas = datas.filter((data2, data2index) => {
         if (data2index === datas.length - 1) return true;
 
         const keywordsFound = keywordList.map(() => false);
-
-        // console.log("data2", data2);
 
         if (keywordList.length) {
           data2.keywords.map((kw) => {
@@ -360,19 +316,8 @@ export default function Home() {
             .map((uhb) => uhb.user_id)
             .map((uid) => {
               const user = users.filter((u) => u.id === uid)[0];
-              // const agency = agencies.filter(
-              //   (ag) => ag.id === user.agency_id
-              // )[0];
 
-              // console.log("agency", agency);
-
-              return [
-                user.firstname,
-                user.lastname,
-                user.email,
-                // agency.city,
-                // agency.country,
-              ];
+              return [user.firstname, user.lastname, user.email];
             })
             .flat(2)
             .map((nam) => {
@@ -431,12 +376,6 @@ export default function Home() {
     const users = (await backendAPI.get("/api/users")).data;
     const skills = (await backendAPI.get("/api/skill")).data;
 
-    // console.log("skiulllll", skills);
-
-    // console.log("skiulllll", [
-    //   ...new Set(skills.map((skill) => [skill.category]).flat(2)),
-    // ]);
-
     setFilterOptions(
       [
         ...new Set(
@@ -493,24 +432,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.warn("useEffect keywords", keywords);
-
     if (!modalCommon) getDataFromBack();
     else filterDatasNewBubble(keywords);
   }, [keywords]);
 
   useEffect(() => {
-    console.warn("useEffect searchParams", searchParams);
-
     if (!isOpenFilter) getDataFromBack();
     else filterDatas(searchParams);
   }, [searchParams]);
 
   useEffect(() => {
-    console.warn("useEffect filter", filter);
-
-    // if (!isOpenFilter) getDataFromBack();
-    // else
     superFilter(filter);
   }, [filter]);
 

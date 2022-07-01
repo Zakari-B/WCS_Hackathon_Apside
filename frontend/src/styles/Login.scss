@@ -7,7 +7,8 @@
   background: #183650;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  align-content: space-around;
   overflow: hidden;
 
   h1 {
@@ -17,7 +18,7 @@
   }
 
   img {
-    width: 16rem;
+    width: 14rem;
   }
 
   .login-first-part,
@@ -89,6 +90,20 @@
         background-color: #e79759;
         color: black;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  #login {
+    img {
+      width: 18rem;
+    }
+    .second-part-login {
+      margin-top: 6rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
     }
   }
 }

@@ -124,13 +124,11 @@
   height: 20px;
   //   background-color: red;
   content: "";
-  background-image: url("../assets/pouce.png");
+  background-image: url("@assets/pouce.png");
   background-size: contain;
 }
 .popup-nb_participants {
   font-size: 80%;
-}
-.popup-workflow {
 }
 .popup-create_time {
   font-size: 80%;

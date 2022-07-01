@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "@styles/ModalCommon.scss";
-import ExportContext from "../contexts/BubbleContext";
+import ExportContext from "@contexts/BubbleContext";
 
 import NewProject from "./NewProject";
 import UserProfile from "./UserProfile";
@@ -28,7 +28,6 @@ function ModalCommon({ type, dimensions }) {
   };
 
   if (bubble) {
-    console.log("bolos");
     const backgroundColor = colorPalette[bubble.workflow_id];
     modaleStyle.background = backgroundColor;
   }

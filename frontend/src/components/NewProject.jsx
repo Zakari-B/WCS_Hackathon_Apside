@@ -3,13 +3,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { ToastContainer } from "react-toastify";
-import { notifySuccess, notifyError } from "../services/toastify";
-import backendAPI from "../services/backendAPI";
+import { notifySuccess, notifyError } from "@services/toastify";
+import backendAPI from "@services/backendAPI";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
-import "../styles/NewProject.scss";
+import "@styles/NewProject.scss";
 
-import ExportContext from "../contexts/BubbleContext";
+import ExportContext from "@contexts/BubbleContext";
 
 function NewProject() {
   const [idea, setIdea] = useState();
@@ -35,7 +35,6 @@ function NewProject() {
 
   const handleClose = (e) => {
     e.preventDefault();
-    console.warn("closing modal newProject");
     setKeywords({});
     setModalCommon("");
   };
