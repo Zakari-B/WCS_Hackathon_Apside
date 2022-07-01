@@ -1,0 +1,21 @@
+.seeyou-soon {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  background-color: #e79759;
+  border-radius: 10px;
+  padding: 4rem 1rem 4rem 1rem;
+  animation: slideDown 0.2s ease-in both;
+
+  h1 {
+    color: #183650;
+    font-size: 2rem;
+  }
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(60%);
+  }
+}

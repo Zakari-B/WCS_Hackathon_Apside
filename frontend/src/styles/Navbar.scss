@@ -1,0 +1,516 @@
+@import "@styles/Variables.scss";
+
+.navbar {
+  position: fixed;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: $font-family-text;
+  height: 100vh;
+  width: 140px;
+  top: 0;
+  left: -20px;
+
+  .box-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .circle {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 200px;
+      border-bottom-right-radius: 100px;
+      border-top-right-radius: 100px;
+      background-color: $white;
+      border-left: 0;
+      box-shadow: inset -3px 0px 15px 5px rgb(32, 32, 32);
+      cursor: pointer;
+      z-index: 999;
+
+      .burger {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0px;
+        width: 35px;
+
+        > span {
+          margin: 5px 0;
+          display: block;
+          border-radius: 20px;
+          background-color: $main-color;
+
+          &:nth-child(1) {
+            height: 4px;
+            width: 60%;
+            animation: reduce 2s ease-out 0.1s infinite;
+          }
+
+          &:nth-child(2) {
+            height: 4px;
+            width: 60%;
+            animation: reduce 2s ease-out 0.5s infinite;
+          }
+
+          &:nth-child(3) {
+            height: 4px;
+            width: 60%;
+            animation: reduce 2s ease-out 0.8s infinite;
+          }
+
+          @keyframes reduce {
+            0% {
+              width: 60%;
+            }
+
+            50% {
+              width: 100%;
+              background-color: $secondary-color;
+            }
+
+            100% {
+              width: 60%;
+            }
+          }
+        }
+      }
+    }
+
+    .box-out-circle {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      .out-circle {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 135px;
+        height: 270px;
+        border-bottom-right-radius: 135px;
+        border-top-right-radius: 135px;
+        background-color: transparent;
+        border: 2px solid #5abdb2;
+        border-left: 0;
+
+        .hidden-circle {
+          width: 110%;
+          height: 110%;
+          background-color: $main-color;
+          margin-right: -10px;
+
+          .box-sidenav {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 58px;
+            height: 58px;
+            background-color: #5abdb2;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 999;
+            transition: 0.8s;
+
+            &::before {
+              position: absolute;
+              content: "";
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              top: 1;
+              left: 1;
+            }
+
+            &:hover::before {
+              animation: pulse 0.8s both;
+            }
+
+            @keyframes pulse {
+              0% {
+                box-shadow: 0 0 0 5px #5abdb2;
+              }
+
+              100% {
+                box-shadow: 0 0 0 20px transparent;
+              }
+            }
+
+            &.sidenav-1 {
+              left: 26%;
+              top: -30%;
+              opacity: 0;
+
+              &:after {
+                position: absolute;
+                content: "Home";
+                width: max-content;
+                color: $secondary-color;
+                font-size: 25px;
+                font-weight: 600;
+                top: 13px;
+                left: 80px;
+                opacity: 0;
+                transition: 0.3s;
+              }
+
+              &:hover::after {
+                transition: 0.3s;
+                opacity: 1 !important;
+              }
+            }
+
+            &.sidenav-2 {
+              left: 103%;
+              top: -3%;
+              opacity: 0;
+
+              &:after {
+                position: absolute;
+                content: "Filter";
+                width: max-content;
+                color: $secondary-color;
+                font-size: 25px;
+                font-weight: 600;
+                top: 13px;
+                left: 80px;
+                opacity: 0;
+                transition: 0.3s;
+              }
+
+              &:hover::after {
+                transition: 0.3s;
+                opacity: 1 !important;
+              }
+            }
+
+            &.sidenav-3 {
+              left: 78%;
+              left: 125%;
+              top: calc(50% - 30px);
+              opacity: 0;
+
+              &:after {
+                position: absolute;
+                content: "Profil";
+                width: max-content;
+                color: $secondary-color;
+                font-size: 25px;
+                font-weight: 600;
+                top: 13px;
+                left: 80px;
+                opacity: 0;
+                transition: 0.3s;
+              }
+
+              &:hover::after {
+                transition: 0.3s;
+                opacity: 1 !important;
+              }
+            }
+
+            &.sidenav-4 {
+              left: 103%;
+              bottom: -3%;
+              opacity: 0;
+
+              &:after {
+                position: absolute;
+                content: "An Idea ?";
+                width: max-content;
+                color: $secondary-color;
+                font-size: 25px;
+                font-weight: 600;
+                top: 13px;
+                left: 80px;
+                opacity: 0;
+                transition: 0.3s;
+              }
+
+              &:hover::after {
+                transition: 0.3s;
+                opacity: 1 !important;
+              }
+            }
+
+            &.sidenav-5 {
+              left: 26%;
+              bottom: -30%;
+              opacity: 0;
+
+              &:after {
+                position: absolute;
+                content: "Logout";
+                width: max-content;
+                color: $secondary-color;
+                font-size: 25px;
+                font-weight: 600;
+                top: 13px;
+                left: 80px;
+                opacity: 0;
+              }
+
+              &:hover::after {
+                transition: 0.3s;
+                opacity: 1 !important;
+              }
+            }
+
+            .nav-link {
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              &::before {
+                position: absolute;
+                content: "";
+                border-left: 9px solid transparent;
+                border-right: 9px solid transparent;
+                border-top: 12px solid #5abdb2;
+              }
+
+              &.link-1::before {
+                left: 17px;
+                bottom: -10px;
+                transform: rotate(17deg);
+              }
+
+              &.link-2::before {
+                left: 1px;
+                bottom: 1px;
+                transform: rotate(52deg);
+              }
+
+              &.link-3::before {
+                left: -5px;
+                bottom: 22px;
+                transform: rotate(90deg);
+              }
+
+              &.link-4::before {
+                left: 0px;
+                bottom: 40px;
+                transform: rotate(123deg);
+              }
+
+              &.link-5::before {
+                left: 18px;
+                bottom: 54px;
+                transform: rotate(165deg);
+              }
+
+              & .nav-item {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+                background-color: #ffffff;
+                border-radius: 50%;
+                box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.363);
+                transition: 0.3s;
+
+                &::before {
+                  position: absolute;
+                  content: "";
+                  background-repeat: no-repeat;
+                }
+              }
+
+              .item-1::before {
+                width: 60%;
+                height: 60%;
+                bottom: 10px;
+                background-image: url(@assets/svg/home.svg);
+              }
+
+              .item-2::before {
+                width: 60%;
+                height: 60%;
+                top: 10px;
+                background-image: url(@assets/svg/filter.svg);
+              }
+
+              .item-3::before {
+                width: 60%;
+                height: 60%;
+                background-image: url(@assets/svg/profil.svg);
+              }
+
+              .item-4::before {
+                width: 60%;
+                height: 60%;
+                left: 11px;
+                background-image: url(@assets/svg/idea.svg);
+              }
+
+              .item-5::before {
+                width: 65%;
+                height: 65%;
+                top: 11px;
+                left: 9px;
+                background-image: url(@assets/svg/logout.svg);
+              }
+            }
+          }
+        }
+
+        @keyframes slide-left {
+          to {
+            margin-right: 100%;
+          }
+        }
+
+        &::before,
+        &::after {
+          position: absolute;
+          content: "";
+          background-color: $main-color;
+          width: 40px;
+          height: 12px;
+          z-index: 99;
+        }
+
+        &::before {
+          top: -4px;
+          left: 0px;
+        }
+
+        &::after {
+          bottom: -4px;
+          left: 0px;
+        }
+
+        .dots {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 26px;
+          height: 26px;
+          background-color: #ffffff;
+          border: 3px solid #5abdb2;
+          border-radius: 50%;
+          z-index: 999;
+
+          &.out-dot-1 {
+            top: -5px;
+            left: 35px;
+            opacity: 0;
+          }
+
+          &.out-dot-2 {
+            top: 46px;
+            left: 99px;
+            opacity: 0;
+          }
+
+          &.out-dot-3 {
+            bottom: calc(50% - 13px);
+            left: 120px;
+            opacity: 0;
+          }
+
+          &.out-dot-4 {
+            bottom: 46px;
+            left: 99px;
+            opacity: 0;
+          }
+
+          &.out-dot-5 {
+            bottom: -5px;
+            left: 35px;
+            opacity: 0;
+          }
+
+          .inner-dot {
+            background-color: $main-color;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.hidden-circle-animated {
+  animation: slide-left 1s ease-out 0.3s both;
+}
+
+.out-dot-1-animated {
+  animation: fade-in 0.2s ease-out 0.6s both;
+}
+
+.out-dot-2-animated {
+  animation: fade-in 0.2s ease-out 0.4s both;
+}
+
+.out-dot-3-animated {
+  animation: fade-in 0.2s ease-out 0.2s both;
+}
+
+.out-dot-4-animated {
+  animation: fade-in 0.2s ease-out 0.4s both;
+}
+
+.out-dot-5-animated {
+  animation: fade-in 0.2s ease-out 0.6s both;
+}
+
+.sidenav-1-animated {
+  animation: fade-in 0.2s ease-out 0.7s both;
+}
+
+.sidenav-2-animated {
+  animation: fade-in 0.2s ease-out 0.6s both;
+}
+
+.sidenav-3-animated {
+  animation: fade-in 0.2s ease-out 0.5s both;
+}
+
+.sidenav-4-animated {
+  animation: fade-in 0.2s ease-out 0.6s both;
+}
+
+.sidenav-5-animated {
+  animation: fade-in 0.2s ease-out 0.7s both;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.animated-out {
+  animation: fade-out 0.2s ease-out both;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
