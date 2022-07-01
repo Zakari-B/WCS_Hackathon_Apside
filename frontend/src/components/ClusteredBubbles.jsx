@@ -438,7 +438,7 @@ export default function ClusteredBubbles({
         {data.children.reduce((acc, group) => acc + group.children.length, 0) -
           1}{" "}
         Bubbles
-        <img src={filterImg} className="filterIcon" alt="filterIcon" />
+        {/* <img src={filterImg} className="filterIcon" alt="filterIcon" /> */}
         {filterOptions && (
           <Typeahead
             id="selectAll"
