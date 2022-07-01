@@ -78,7 +78,7 @@ function Login() {
             <div id="rememberCheckbox">
               <input
                 type="checkbox"
-                isChecked={rememberMe}
+                checked={rememberMe}
                 onChange={() => {
                   setRememberMe(!rememberMe);
                 }}
