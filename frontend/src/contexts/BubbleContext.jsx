@@ -9,6 +9,8 @@ function BubbleProvider({ children }) {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [bubble, setBubble] = useState();
   const [searchParams, setSearchParams] = useState({});
+  const [filter, setFilter] = useState([]);
+  const [filterOptions, setFilterOptions] = useState([]);
 
   return (
     <BubbleContext.Provider
@@ -26,6 +28,10 @@ function BubbleProvider({ children }) {
         setBubble,
         searchParams,
         setSearchParams,
+        filter,
+        setFilter,
+        filterOptions,
+        setFilterOptions,
       }}
     >
       {children}

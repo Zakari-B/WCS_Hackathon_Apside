@@ -19,6 +19,9 @@ import * as d3 from "d3";
 import filterImg from "@assets/svg/filter.svg";
 import logoApside from "@assets/logo/apside.png";
 import logoApsidea from "@assets/logo/logo-transparent-light.png";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "bootstrap/dist/css/bootstrap.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 import "@styles/ClusteredBubbles.scss";
 import ExportContext from "../contexts/BubbleContext";
 
@@ -61,8 +64,9 @@ export default function ClusteredBubbles({
     setModalCommon,
     bubble,
     setBubble,
-    keywords,
     setKeywords,
+    filterOptions,
+    setFilter,
   } = useContext(ExportContext.BubbleContext);
   const isDragging = React.useRef(false);
   const svgRef = React.useRef(null);
@@ -250,7 +254,7 @@ export default function ClusteredBubbles({
   };
 
   const shrinkBubbles = (beCrazy = true) => {
-    console.warn("shrinkBubbles");
+    // console.warn("shrinkBubbles");
     // simulation;
     if (beCrazy) {
       nodesGlobal.current = nodeBackup;
@@ -295,7 +299,7 @@ export default function ClusteredBubbles({
   };
 
   const pushBubbles = () => {
-    console.warn("pushBubbles()");
+    // console.warn("pushBubbles()");
 
     nodeBackup = nodesGlobal.current;
 
@@ -315,7 +319,7 @@ export default function ClusteredBubbles({
   };
 
   useEffect(() => {
-    console.warn("useEffect D3");
+    // console.warn("useEffect D3");
 
     nodesGlobal.current = pack().leaves();
 
@@ -395,7 +399,7 @@ export default function ClusteredBubbles({
   }, [data]); // Redraw chart if data changes
 
   useEffect(() => {
-    console.warn("useEffect modalCommon");
+    // console.warn("useEffect modalCommon");
     if (firstLoadingDone.current) {
       if (modalCommon) pushBubbles();
       else shrinkBubbles();
@@ -430,16 +434,24 @@ export default function ClusteredBubbles({
 
   return (
     <div className="bubbleContainer">
-      {isOpenFilter && (
-        <div className="hudContainer">
-          {data.children.reduce(
-            (acc, group) => acc + group.children.length,
-            0
-          ) - 1}{" "}
-          Bubbles
-          <img src={filterImg} className="filterIcon" alt="filterIcon" />
-        </div>
-      )}
+      <div className="hudContainer">
+        {data.children.reduce((acc, group) => acc + group.children.length, 0) -
+          1}{" "}
+        Bubbles
+        <img src={filterImg} className="filterIcon" alt="filterIcon" />
+        {filterOptions && (
+          <Typeahead
+            id="selectAll"
+            multiple
+            maxResults={5}
+            placeholder="Type anything..."
+            onChange={(e) => setFilter(e)}
+            options={filterOptions}
+            // selected={keywords?.keywords}
+            // className="typeahead-input"
+          />
+        )}
+      </div>
       <svg
         ref={svgRef}
         width={svgWidth}
